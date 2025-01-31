@@ -10,6 +10,6 @@ build-app:
     - "npm run build" # Exécute la commande de build définie dans package.json
 
 es-lint-app:
-  stage: tests # Le stage 'tests' pour exécuter ESLint
+  stage: test # Le stage 'tests' pour exécuter ESLint
   script:
     - "npm run lint" # Exécute la commande 'lint' définie dans package.json pour vérifier le code
