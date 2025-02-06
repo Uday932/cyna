@@ -1,3 +1,4 @@
+
 import "./globals.css";
 
 export const metadata = {
@@ -7,8 +8,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="fr">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Arial:wght@400;700;900&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="font-[Avenir LT Std 95 Black], Arial, Helvetica, sans-serif">
+        {children}
+      </body>
     </html>
   );
 }
