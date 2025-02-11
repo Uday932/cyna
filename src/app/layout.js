@@ -1,4 +1,5 @@
-
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 export const metadata = {
@@ -16,7 +17,9 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="font-[Avenir LT Std 95 Black], Arial, Helvetica, sans-serif">
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
