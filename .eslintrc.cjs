@@ -1,5 +1,5 @@
 module.exports = {
-  plugins: ["react", "tailwindcss"],
+  plugins: ["react", "tailwindcss", "prettier"],
   extends: [
     "eslint:recommended",
     "prettier",
@@ -26,8 +26,8 @@ module.exports = {
         allowTemplateLiterals: true,
       },
     ],
-    semi: ["error", "never"],
-    "no-console": "error",
+    semi: ["off"],
+    "no-console": "off",
     "no-implicit-globals": "error",
     "no-warning-comments": [
       "error",
@@ -86,6 +86,7 @@ module.exports = {
     ],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
+    "tailwindcss/classnames-order": "off",
   },
   settings: {
     react: {
