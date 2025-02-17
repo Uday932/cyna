@@ -1,0 +1,15 @@
+default:
+  image: node:latest
+
+before_script:
+  - "npm install" # Installe les dépendances dans ce répertoire
+
+build-app:
+  stage: build # Le stage 'build' pour construire l'application
+  script:
+    - "npm run build" # Exécute la commande de build définie dans package.json
+
+es-lint-app:
+  stage: test # Le stage 'tests' pour exécuter ESLint
+  script:
+    - "npm run lint" # Exécute la commande 'lint' définie dans package.json pour vérifier le code
