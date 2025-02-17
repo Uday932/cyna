@@ -8,7 +8,7 @@ export const hashPassword = (password) => {
   const hash = scryptSync(
     password,
     salt,
-    config.security.password.hashLength
+    config.security.password.hashLength,
   ).toString("hex");
 
   return `${salt}$${hash}`;
@@ -18,6 +18,6 @@ export const verifyToken = (token) => {
   try {
     return jwt.verify(token, config.security.jwt.secret);
   } catch (error) {
-    throw new Error("Token invalide ou expiré");
+    throw new Error(error + " - Token invalide ou expiré");
   }
 };

@@ -11,6 +11,7 @@ const ValidateAccount = () => {
   const params = useParams();
   const { token } = params || {};
   const [validation, setValidation] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -29,11 +30,15 @@ const ValidateAccount = () => {
         }, 5000);
       } catch (error) {
         setValidation(false);
+        setErrorMessage(
+          error.response?.data?.message ||
+            "Une erreur est survenue lors de la validation de votre compte.",
+        );
       }
     };
 
     validateToken();
-  }, [token]);
+  }, [token,router]);
 
   return (
     <div className="bg-secondary flex flex-col gap-2 justify-center items-center w-screen h-screen">
@@ -41,8 +46,8 @@ const ValidateAccount = () => {
         {validation === null
           ? "Validation en cours..."
           : validation
-          ? "Votre compte a été validé avec succès."
-          : "Une erreur est survenue lors de la validation de votre compte."}
+            ? "Votre compte a été validé avec succès."
+            : errorMessage}
       </Text>
       {validation && (
         <Button onClick={() => router.push(routes.home())}>

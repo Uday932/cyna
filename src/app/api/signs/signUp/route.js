@@ -20,7 +20,7 @@ const handler = {
       if (userExist) {
         return NextResponse.json(
           { message: "Une erreur est survenue, veuillez réessayer." },
-          { status: 400 }
+          { status: 400 },
         );
       }
 
@@ -38,7 +38,7 @@ const handler = {
         config.security.jwt.secret,
         {
           expiresIn: config.security.jwt.expiresIn,
-        }
+        },
       );
 
       await prisma.user.update({
@@ -47,7 +47,7 @@ const handler = {
       });
 
       const validationUrl = `http://localhost:3000${routes.signs.validate(
-        token
+        token,
       )}`;
 
       const mailOptions = {
@@ -73,16 +73,17 @@ const handler = {
 
       return NextResponse.json(
         { message: "Utilisateur crée avec succès" },
-        { status: 200 }
+        { status: 200 },
       );
     } catch (error) {
       console.error(
         "Erreur:",
-        error instanceof Error ? error : new Error(error)
+        error instanceof Error ? error : new Error(error),
       );
+
       return NextResponse.json(
         { error: "Erreur interne du serveur, veuillez réessayer." },
-        { status: 500 }
+        { status: 500 },
       );
     }
   },

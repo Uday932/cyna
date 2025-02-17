@@ -33,8 +33,8 @@ const handler = {
       return NextResponse.json({ message: "Compte validé avec succès" });
     } catch (error) {
       return NextResponse.json(
-        { error: "Erreur interne du serveur, veuillez réessayer." },
-        { status: 500 }
+        { error: error + " - Erreur interne du serveur, veuillez réessayer." },
+        { status: 500 },
       );
     }
   },
