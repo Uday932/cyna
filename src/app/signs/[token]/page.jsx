@@ -38,10 +38,10 @@ const ValidateAccount = () => {
     };
 
     validateToken();
-  }, [token,router]);
+  }, [token, router]);
 
   return (
-    <div className="bg-secondary flex flex-col gap-2 justify-center items-center w-screen h-screen">
+    <div className="flex h-screen w-screen flex-col items-center justify-center gap-2 bg-secondary">
       <Text>
         {validation === null
           ? "Validation en cours..."

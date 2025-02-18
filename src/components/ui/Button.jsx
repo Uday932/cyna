@@ -9,7 +9,7 @@ const Button = (props) => {
 
   return (
     <button
-      className={clsx("p-2 rounded text-white", colors[color], className)}
+      className={clsx("rounded p-2 text-white", colors[color], className)}
       {...otherProps}
     />
   );

@@ -31,7 +31,7 @@ const SignUpSchema = Yup.object().shape({
   password: Yup.string()
     .matches(
       /^(?=.*[^\p{L}0-9])(?=.*[0-9])(?=.*\p{Lu})(?=.*\p{Ll}).{8,}$/u,
-      "Le mot de passe doit comporter au moins 8 caractères et contenir au moins 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial."
+      "Le mot de passe doit comporter au moins 8 caractères et contenir au moins 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial.",
     )
     .required("Le mot de passe est requis")
     .label("Mot de passe"),
@@ -64,7 +64,7 @@ const SignUp = () => {
         setMessage("Une erreur est survenue. Veuillez réessayer.");
       } else if (error.request) {
         setMessage(
-          "Le serveur est actuellement hors ligne. Veuillez réessayer plus tard."
+          "Le serveur est actuellement hors ligne. Veuillez réessayer plus tard.",
         );
       } else {
         setMessage("Une erreur interne s'est produite.");
@@ -73,15 +73,15 @@ const SignUp = () => {
   };
 
   return (
-    <div className="bg-secondary p-10 flex gap-y-2 flex-col justify-center items-center min-h-screen">
+    <div className="flex min-h-screen flex-col items-center justify-center gap-y-2 bg-secondary p-10">
       <Text size="title1" className="flex justify-center">
         CRÉATION DE COMPTE
       </Text>
 
       <Text
         className={clsx(
-          "my-2 min-h-[40px] p-1 rounded",
-          isError ? "bg-red-500" : ""
+          "my-2 min-h-[40px] rounded p-1",
+          isError ? "bg-red-500" : "",
         )}
       >
         {message}
@@ -95,7 +95,7 @@ const SignUp = () => {
         }
       >
         {({ isSubmitting }) => (
-          <Form className="flex flex-col gap-2 w-1/3">
+          <Form className="flex w-1/3 flex-col gap-2">
             <FormField name="firstName" placeholder="Prénom" required />
 
             <FormField name="lastName" type="text" placeholder="Nom" required />
