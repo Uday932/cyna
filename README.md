@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Cyna app by MuUdMa
 
 ## Getting Started
 
@@ -20,17 +20,42 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Install PostgreSQL
 
-To learn more about Next.js, take a look at the following resources:
+You can download from the this [link](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) the executable to install automatically :
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- PostgreSQL Server
+- pgAdmin 4
+- Stack builder
+- Command Line Tools
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Install dependencies
 
-## Deploy on Vercel
+Ensure you have all necessary dependencies installed:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm install
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Configure the Database
+
+### Set Up the Database:
+
+**Create the Database**
+
+Before running migrations, ensure that your PostgreSQL database exists.
+Configure Environment Variables: In your `.env` file, set the DATABASE_URL environment variable to point to your
+
+**PostgreSQL database**
+
+```
+DATABASE_URL="postgresql://username:password@localhost:5432/database_name"
+```
+
+### Run Migrations
+
+After setting up the database and configuring the environment variables, run the following command to apply the migrations:
+
+```bash
+npm run migrate
+```

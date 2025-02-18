@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from 'next/link'; 
 import Image from 'next/image'; 
+import routes from "@/utils/routes";
+
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -90,7 +92,7 @@ const Navbar = () => {
                             <Link href="/mon-compte" onClick={() => setIsMenuOpen(false)} className="hover:text-gray-300">Mon Compte</Link>
                         </li>
                         <li className="py-2">
-                            <Link href="/creer-un-compte" onClick={() => setIsMenuOpen(false)} className="hover:text-gray-300">Créer un Compte</Link>
+                            <Link href={routes.signs.signUp()} onClick={() => setIsMenuOpen(false)} className="hover:text-gray-300">Créer un Compte</Link>
                         </li>
                         <li className="py-2">
                             <Link href="/se-connecter" onClick={() => setIsMenuOpen(false)} className="hover:text-gray-300">Se Connecter</Link>
