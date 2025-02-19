@@ -1,7 +1,8 @@
 import clsx from "clsx";
 
 const colors = {
-  button: "bg-button shadow-md shadow-black",
+  button: "bg-button shadow-md shadow-black", 
+  transparent: "bg-transparent",
 };
 
 const Button = (props) => {

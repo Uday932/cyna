@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import routes from "@/utils/routes";
+import Button from "./ui/Button";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,15 +26,18 @@ const Navbar = () => {
         </div>
         <div className="ml-auto flex items-center gap-4">
           {/* Search Icon */}
-          <button onClick={() => setIsSearchOpen(!isSearchOpen)}>
+          <Button
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+            color="bg-transparent"
+          >
             <Image
               src="/assets/search.png"
               alt="Search"
               width={40}
               height={40}
+              priority
             />
-          </button>
-
+          </Button>
           {/* Search Input */}
           <input
             type="text"
@@ -41,16 +45,29 @@ const Navbar = () => {
             className={`ml-2 rounded-lg border border-gray-300 px-4 py-2 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-button ${isSearchOpen ? "translate-x-0 opacity-100" : "pointer-events-none translate-x-[-20px] opacity-0"}`}
             style={{ transition: "opacity 0.3s ease, transform 0.3s ease" }}
           />
-
           {/* Cart Icon */}
           <Link href="/cart">
-            <Image src="/assets/cart.png" alt="Cart" width={40} height={40} />
+            <Image
+              src="/assets/cart.png"
+              alt="Cart"
+              width={40}
+              height={40}
+              priority
+            />
           </Link>
-
           {/* Menu Icon */}
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <Image src="/assets/menu.png" alt="Menu" width={40} height={40} />
-          </button>
+          <Button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            color="bg-transparent"
+          >
+            <Image
+              src="/assets/menu.png"
+              alt="Menu"
+              width={40}
+              height={40}
+              priority
+            />
+          </Button>
         </div>
       </div>
 
@@ -69,7 +86,7 @@ const Navbar = () => {
           <ul className="mt-4">
             <li className="py-2">
               <Link
-                href="/"
+                href={routes.home()}
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-gray-300"
               >
@@ -78,7 +95,7 @@ const Navbar = () => {
             </li>
             <li className="py-2">
               <Link
-                href="/categories"
+                href={routes.categories()}
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-gray-300"
               >
@@ -87,7 +104,7 @@ const Navbar = () => {
             </li>
             <li className="py-2">
               <Link
-                href="/products"
+                href={routes.products()}
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-gray-300"
               >
@@ -96,7 +113,7 @@ const Navbar = () => {
             </li>
             <li className="py-2">
               <Link
-                href="/cart"
+                href={routes.cart()}
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-gray-300"
               >
@@ -105,7 +122,7 @@ const Navbar = () => {
             </li>
             <li className="py-2">
               <Link
-                href="/checkout"
+                href={routes.checkout()}
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-gray-300"
               >
@@ -114,7 +131,7 @@ const Navbar = () => {
             </li>
             <li className="py-2">
               <Link
-                href="/contact"
+                href={routes.contact()}
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-gray-300"
               >
@@ -123,7 +140,7 @@ const Navbar = () => {
             </li>
             <li className="py-2">
               <Link
-                href="/mon-compte"
+                href={routes.account()}
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-gray-300"
               >

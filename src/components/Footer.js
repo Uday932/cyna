@@ -2,27 +2,27 @@ import Link from "@@/ui/Link";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-200 py-6">
+    <footer className="bg-primary py-6">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center justify-between md:flex-row">
           <ul className="mb-4 flex flex-col space-x-0 md:mb-0 md:flex-row md:space-x-6">
             <li>
               <Link
                 href="/mentions-legales"
-                className="text-gray-700 hover:text-primary"
+                className="text-gray-700"
               >
                 Mentions légales
               </Link>
             </li>
             <li>
-              <Link href="/cgu" className="text-gray-700 hover:text-primary">
+              <Link href="/cgu" className="text-gray-700 ">
                 CGU
               </Link>
             </li>
             <li>
               <Link
                 href="/contact"
-                className="text-gray-700 hover:text-primary"
+                className="text-gray-700"
               >
                 Contact
               </Link>
@@ -33,7 +33,7 @@ const Footer = () => {
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-700 hover:text-primary"
+              className="text-gray-700 "
             >
               Facebook
             </a>

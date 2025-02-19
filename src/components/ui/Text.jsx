@@ -7,11 +7,24 @@ const sizes = {
   button: "text-2xl",
 };
 
+const colors = {
+  white: "text-white",
+  gray: "text-gray-700",
+  black: "text-black",
+};
+
 const Text = (props) => {
-  const { size = "text", className, children, ...otherProps } = props;
+  const {
+    size = "text",
+    color = "white",
+    className,
+    children,
+    ...otherProps
+  } = props;
+
 
   return (
-    <p className={clsx("text-white", sizes[size], className)} {...otherProps}>
+    <p className={clsx(colors[color], sizes[size], className)} {...otherProps}>
       {children}
     </p>
   );
