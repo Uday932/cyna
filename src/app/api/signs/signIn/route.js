@@ -19,7 +19,7 @@ const handler = {
       if (!user || user.passwordHash !== hashedPasword) {
         return NextResponse.json(
           {
-            error: "Mot de passe incorrect " + user.email + " " + hashedPasword,
+            error: "Mot de passe incorrect, veuillez réessayer.",
           },
           { status: 400 },
         );
