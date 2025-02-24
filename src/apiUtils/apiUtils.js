@@ -1,10 +1,7 @@
 import config from "@/utils/config.js";
-import jwt from "jsonwebtoken";
-import { randomBytes, scryptSync } from "node:crypto";
+import { scryptSync } from "node:crypto";
 
-export const hashPassword = (password) => {
-  const salt = randomBytes(config.security.password.saltLength).toString("hex");
-
+export const hashPassword = (password, salt) => {
   const hash = scryptSync(
     password,
     salt,
@@ -12,12 +9,4 @@ export const hashPassword = (password) => {
   ).toString("hex");
 
   return `${salt}$${hash}`;
-};
-
-export const verifyToken = (token) => {
-  try {
-    return jwt.verify(token, config.security.jwt.secret);
-  } catch (error) {
-    throw new Error(error + " - Token invalide ou expiré");
-  }
 };

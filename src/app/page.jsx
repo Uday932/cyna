@@ -4,9 +4,9 @@ import routes from "@/utils/routes.js";
 
 export default function Home() {
   return (
-    <div className="bg-secondary">
+    <div className="bg-secondary p-2">
       <Text>Page d'accueil</Text>
-      <Link href={routes.signs.signUp()}>création de compte</Link>
+      <Link href={routes.signs.signIn()}>Inscription</Link>
     </div>
   );
 }
