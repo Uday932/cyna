@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-primary">
       {/* Fixed Text Section */}
-      <section className="container mx-auto px-4 py-16 text-center bg-secondary">
+      <section className="container mx-auto bg-secondary px-4 py-16 text-center">
         <Text size="text" className="mb-8">
           Mise à jour régulière des messages importants ou des descriptions
           spécifiques.

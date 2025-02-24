@@ -3,8 +3,9 @@ import prisma from "@/apiUtils/prisma-client.js";
 import config from "@/utils/config.js";
 import routes from "@/utils/routes.js";
 import "dotenv/config";
-import jwt from "jsonwebtoken";
+import jsonwebtoken from "jsonwebtoken";
 import { NextResponse } from "next/server.js";
+import { randomBytes } from "node:crypto";
 import nodemailer from "nodemailer";
 
 const handler = {
@@ -24,16 +25,22 @@ const handler = {
         );
       }
 
+      const salt = randomBytes(config.security.password.saltLength).toString(
+        "hex",
+      );
+      const hashedPasword = hashPassword(password, salt);
+
       const newUser = await prisma.user.create({
         data: {
           firstName: firstName,
           lastName: lastName,
           email: email,
-          passwordHash: hashPassword(password),
+          passwordHash: hashedPasword,
+          passwordSalt: salt,
         },
       });
 
-      const token = jwt.sign(
+      const token = jsonwebtoken.sign(
         { userId: newUser.id },
         config.security.jwt.secret,
         {
@@ -72,7 +79,10 @@ const handler = {
       });
 
       return NextResponse.json(
-        { message: "Utilisateur crée avec succès" },
+        {
+          message:
+            "Utilisateur crée avec succès. Veuillez vérifier votre email pour valider votre compte.",
+        },
         { status: 200 },
       );
     } catch (error) {
