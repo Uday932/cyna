@@ -19,7 +19,7 @@ const FormField = (props) => {
               {...field}
               type={type}
               placeholder={placeholder}
-              className={clsx("p-2 rounded border border-gray-300", className, {
+              className={clsx("rounded border border-gray-300 p-2", className, {
                 "border-red-500": meta.touched && meta.error,
               })}
               {...otherProps}
@@ -27,7 +27,7 @@ const FormField = (props) => {
           </>
         )}
       </Field>
-      <div className="text-red-500 text-sm min-h-[25px] text-clip">
+      <div className="min-h-[25px] text-clip text-sm text-red-500">
         <ErrorMessage name={name} />
       </div>
     </div>
