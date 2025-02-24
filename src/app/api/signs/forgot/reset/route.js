@@ -47,6 +47,8 @@ const handler = {
         { status: 200 },
       );
     } catch (error) {
+      console.error("Erreur Serveur - Reinitialisation mot de passe:", error);
+
       return NextResponse.json(
         {
           error: "Erreur interne du serveur, veuillez réessayer.",
