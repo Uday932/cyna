@@ -1,12 +1,64 @@
-import Link from "@/components/ui/Link.jsx";
-import Text from "@/components/ui/Text.jsx";
-import routes from "@/utils/routes.js";
+"use client";
+
+import Text from "@/components/ui/Text";
 
 export default function Home() {
   return (
-    <div className="bg-secondary">
-      <Text>Page d'accueil</Text>
-      <Link href={routes.signs.signUp()}>création de compte</Link>
-    </div>
+    <main className="min-h-screen bg-primary">
+      {/* Fixed Text Section */}
+      <section className="container mx-auto px-4 py-16 text-center bg-secondary">
+        <Text size="text" className="mb-8">
+          Mise à jour régulière des messages importants ou des descriptions
+          spécifiques.
+        </Text>
+      </section>
+
+      {/* Categories Section */}
+      <section className="bg-secondary py-16">
+        <div className="container mx-auto px-4">
+          <Text
+            size="title2"
+            className="mb-12 text-center font-black uppercase text-primary"
+          >
+            Nos Catégories
+          </Text>
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="rounded-lg bg-white p-6 shadow-lg">
+              <Text size="button" color="black" className="mb-4 font-bold">
+                Catégorie 1
+              </Text>
+              <Text size="text" color="gray">
+                Description de la catégorie 1.
+              </Text>
+            </div>
+            {/* Add more categories as needed */}
+          </div>
+        </div>
+      </section>
+
+      {/* Top Products Section */}
+      <section className="bg-secondary py-16">
+        <div className="container mx-auto px-4">
+          <Text
+            size="title2"
+            className="mb-12 text-center font-black uppercase text-primary"
+          >
+            Les Top Produits du moment
+          </Text>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="rounded-lg bg-white p-6 shadow-lg">
+              <Text size="button" color="black" className="mb-4 font-bold">
+                Produit 1
+              </Text>
+              <Text size="text" color="gray">
+                Description du produit 1.
+              </Text>
+            </div>
+            {/* Add more products as needed */}
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
