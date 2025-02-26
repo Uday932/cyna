@@ -1,13 +1,13 @@
 "use client";
 
-import Text from "@/components/ui/Text";
+import Text from "@@/ui/Text";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-primary">
       {/* Fixed Text Section */}
       <section className="container mx-auto bg-secondary px-4 py-16 text-center">
-        <Text size="text" className="mb-8">
+        <Text className="mb-8">
           Mise à jour régulière des messages importants ou des descriptions
           spécifiques.
         </Text>
@@ -17,19 +17,17 @@ export default function Home() {
       <section className="bg-secondary py-16">
         <div className="container mx-auto px-4">
           <Text
-            size="title2"
+            size="title1"
             className="mb-12 text-center font-black uppercase text-primary"
           >
             Nos Catégories
           </Text>
           <div className="grid gap-8 md:grid-cols-3">
             <div className="rounded-lg bg-white p-6 shadow-lg">
-              <Text size="button" color="black" className="mb-4 font-bold">
+              <Text color="black" className="mb-4 font-bold">
                 Catégorie 1
               </Text>
-              <Text size="text" color="gray">
-                Description de la catégorie 1.
-              </Text>
+              <Text color="gray">Description de la catégorie 1.</Text>
             </div>
             {/* Add more categories as needed */}
           </div>
@@ -40,7 +38,7 @@ export default function Home() {
       <section className="bg-secondary py-16">
         <div className="container mx-auto px-4">
           <Text
-            size="title2"
+            size="title1"
             className="mb-12 text-center font-black uppercase text-primary"
           >
             Les Top Produits du moment
@@ -48,12 +46,10 @@ export default function Home() {
 
           <div className="grid gap-8 md:grid-cols-3">
             <div className="rounded-lg bg-white p-6 shadow-lg">
-              <Text size="button" color="black" className="mb-4 font-bold">
+              <Text color="black" className="mb-4 font-bold">
                 Produit 1
               </Text>
-              <Text size="text" color="gray">
-                Description du produit 1.
-              </Text>
+              <Text color="gray">Description du produit 1.</Text>
             </div>
             {/* Add more products as needed */}
           </div>

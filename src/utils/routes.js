@@ -15,6 +15,7 @@ const routes = {
       reset: (resetToken) => `/signs/forgot/${resetToken}`,
     },
   },
+  mentionLegaleCGU: () => "/mentions-legales-cgu",
 };
 
 export default routes;

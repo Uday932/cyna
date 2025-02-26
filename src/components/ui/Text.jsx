@@ -13,6 +13,12 @@ const colors = {
   black: "text-black",
 };
 
+const tag = {
+  title1: "h1",
+  title2: "h2",
+  text: "p",
+};
+
 const Text = (props) => {
   const {
     size = "text",
@@ -22,11 +28,20 @@ const Text = (props) => {
     ...otherProps
   } = props;
 
+  const Tag = tag[size] || tag.text;
 
   return (
-    <p className={clsx(colors[color], sizes[size], className)} {...otherProps}>
+    <Tag
+      className={clsx(
+        size === "title1" ? "uppercase" : size === "title2" ? "capitalize" : "",
+        colors[color],
+        sizes[size],
+        className,
+      )}
+      {...otherProps}
+    >
       {children}
-    </p>
+    </Tag>
   );
 };
 

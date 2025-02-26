@@ -1,3 +1,4 @@
+import routes from "@/utils/routes.js";
 import Link from "@@/ui/Link";
 
 const Footer = () => {
@@ -7,23 +8,13 @@ const Footer = () => {
         <div className="flex flex-col items-center justify-between md:flex-row">
           <ul className="mb-4 flex flex-col space-x-0 md:mb-0 md:flex-row md:space-x-6">
             <li>
-              <Link
-                href="/mentions-legales"
-                className="text-gray-700"
-              >
-                Mentions légales
+              <Link href={routes.mentionLegaleCGU()} className="text-gray-700">
+                Mentions légales et CGU
               </Link>
             </li>
+
             <li>
-              <Link href="/cgu" className="text-gray-700 ">
-                CGU
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/contact"
-                className="text-gray-700"
-              >
+              <Link href="/contact" className="text-gray-700">
                 Contact
               </Link>
             </li>
@@ -33,7 +24,7 @@ const Footer = () => {
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-700 "
+              className="text-gray-700"
             >
               Facebook
             </a>

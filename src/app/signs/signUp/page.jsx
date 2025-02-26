@@ -1,5 +1,6 @@
 "use client";
 import apiRoutes from "@/apiUtils/apiRoutes.js";
+import AppContext from "@/app/context/AppContext.js";
 import routes from "@/utils/routes.js";
 import Button from "@@/ui/Button.jsx";
 import FormField from "@@/ui/FormField.jsx";
@@ -8,7 +9,7 @@ import Text from "@@/ui/Text.jsx";
 import axios from "axios";
 import clsx from "clsx";
 import { Form, Formik } from "formik";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import * as Yup from "yup";
 
 const SignUpInitialValues = {
@@ -42,22 +43,23 @@ const SignUpSchema = Yup.object().shape({
 const SignUp = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
+  const { setSession } = useContext(AppContext);
 
   const handleSubmitSignUp = async (values, { resetForm }) => {
     try {
       setMessage("");
       setIsError(false);
 
-      const {
-        data: { message },
-      } = await axios.post(apiRoutes.signs.signUp(), {
+      const { data } = await axios.post(apiRoutes.signs.signUp(), {
         firstName: values.firstName,
         lastName: values.lastName,
         email: values.email,
         password: values.password,
       });
 
-      setMessage(message);
+      setMessage(data.message);
+      setSession(data.jwt);
+
       resetForm();
     } catch (error) {
       setIsError(true);
