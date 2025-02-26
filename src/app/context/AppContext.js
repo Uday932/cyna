@@ -2,10 +2,21 @@
 import apiRoutes from "@/apiUtils/apiRoutes.js";
 import config from "@/utils/config.js";
 import axios from "axios";
-import { deleteCookie, getCookie, setCookie } from "cookies-next/client";
+import {
+  deleteCookie,
+  getCookie,
+  hasCookie,
+  setCookie,
+} from "cookies-next/client";
 import { createContext, useCallback, useEffect, useState } from "react";
 
 const initialState = { session: null };
+
+const cookieOptions = {
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "strict",
+  path: "/",
+};
 
 export const AppContextProvider = (props) => {
   const [state, setState] = useState(initialState);
@@ -19,10 +30,8 @@ export const AppContextProvider = (props) => {
     }
 
     setCookie(config.security.session.cookieName, jwt, {
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      ...cookieOptions,
       maxAge: config.security.session.maxAge,
-      path: "/",
     });
 
     try {
@@ -48,9 +57,9 @@ export const AppContextProvider = (props) => {
     [setSession],
   );
 
-  const logOut = useCallback(async (jwt) => {
-    if (jwt) {
-      deleteCookie(config.security.session.cookieName);
+  const logOut = useCallback(() => {
+    if (hasCookie(config.security.session.cookieName)) {
+      deleteCookie(config.security.session.cookieName, cookieOptions);
 
       setState((state) => ({
         ...state,
@@ -67,9 +76,14 @@ export const AppContextProvider = (props) => {
     if (jwt && !state.session) {
       setSession(jwt);
     }
-  }, [state.session]); // 🔥 Ne pas mettre `setSession` ici
+  }, [state.session]);
 
-  return <AppContext.Provider {...props} value={{ state, signIn, logOut }} />;
+  return (
+    <AppContext.Provider
+      {...props}
+      value={{ state, signIn, logOut, setSession }}
+    />
+  );
 };
 
 const AppContext = createContext();

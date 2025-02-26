@@ -82,6 +82,7 @@ const handler = {
         {
           message:
             "Utilisateur crée avec succès. Veuillez vérifier votre email pour valider votre compte.",
+          jwt: token,
         },
         { status: 200 },
       );
