@@ -1,6 +1,6 @@
 "use client";
 
-import Text from "@/components/ui/Text";
+import Text from "@@/ui/Text";
 
 export default function Home() {
   return (

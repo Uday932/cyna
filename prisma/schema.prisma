@@ -19,6 +19,7 @@ model User {
   lastName     String
   email        String   @unique
   passwordHash String
+  passwordSalt String
   emailVerified Boolean  @default(false)
   verificationToken String? @default(dbgenerated("NULL"))
  }

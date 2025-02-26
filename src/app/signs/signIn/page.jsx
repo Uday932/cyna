@@ -1,32 +1,22 @@
 "use client";
-import apiRoutes from "@/apiUtils/apiRoutes.js";
+import AppContext from "@/app/context/AppContext.js";
+import Link from "@/components/ui/Link.jsx";
 import routes from "@/utils/routes.js";
 import Button from "@@/ui/Button.jsx";
 import FormField from "@@/ui/FormField.jsx";
-import Link from "@@/ui/Link.jsx";
 import Text from "@@/ui/Text.jsx";
-import axios from "axios";
 import clsx from "clsx";
 import { Form, Formik } from "formik";
-import { useState } from "react";
+import { useRouter } from "next/navigation.js";
+import { useContext, useState } from "react";
 import * as Yup from "yup";
 
-const SignUpInitialValues = {
-  firstName: "",
-  lastName: "",
+const SignInInitialValues = {
   email: "",
   password: "",
 };
 
-const SignUpSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .min(1, "Le prénom est trop court.")
-    .max(30, "Le prénom est trop long.")
-    .required("Le prénom est requis."),
-  lastName: Yup.string()
-    .min(1, "Le nom est trop court.")
-    .max(30, "Le nom est trop long.")
-    .required("Le nom est requis."),
+const SignInSchema = Yup.object().shape({
   email: Yup.string()
     .email("Adresse e-mail invalide")
     .required("L'e-mail est requis"),
@@ -39,37 +29,29 @@ const SignUpSchema = Yup.object().shape({
     .label("Mot de passe"),
 });
 
-const SignUp = () => {
+const SignIn = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
+  const router = useRouter();
+  const { signIn } = useContext(AppContext);
 
-  const handleSubmitSignUp = async (values, { resetForm }) => {
+  const handleSubmitSignUp = async (values) => {
     try {
       setMessage("");
       setIsError(false);
 
-      const {
-        data: { message },
-      } = await axios.post(apiRoutes.signs.signUp(), {
-        firstName: values.firstName,
-        lastName: values.lastName,
-        email: values.email,
-        password: values.password,
-      });
+      await signIn(values.email, values.password);
 
-      setMessage(message);
-      resetForm();
+      router.push(routes.home());
     } catch (error) {
       setIsError(true);
 
       if (error.response) {
-        setMessage("Une erreur est survenue. Veuillez réessayer.");
+        setMessage(error.response.data.error || "Une erreur est survenue.");
       } else if (error.request) {
-        setMessage(
-          "Le serveur est actuellement hors ligne. Veuillez réessayer plus tard.",
-        );
+        setMessage("Problème de connexion au serveur. Veuillez réessayer.");
       } else {
-        setMessage("Une erreur interne s'est produite.");
+        setMessage("Une erreur est survenue. Veuillez réessayer.");
       }
     }
   };
@@ -77,12 +59,12 @@ const SignUp = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-y-2 bg-secondary p-10">
       <Text size="title1" className="flex justify-center">
-        CRÉATION DE COMPTE
+        CONNEXION
       </Text>
 
       <Text
         className={clsx(
-          "my-2 min-h-[40px] rounded p-1",
+          "min-h-[40px] rounded p-1",
           isError ? "bg-red-500" : "",
         )}
       >
@@ -90,18 +72,14 @@ const SignUp = () => {
       </Text>
 
       <Formik
-        initialValues={SignUpInitialValues}
-        validationSchema={SignUpSchema}
+        initialValues={SignInInitialValues}
+        validationSchema={SignInSchema}
         onSubmit={(values, { resetForm }) =>
           handleSubmitSignUp(values, { resetForm })
         }
       >
         {({ isSubmitting }) => (
           <Form className="flex w-1/3 flex-col gap-2">
-            <FormField name="firstName" placeholder="Prénom" required />
-
-            <FormField name="lastName" type="text" placeholder="Nom" required />
-
             <FormField
               name="email"
               type="email"
@@ -118,17 +96,25 @@ const SignUp = () => {
             />
 
             <Button type="submit">
-              {isSubmitting ? "En cours..." : "Créer un compte"}
+              {isSubmitting ? "Connexion..." : "Se connecter"}
             </Button>
           </Form>
         )}
       </Formik>
 
-      <Link href={routes.signs.signIn()} className="text-blue-500">
-        Vous avez déjà un compte ? Connectez-vous.
+      <Link
+        href={routes.signs.forgotPassword.request()}
+        className="text-blue-500"
+        title="Aller à la page de réinitialisation du mot de passe"
+      >
+        Mot de passe oublié ?
+      </Link>
+
+      <Link href={routes.signs.signUp()} className="text-blue-500">
+        Pas encore de compte ? Inscrivez-vous
       </Link>
     </div>
   );
 };
 
-export default SignUp;
+export default SignIn;
