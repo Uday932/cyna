@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 const colors = {
-  button: "bg-button shadow-md shadow-black", 
+  button: "bg-button shadow-md shadow-black",
   transparent: "bg-transparent",
 };
 
@@ -10,7 +10,11 @@ const Button = (props) => {
 
   return (
     <button
-      className={clsx("rounded p-2 text-white", colors[color], className)}
+      className={clsx(
+        "rounded p-2 text-white first-letter:uppercase",
+        colors[color],
+        className,
+      )}
       {...otherProps}
     />
   );

@@ -10,6 +10,7 @@ const routes = {
     signUp: () => "/signs/signUp",
     validate: (token) => `/signs/${token}`,
   },
+  mentionLegaleCGU: () => "/mentions-legales-cgu",
 };
 
 export default routes;
