@@ -31,8 +31,6 @@ const handler = {
         },
       });
 
-      console.log("ioioj");
-
       return NextResponse.json({ message: "Compte validé avec succès" });
     } catch (error) {
       return NextResponse.json(

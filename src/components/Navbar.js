@@ -1,14 +1,24 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import AppContext from "@/app/context/AppContext.js";
 import routes from "@/utils/routes";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation.js";
+import { useContext, useState } from "react";
 import Button from "./ui/Button";
 
 const Navbar = () => {
+  const { state, logOut } = useContext(AppContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const router = useRouter();
+
+  const handleLogOut = () => {
+    logOut();
+
+    router.push(routes.home());
+  };
 
   return (
     <nav className="bg-primary py-4 text-white">
@@ -138,33 +148,44 @@ const Navbar = () => {
                 Contact
               </Link>
             </li>
-            <li className="py-2">
-              <Link
-                href={routes.account()}
-                onClick={() => setIsMenuOpen(false)}
-                className="hover:text-gray-300"
-              >
-                Mon Compte
-              </Link>
-            </li>
-            <li className="py-2">
-              <Link
-                href={routes.signs.signUp()}
-                onClick={() => setIsMenuOpen(false)}
-                className="hover:text-gray-300"
-              >
-                Créer un Compte
-              </Link>
-            </li>
-            <li className="py-2">
-              <Link
-                href="/se-connecter"
-                onClick={() => setIsMenuOpen(false)}
-                className="hover:text-gray-300"
-              >
-                Se Connecter
-              </Link>
-            </li>
+
+            {state.session ? (
+              <>
+                <li className="py-2">
+                  <Link
+                    href={routes.account()}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="hover:text-gray-300"
+                  >
+                    Mon Compte
+                  </Link>
+                </li>
+
+                <Button onClick={() => handleLogOut()}>Se déconecter</Button>
+              </>
+            ) : (
+              <>
+                <li className="py-2">
+                  <Link
+                    href={routes.signs.signIn()}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="hover:text-gray-300"
+                  >
+                    Se Connecter
+                  </Link>
+                </li>
+
+                <li className="py-2">
+                  <Link
+                    href={routes.signs.signUp()}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="hover:text-gray-300"
+                  >
+                    Créer un Compte
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
