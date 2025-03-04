@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-primary">
       {/* Carousel Section */}
-      <section className="relative w-full bg-light px-4 py-16">
+           <section className="relative w-full bg-light px-4 py-16">
         <div className="h-64 overflow-hidden flex items-center">
           <AnimatePresence mode="wait">
             <motion.div
@@ -52,7 +52,7 @@ export default function Home() {
               className="flex w-full"
             >
               {/* Text Section */}
-              <div className="flex-1 p-4 text-left">
+              <div className="flex-1 p-4 text-left pl-20">
                 <Text size="button" color="black" className="mb-4 font-bold">
                   {carouselItems[current].title}
                 </Text>
