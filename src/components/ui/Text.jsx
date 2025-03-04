@@ -1,8 +1,8 @@
 import clsx from "clsx";
 
 const sizes = {
-  title1: "text-5xl",
-  title2: "text-3xl",
+  title: "text-5xl",
+  subtitle: "text-3xl",
   text: "text-lg",
   button: "text-2xl",
 };

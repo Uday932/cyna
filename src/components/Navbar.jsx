@@ -38,7 +38,7 @@ const Navbar = () => {
           {/* Search Icon */}
           <Button
             onClick={() => setIsSearchOpen(!isSearchOpen)}
-            color="bg-transparent"
+            color="transparent"
           >
             <Image
               src="/assets/search.png"
@@ -62,13 +62,13 @@ const Navbar = () => {
               alt="Cart"
               width={40}
               height={40}
-              priority
+              priority  
             />
           </Link>
           {/* Menu Icon */}
           <Button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            color="bg-transparent"
+            color="transparent"
           >
             <Image
               src="/assets/menu.png"
