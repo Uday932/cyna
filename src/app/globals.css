@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+body {
+  font-family: wfont_2cec0a_225ccd98f9cc45bc98b17e5c09f24492, 
+               wf_225ccd98f9cc45bc98b17e5c0, 
+               orig_avenir_lt_std_95_black, 
+               sans-serif;
+}
