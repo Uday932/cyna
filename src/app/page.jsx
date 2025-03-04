@@ -125,19 +125,17 @@ export default function Home() {
       <section className="bg-secondary py-16">
         <div className="container mx-auto px-4">
           <Text
-            size="title2"
+            size="title1"
             className="mb-12 text-center font-black uppercase text-primary"
           >
             Nos Catégories
           </Text>
           <div className="grid gap-8 md:grid-cols-3">
             <div className="rounded-lg bg-white p-6 shadow-lg">
-              <Text size="button" color="black" className="mb-4 font-bold">
+              <Text color="black" className="mb-4 font-bold">
                 Catégorie 1
               </Text>
-              <Text size="text" color="gray">
-                Description de la catégorie 1.
-              </Text>
+              <Text color="gray">Description de la catégorie 1.</Text>
             </div>
           </div>
         </div>
@@ -147,7 +145,7 @@ export default function Home() {
       <section className="bg-secondary py-16">
         <div className="container mx-auto px-4">
           <Text
-            size="title2"
+            size="title1"
             className="mb-12 text-center font-black uppercase text-primary"
           >
             Les Top Produits du moment
@@ -155,12 +153,10 @@ export default function Home() {
 
           <div className="grid gap-8 md:grid-cols-3">
             <div className="rounded-lg bg-white p-6 shadow-lg">
-              <Text size="button" color="black" className="mb-4 font-bold">
+              <Text color="black" className="mb-4 font-bold">
                 Produit 1
               </Text>
-              <Text size="text" color="gray">
-                Description du produit 1.
-              </Text>
+              <Text color="gray">Description du produit 1.</Text>
             </div>
           </div>
         </div>
