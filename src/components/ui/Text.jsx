@@ -31,7 +31,6 @@ const Text = (props) => {
 
   const Tag = as ?? tag[size] ?? "p";
 
-  console.log(Object.keys(sizes));
   return (
     <Tag
       className={clsx(colors[color], sizes[size], className)}
