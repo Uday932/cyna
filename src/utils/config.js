@@ -13,6 +13,10 @@ const config = {
     password: {
       saltLength: 16,
       hashLength: 64,
+      minLenght: 8,
+      minNbCapLetter: 1,
+      minNbDigit: 1,
+      minSpecialCar: 1,
     },
   },
 };

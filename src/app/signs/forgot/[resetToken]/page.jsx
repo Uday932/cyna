@@ -1,5 +1,6 @@
 "use client";
 import apiRoutes from "@/apiUtils/apiRoutes.js";
+import { passwordValidator } from "@/utils/validators.js";
 import Button from "@@/ui/Button.jsx";
 import FormField from "@@/ui/FormField.jsx";
 import Text from "@@/ui/Text.jsx";
@@ -16,18 +17,10 @@ const ResetInitialValues = {
 };
 
 const ResetSchema = Yup.object().shape({
-  password: Yup.string()
-    .matches(
-      /^(?=.*[^\p{L}0-9])(?=.*[0-9])(?=.*\p{Lu})(?=.*\p{Ll}).{8,}$/u,
-      "Le mot de passe doit comporter au moins 8 caractères et contenir au moins 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial.",
-    )
+  password: passwordValidator
     .required("Le mot de passe est requis")
     .label("Mot de passe"),
-  confirmPassword: Yup.string()
-    .matches(
-      /^(?=.*[^\p{L}0-9])(?=.*[0-9])(?=.*\p{Lu})(?=.*\p{Ll}).{8,}$/u,
-      "Le mot de passe doit comporter au moins 8 caractères et contenir au moins 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial.",
-    )
+  confirmPassword: passwordValidator
     .required("Le mot de passe est requis")
     .oneOf(
       [Yup.ref("password"), null],

@@ -2,6 +2,12 @@
 import apiRoutes from "@/apiUtils/apiRoutes.js";
 import AppContext from "@/app/context/AppContext.js";
 import routes from "@/utils/routes.js";
+import {
+  emailValidator,
+  firstNameValidator,
+  lastNameValidator,
+  passwordValidator,
+} from "@/utils/validators.js";
 import Button from "@@/ui/Button.jsx";
 import FormField from "@@/ui/FormField.jsx";
 import Link from "@@/ui/Link.jsx";
@@ -9,6 +15,7 @@ import Text from "@@/ui/Text.jsx";
 import axios from "axios";
 import clsx from "clsx";
 import { Form, Formik } from "formik";
+import { useRouter } from "next/navigation.js";
 import { useContext, useState } from "react";
 import * as Yup from "yup";
 
@@ -20,22 +27,10 @@ const SignUpInitialValues = {
 };
 
 const SignUpSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .min(1, "Le prénom est trop court.")
-    .max(30, "Le prénom est trop long.")
-    .required("Le prénom est requis."),
-  lastName: Yup.string()
-    .min(1, "Le nom est trop court.")
-    .max(30, "Le nom est trop long.")
-    .required("Le nom est requis."),
-  email: Yup.string()
-    .email("Adresse e-mail invalide")
-    .required("L'e-mail est requis"),
-  password: Yup.string()
-    .matches(
-      /^(?=.*[^\p{L}0-9])(?=.*[0-9])(?=.*\p{Lu})(?=.*\p{Ll}).{8,}$/u,
-      "Le mot de passe doit comporter au moins 8 caractères et contenir au moins 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial.",
-    )
+  firstName: firstNameValidator.required("Le prénom est requis."),
+  lastName: lastNameValidator.required("Le nom est requis."),
+  email: emailValidator.required("L'e-mail est requis"),
+  password: passwordValidator
     .required("Le mot de passe est requis")
     .label("Mot de passe"),
 });
@@ -44,6 +39,7 @@ const SignUp = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const { setSession } = useContext(AppContext);
+  const router = useRouter();
 
   const handleSubmitSignUp = async (values, { resetForm }) => {
     try {
@@ -60,7 +56,7 @@ const SignUp = () => {
       setMessage(data.message);
       setSession(data.jwt);
 
-      resetForm();
+      router.push(routes.home());
     } catch (error) {
       setIsError(true);
 

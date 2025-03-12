@@ -1,5 +1,6 @@
 "use client";
 import apiRoutes from "@/apiUtils/apiRoutes.js";
+import { emailValidator } from "@/utils/validators.js";
 import Button from "@@/ui/Button.jsx";
 import FormField from "@@/ui/FormField.jsx";
 import Text from "@@/ui/Text.jsx";
@@ -14,9 +15,7 @@ const ForgotInitialValues = {
 };
 
 const ForgotSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Adresse e-mail invalide")
-    .required("L'e-mail est requis"),
+  email: emailValidator.required("L'e-mail est requis"),
 });
 
 const Forgot = () => {
