@@ -5,7 +5,7 @@ const routes = {
   cart: () => "/cart",
   checkout: () => "/checkout",
   contact: () => "/contact",
-  account: () => "/my-account",
+  account: () => "/account",
   signs: {
     signUp: () => "/signs/signUp",
     signIn: () => "/signs/signIn",
