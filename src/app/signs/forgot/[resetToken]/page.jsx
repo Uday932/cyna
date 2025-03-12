@@ -62,8 +62,8 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-secondary p-10">
-      <Text size="title1" className="flex justify-center">
+    <div className="flex w-full flex-col items-center justify-center">
+      <Text size="title" className="flex justify-center">
         RÉINITIALISATION DE MOT DE PASSE
       </Text>
 

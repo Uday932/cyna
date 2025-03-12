@@ -77,8 +77,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-y-2 bg-secondary p-10">
-      <Text size="title1" className="flex justify-center">
+    <div className="flex w-full flex-col items-center justify-center gap-y-2">
+      <Text size="title" className="flex justify-center">
         CRÉATION DE COMPTE
       </Text>
 
@@ -100,22 +100,34 @@ const SignUp = () => {
       >
         {({ isSubmitting }) => (
           <Form className="flex w-1/3 flex-col gap-2">
-            <FormField name="firstName" placeholder="Prénom" required />
+            <FormField
+              name="firstName"
+              placeholder="Prénom"
+              className="w-full"
+              required
+            />
 
-            <FormField name="lastName" type="text" placeholder="Nom" required />
+            <FormField
+              name="lastName"
+              type="text"
+              placeholder="Nom"
+              className="w-full"
+              required
+            />
 
             <FormField
               name="email"
               type="email"
               placeholder="E-mail"
+              className="w-full"
               required
             />
 
             <FormField
-              className="text-ellipsis"
               name="password"
               type="password"
               placeholder="Mot de passe"
+              className="w-full"
               required
             />
 

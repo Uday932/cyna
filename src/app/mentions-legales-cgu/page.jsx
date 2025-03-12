@@ -16,8 +16,8 @@ const makeExternalLink = (url = "") => {
 
 const MentionLegaleEtCGU = () => {
   return (
-    <div className="flex min-h-screen flex-col gap-y-8 bg-secondary p-10 lg:p-20">
-      <Text size="title1" className="text-center">
+    <div className="flex flex-col gap-y-8 p-10 lg:p-10">
+      <Text size="title" className="text-center">
         MENTIONS LÉGALES ET CONDITIONS GÉNÉRALES D'UTILISATION
       </Text>
 

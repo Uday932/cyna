@@ -57,8 +57,8 @@ const SignIn = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-y-2 bg-secondary p-10">
-      <Text size="title1" className="flex justify-center">
+    <div className="flex w-full flex-col items-center justify-center gap-y-2">
+      <Text size="title" className="flex justify-center">
         CONNEXION
       </Text>
 
@@ -79,19 +79,20 @@ const SignIn = () => {
         }
       >
         {({ isSubmitting }) => (
-          <Form className="flex w-1/3 flex-col gap-2">
+          <Form className="flex flex-col gap-2 md:w-1/3 lg:w-1/5">
             <FormField
               name="email"
               type="email"
               placeholder="E-mail"
+              className="w-full"
               required
             />
 
             <FormField
-              className="text-ellipsis"
               name="password"
               type="password"
               placeholder="Mot de passe"
+              className="w-full"
               required
             />
 
