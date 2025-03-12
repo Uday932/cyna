@@ -6,7 +6,12 @@ const apiRoutes = {
       request: () => "/api/signs/forgot/request",
       reset: () => "/api/signs/forgot/reset",
     },
+    updatePassword: () => "/api/signs/updatePassword",
     signIn: () => "/api/signs/signIn",
+  },
+  users: {
+    update: () => "/api/users",
+    single: () => "/api/users",
   },
 };
 
