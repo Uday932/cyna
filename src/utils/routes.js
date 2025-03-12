@@ -5,7 +5,7 @@ const routes = {
   cart: () => "/cart",
   checkout: () => "/checkout",
   contact: () => "/contact",
-  account: () => "/my-account",
+  account: () => "/account",
   signs: {
     signUp: () => "/signs/signUp",
     signIn: () => "/signs/signIn",
@@ -15,7 +15,7 @@ const routes = {
       reset: (resetToken) => `/signs/forgot/${resetToken}`,
     },
   },
-  mentionLegales: () => "/mentions-legales",
+  mentionLegalesCgu: () => "/mentions-legales-cgu",
 };
 
 export default routes;

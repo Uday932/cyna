@@ -1,5 +1,6 @@
 "use client";
 import apiRoutes from "@/apiUtils/apiRoutes.js";
+import { emailValidator } from "@/utils/validators.js";
 import Button from "@@/ui/Button.jsx";
 import FormField from "@@/ui/FormField.jsx";
 import Text from "@@/ui/Text.jsx";
@@ -14,9 +15,7 @@ const ForgotInitialValues = {
 };
 
 const ForgotSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Adresse e-mail invalide")
-    .required("L'e-mail est requis"),
+  email: emailValidator.required("L'e-mail est requis"),
 });
 
 const Forgot = () => {
@@ -45,8 +44,8 @@ const Forgot = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-secondary p-10">
-      <Text size="title1" className="flex justify-center">
+    <div className="flex w-full flex-col items-center justify-center">
+      <Text size="title" className="flex justify-center">
         MOT DE PASSE OUBLIÉ
       </Text>
 
@@ -72,15 +71,16 @@ const Forgot = () => {
         }
       >
         {() => (
-          <Form className="flex w-screen flex-col items-center justify-center">
+          <Form className="flex w-1/5 flex-col">
             <FormField
+              className="w-full"
               name="email"
               type="email"
               placeholder="E-mail"
               required
             />
 
-            <Button type="submit" className="mt-2 md:w-3/12">
+            <Button type="submit" className="mt-2">
               Envoyer
             </Button>
           </Form>

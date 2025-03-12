@@ -13,9 +13,9 @@ export default function RootLayout({ children }) {
     <AppContextProvider>
       <html lang="fr">
         <head></head>
-        <body>
+        <body className="flex min-h-screen flex-col bg-primary">
           <Navbar />
-            {children}
+          <main className="flex flex-grow bg-secondary">{children}</main>
           <Footer />
         </body>
       </html>
