@@ -1,9 +1,10 @@
 "use client";
 import AppContext from "@/app/context/AppContext.js";
-import Link from "@/components/ui/Link.jsx";
 import routes from "@/utils/routes.js";
+import { emailValidator, passwordValidator } from "@/utils/validators.js";
 import Button from "@@/ui/Button.jsx";
 import FormField from "@@/ui/FormField.jsx";
+import Link from "@@/ui/Link.jsx";
 import Text from "@@/ui/Text.jsx";
 import clsx from "clsx";
 import { Form, Formik } from "formik";
@@ -17,14 +18,8 @@ const SignInInitialValues = {
 };
 
 const SignInSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Adresse e-mail invalide")
-    .required("L'e-mail est requis"),
-  password: Yup.string()
-    .matches(
-      /^(?=.*[^\p{L}0-9])(?=.*[0-9])(?=.*\p{Lu})(?=.*\p{Ll}).{8,}$/u,
-      "Le mot de passe doit comporter au moins 8 caractères et contenir au moins 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial.",
-    )
+  email: emailValidator.required("L'e-mail est requis"),
+  password: passwordValidator
     .required("Le mot de passe est requis")
     .label("Mot de passe"),
 });
@@ -57,8 +52,8 @@ const SignIn = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-y-2 bg-secondary p-10">
-      <Text size="title1" className="flex justify-center">
+    <div className="flex w-full flex-col items-center justify-center gap-y-2">
+      <Text size="title" className="flex justify-center">
         CONNEXION
       </Text>
 
@@ -79,19 +74,20 @@ const SignIn = () => {
         }
       >
         {({ isSubmitting }) => (
-          <Form className="flex w-1/3 flex-col gap-2">
+          <Form className="flex flex-col gap-2 md:w-1/3 lg:w-1/5">
             <FormField
               name="email"
               type="email"
               placeholder="E-mail"
+              className="w-full"
               required
             />
 
             <FormField
-              className="text-ellipsis"
               name="password"
               type="password"
               placeholder="Mot de passe"
+              className="w-full"
               required
             />
 

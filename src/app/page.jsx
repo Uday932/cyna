@@ -1,14 +1,14 @@
 "use client";
 
+import Button from "@@/ui/Button";
+import Text from "@@/ui/Text";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Text from "@/components/ui/Text";
-import Button from "@/components/ui/Button";
 
 const carouselItems = [
   {
     id: 1,
-    image: "test1.jpg",  
+    image: "test1.jpg",
     title: "Produit 1",
     description: "Description de la section 1.",
     link: "/link1",
@@ -38,10 +38,10 @@ export default function Home() {
     setCurrent((prev) => (prev === 0 ? carouselItems.length - 1 : prev - 1));
 
   return (
-    <main className="min-h-screen bg-primary">
+    <div className="w-full">
       {/* Carousel Section */}
-           <section className="relative w-full bg-light px-4 py-16">
-        <div className="h-64 overflow-hidden flex items-center">
+      <section className="relative w-full bg-light px-4 py-16">
+        <div className="flex h-64 items-center overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
               key={carouselItems[current].id}
@@ -52,8 +52,8 @@ export default function Home() {
               className="flex w-full"
             >
               {/* Text Section */}
-              <div className="flex-1 p-4 text-left pl-20">
-                <Text size="button" color="black" className="mb-4 font-bold">
+              <div className="flex-1 p-4 pl-20 text-left">
+                <Text size="text" color="black" className="mb-4 font-bold">
                   {carouselItems[current].title}
                 </Text>
                 <Text size="text" color="gray" className="mb-4">
@@ -125,7 +125,7 @@ export default function Home() {
       <section className="bg-secondary py-16">
         <div className="container mx-auto px-4">
           <Text
-            size="title1"
+            size="title"
             className="mb-12 text-center font-black uppercase text-primary"
           >
             Nos Catégories
@@ -145,7 +145,7 @@ export default function Home() {
       <section className="bg-secondary py-16">
         <div className="container mx-auto px-4">
           <Text
-            size="title1"
+            size="title"
             className="mb-12 text-center font-black uppercase text-primary"
           >
             Les Top Produits du moment
@@ -161,6 +161,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

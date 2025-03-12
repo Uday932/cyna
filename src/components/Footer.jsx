@@ -8,21 +8,13 @@ const Footer = () => {
         <div className="flex flex-col items-center justify-between md:flex-row">
           <ul className="mb-4 flex flex-col space-x-0 md:mb-0 md:flex-row md:space-x-6">
             <li>
-              <Link href="/cgu">
-                CGU
+              <Link href={routes.mentionLegalesCgu()}>
+                Mentions légales et CGU
               </Link>
             </li>
 
             <li>
-              <Link href={routes.mentionLegales()}>
-                Mentions légales
-              </Link>
-            </li>
-
-            <li>
-              <Link href="/contact">
-                Contact
-              </Link>
+              <Link href="/contact">Contact</Link>
             </li>
           </ul>
           <div className="flex space-x-4">

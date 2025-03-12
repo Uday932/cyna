@@ -41,7 +41,7 @@ const ValidateAccount = () => {
   }, [token, router]);
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center gap-2 bg-secondary">
+    <div className="flex w-full flex-col items-center justify-center gap-2">
       <Text>
         {validation === null
           ? "Validation en cours..."
