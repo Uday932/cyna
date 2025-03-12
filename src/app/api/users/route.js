@@ -107,6 +107,22 @@ const handler = {
         );
       }
 
+      if (email) {
+        const existingUser = await prisma.user.findUnique({
+          where: { email },
+        });
+
+        if (existingUser && existingUser.id !== userId) {
+          return NextResponse.json(
+            {
+              error:
+                "Impossible de mettre à jour le profil, veuillez réessayer.",
+            },
+            { status: 400 },
+          );
+        }
+      }
+
       await prisma.user.update({
         where: { id: userId },
         data: {
