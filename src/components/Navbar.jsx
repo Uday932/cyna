@@ -21,7 +21,7 @@ const Navbar = () => {
   };
 
   // Vérifiez si l'utilisateur est un administrateur
-  const isAdmin = state.user?.role === "admin";
+  const isAdmin = state.user?.role === "ADMIN";
 
   return (
     <nav className="bg-primary py-4 text-white">
