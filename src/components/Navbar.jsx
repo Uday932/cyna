@@ -96,11 +96,11 @@ const Navbar = () => {
           <ul className="mt-4">
             <li className="py-2">
               <Link
-                href={routes.home()}
+                href={routes.backoffice()}
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-gray-300"
               >
-                Accueil
+                Backoffice
               </Link>
             </li>
             <li className="py-2">
@@ -128,15 +128,6 @@ const Navbar = () => {
                 className="hover:text-gray-300"
               >
                 Panier
-              </Link>
-            </li>
-            <li className="py-2">
-              <Link
-                href={routes.checkout()}
-                onClick={() => setIsMenuOpen(false)}
-                className="hover:text-gray-300"
-              >
-                Checkout
               </Link>
             </li>
             <li className="py-2">

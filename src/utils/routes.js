@@ -1,9 +1,9 @@
 const routes = {
   home: () => "/",
+  backoffice: () => "/backoffice",
   categories: () => "/categories",
   products: () => "/products",
   cart: () => "/cart",
-  checkout: () => "/checkout",
   contact: () => "/contact",
   account: () => "/account",
   signs: {
