@@ -137,6 +137,18 @@ export default function Home() {
               </Text>
               <Text color="gray">Description de la catégorie 1.</Text>
             </div>
+            <div className="rounded-lg bg-white p-6 shadow-lg">
+              <Text color="black" className="mb-4 font-bold">
+                Catégorie 2
+              </Text>
+              <Text color="gray">Description de la catégorie 2.</Text>
+            </div>
+            <div className="rounded-lg bg-white p-6 shadow-lg">
+              <Text color="black" className="mb-4 font-bold">
+                Catégorie 3
+              </Text>
+              <Text color="gray">Description de la catégorie 3.</Text>
+            </div>
           </div>
         </div>
       </section>
@@ -152,6 +164,18 @@ export default function Home() {
           </Text>
 
           <div className="grid gap-8 md:grid-cols-3">
+            <div className="rounded-lg bg-white p-6 shadow-lg">
+              <Text color="black" className="mb-4 font-bold">
+                Produit 1
+              </Text>
+              <Text color="gray">Description du produit 1.</Text>
+            </div>
+            <div className="rounded-lg bg-white p-6 shadow-lg">
+              <Text color="black" className="mb-4 font-bold">
+                Produit 1
+              </Text>
+              <Text color="gray">Description du produit 1.</Text>
+            </div>
             <div className="rounded-lg bg-white p-6 shadow-lg">
               <Text color="black" className="mb-4 font-bold">
                 Produit 1

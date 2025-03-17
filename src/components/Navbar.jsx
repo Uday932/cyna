@@ -62,7 +62,7 @@ const Navbar = () => {
               alt="Cart"
               width={40}
               height={40}
-              priority  
+              priority
             />
           </Link>
           {/* Menu Icon */}

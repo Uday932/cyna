@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 const sizes = {
-  title: "text-5xl uppercase",
+  title: "text-4xl   uppercase",
   subtitle: "text-3xl capitalize",
   text: "text-lg",
 };
