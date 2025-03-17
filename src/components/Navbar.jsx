@@ -20,6 +20,9 @@ const Navbar = () => {
     router.push(routes.home());
   };
 
+  // Vérifiez si l'utilisateur est un administrateur
+  const isAdmin = state.user?.role === "admin";
+
   return (
     <nav className="bg-primary py-4 text-white">
       <div className="container mx-auto flex items-center justify-between px-4">
@@ -94,15 +97,18 @@ const Navbar = () => {
         <div className="p-4">
           <h2 className="text-xl font-bold">Menu</h2>
           <ul className="mt-4">
-            <li className="py-2">
-              <Link
-                href={routes.backoffice()}
-                onClick={() => setIsMenuOpen(false)}
-                className="hover:text-gray-300"
-              >
-                Backoffice
-              </Link>
-            </li>
+            {isAdmin && (
+              <li className="py-2">
+                <Link
+                  href={routes.backoffice()}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="hover:text-gray-300"
+                >
+                  Backoffice
+                </Link>
+              </li>
+            )}
+
             <li className="py-2">
               <Link
                 href={routes.categories()}
@@ -139,7 +145,6 @@ const Navbar = () => {
                 Contact
               </Link>
             </li>
-
             {state.session ? (
               <>
                 <li className="py-2">
