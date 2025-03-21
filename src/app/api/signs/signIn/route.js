@@ -13,6 +13,7 @@ const handler = {
       const user = await prisma.user.findUnique({
         where: { email },
       });
+      console.log(user);
 
       const hashedPasword = hashPassword(password, user.passwordSalt);
 
@@ -26,7 +27,7 @@ const handler = {
       }
 
       const jwt = jsonwebtoken.sign(
-        { userId: user.id },
+        { userId: user.id, role: user.role },
         config.security.jwt.secret,
         { expiresIn: config.security.jwt.expiresIn },
       );

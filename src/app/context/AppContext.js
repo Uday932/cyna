@@ -10,7 +10,7 @@ import {
 } from "cookies-next/client";
 import { createContext, useCallback, useEffect, useState } from "react";
 
-const initialState = { session: null };
+const initialState = { session: null, user: { role: "USER" } };
 
 const cookieOptions = {
   secure: process.env.NODE_ENV === "production",
@@ -24,7 +24,7 @@ export const AppContextProvider = (props) => {
   const setSession = useCallback((jwt) => {
     if (!jwt) {
       deleteCookie(config.security.session.cookieName);
-      setState((prev) => ({ ...prev, session: null }));
+      setState((prev) => ({ ...prev, session: null, user: { role: "USER" } }));
 
       return;
     }
@@ -35,13 +35,15 @@ export const AppContextProvider = (props) => {
     });
 
     try {
+      const sessionData = JSON.parse(atob(jwt.split(".")[1]));
       setState((prev) => ({
         ...prev,
-        session: JSON.parse(atob(jwt.split(".")[1])),
+        session: sessionData,
+        user: { role: sessionData.role },
       }));
     } catch (error) {
       console.error("JWT parsing error:", error);
-      setState((prev) => ({ ...prev, session: null }));
+      setState((prev) => ({ ...prev, session: null, user: { role: "USER" } }));
     }
   }, []);
 
@@ -64,6 +66,7 @@ export const AppContextProvider = (props) => {
       setState((state) => ({
         ...state,
         session: null,
+        user: { role: "USER" },
       }));
 
       return;
@@ -76,7 +79,7 @@ export const AppContextProvider = (props) => {
     if (jwt && !state.session) {
       setSession(jwt);
     }
-  }, [state.session]);
+  }, [state.session, setSession]);
 
   return (
     <AppContext.Provider
