@@ -38,6 +38,7 @@ const handler = {
           firstName: true,
           lastName: true,
           email: true,
+          role: true,
         },
       });
 
