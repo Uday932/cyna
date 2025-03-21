@@ -1,7 +1,6 @@
+import Text from "@/components/ui/Text";
 const SubscriptionsPage = () => {
-  return (
-      <h1 className="text-2xl font-bold">Gestion des abonnements</h1>
-  );
+  return <Text tag="title">Gestion des abonnements</Text>;
 };
 
 export default SubscriptionsPage;

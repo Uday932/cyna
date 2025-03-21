@@ -3,6 +3,7 @@
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import AppContext from "@/app/context/AppContext.js";
+import Text from "@/components/ui/Text";
 
 const BackOffice = () => {
   const { state } = useContext(AppContext);
@@ -21,7 +22,7 @@ const BackOffice = () => {
 
   return (
     <div>
-      <h1>Bienvenue dans le BackOffice</h1>
+      <Text tag="title">Bienvenue dans le BackOffice</Text>
     </div>
   );
 };

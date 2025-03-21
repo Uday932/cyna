@@ -20,7 +20,6 @@ const Navbar = () => {
     router.push(routes.home());
   };
 
-  // Vérifiez si l'utilisateur est un administrateur
   const isAdmin = state.user?.role === "ADMIN";
 
   return (
