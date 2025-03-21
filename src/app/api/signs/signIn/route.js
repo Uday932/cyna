@@ -13,7 +13,6 @@ const handler = {
       const user = await prisma.user.findUnique({
         where: { email },
       });
-      console.log(user);
 
       const hashedPasword = hashPassword(password, user.passwordSalt);
 

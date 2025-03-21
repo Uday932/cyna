@@ -1,7 +1,8 @@
-const ProductsPage = () => {
+import Text from "@/components/ui/Text";
+const ServicesPage = () => {
   return (
-      <h1 className="text-2xl font-bold">Gestion des produits</h1>
+      <Text tag="title">Gestion des services</Text>
   );
 };
 
-export default ProductsPage;
+export default ServicesPage;

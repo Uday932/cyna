@@ -1,7 +1,6 @@
+import Text from "@/components/ui/Text";
 const SettingsPage = () => {
-  return (
-      <h1 className="text-2xl font-bold">Paramètres</h1>
-  );
+  return <Text tag="title">Paramètres</Text>;
 };
 
 export default SettingsPage;

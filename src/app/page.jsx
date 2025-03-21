@@ -9,21 +9,21 @@ const carouselItems = [
   {
     id: 1,
     image: "test1.jpg",
-    title: "Produit 1",
+    title: "service 1",
     description: "Description de la section 1.",
     link: "/link1",
   },
   {
     id: 2,
     image: "test2.jpg",
-    title: "Produit 2",
+    title: "service 2",
     description: "Description de la section 2.",
     link: "/link2",
   },
   {
     id: 3,
     image: "test3.jpg",
-    title: "Produit 3",
+    title: "service 3",
     description: "Description de la section 3.",
     link: "/link3",
   },
@@ -160,27 +160,27 @@ export default function Home() {
             size="title"
             className="mb-12 text-center font-black uppercase text-primary"
           >
-            Les Top Produits du moment
+            Les Top services du moment
           </Text>
 
           <div className="grid gap-8 md:grid-cols-3">
             <div className="rounded-lg bg-white p-6 shadow-lg">
               <Text color="black" className="mb-4 font-bold">
-                Produit 1
+                service 1
               </Text>
-              <Text color="gray">Description du produit 1.</Text>
+              <Text color="gray">Description du service 1.</Text>
             </div>
             <div className="rounded-lg bg-white p-6 shadow-lg">
               <Text color="black" className="mb-4 font-bold">
-                Produit 1
+                service 2
               </Text>
-              <Text color="gray">Description du produit 1.</Text>
+              <Text color="gray">Description du service 2.</Text>
             </div>
             <div className="rounded-lg bg-white p-6 shadow-lg">
               <Text color="black" className="mb-4 font-bold">
-                Produit 1
+                service 3
               </Text>
-              <Text color="gray">Description du produit 1.</Text>
+              <Text color="gray">Description du service 3.</Text>
             </div>
           </div>
         </div>

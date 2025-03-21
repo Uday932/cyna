@@ -15,6 +15,7 @@ datasource db {
 
 enum Role{
   USER
+  SUPERADMIN
   ADMIN
   GUEST
 }
