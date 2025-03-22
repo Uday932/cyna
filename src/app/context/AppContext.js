@@ -20,6 +20,7 @@ const cookieOptions = {
 
 export const AppContextProvider = (props) => {
   const [state, setState] = useState(initialState);
+  const [cartItems, setCartItems] = useState([]);
 
   const setSession = useCallback((jwt) => {
     if (!jwt) {
@@ -81,10 +82,26 @@ export const AppContextProvider = (props) => {
     }
   }, [state.session, setSession]);
 
+  const addToCart = (service) => {
+    setCartItems((prevItems) => {
+      const existingItem = prevItems.find((item) => item.id === service.id);
+
+      if (existingItem) {
+        return prevItems.map((item) =>
+          item.id === service.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item,
+        );
+      }
+
+      return [...prevItems, { ...service, quantity: 1 }];
+    });
+  };
+
   return (
     <AppContext.Provider
       {...props}
-      value={{ state, signIn, logOut, setSession }}
+      value={{ state, signIn, logOut, setSession, addToCart, cartItems }}
     />
   );
 };

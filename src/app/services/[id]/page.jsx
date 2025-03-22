@@ -1,16 +1,18 @@
 "use client";
 import apiRoutes from "@/apiUtils/apiRoutes.js";
+import AppContext from "@/app/context/AppContext.js";
 import Button from "@/components/ui/Button.jsx";
 import routes from "@/utils/routes.js";
 import Text from "@@/ui/Text.jsx";
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const Service = () => {
   const params = useParams();
   const [service, setService] = useState([]);
   const [error, setError] = useState(null);
+  const { addToCart, cartItems } = useContext(AppContext);
   const router = useRouter();
 
   useEffect(() => {
@@ -32,6 +34,10 @@ const Service = () => {
 
     getService();
   }, [params.id]);
+
+  const handleAddToCart = () => {
+    addToCart(service);
+  };
 
   if (error) {
     return (
@@ -68,9 +74,7 @@ const Service = () => {
             <span className="font-semibold">{service.maxResources}</span>
           </Text>
           <div className="flex justify-center gap-4">
-            <Button onClick={() => router.push(routes.checkout())}>
-              Ajouter dans le panier
-            </Button>
+            <Button onClick={handleAddToCart}>Ajouter dans le panier</Button>
             <Button onClick={() => router.push(routes.services.all())}>
               Retourner à la liste
             </Button>
