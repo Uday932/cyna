@@ -13,6 +13,9 @@ export default {
         button: "#FF6B00",
         blue: "#2b78e4",
         light: "#F2F2F2",
+        danger: {
+          DEFAULT: "#FF3B30",
+        },
       },
     },
   },

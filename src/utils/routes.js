@@ -2,7 +2,10 @@ const routes = {
   home: () => "/",
   backoffice: () => "/backoffice",
   categories: () => "/categories",
-  products: () => "/products",
+  services: {
+    single: (id) => `/services/${id}`,
+    all: () => "/services",
+  },
   cart: () => "/cart",
   contact: () => "/contact",
   account: () => "/account",

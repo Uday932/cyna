@@ -44,6 +44,7 @@ npm install
 - **PostgreSQL database**
 
   In your `.env` file, set the DATABASE_URL environment variable to point to your database.
+
   ```
   DATABASE_URL="postgresql://username:password@localhost:5432/database_name"
   ```
@@ -54,4 +55,10 @@ After setting up the database and configuring the environment variables, run the
 
 ```bash
 npm run migrate
+```
+
+If you want to add seed data, run the following command:
+
+```bash
+npm run seed
 ```

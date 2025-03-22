@@ -14,9 +14,16 @@ const handler = {
         where: { email },
       });
 
+      if (!user) {
+        return NextResponse.json(
+          { error: "Impossible de se connecter, veuillez réessayer" },
+          { status: 400 },
+        );
+      }
+
       const hashedPasword = hashPassword(password, user.passwordSalt);
 
-      if (!user || user.passwordHash !== hashedPasword) {
+      if (user.passwordHash !== hashedPasword) {
         return NextResponse.json(
           {
             error: "Mot de passe incorrect, veuillez réessayer.",
