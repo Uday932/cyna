@@ -1,3 +1,4 @@
+import { getTokenData } from "@/apiUtils/apiUtils.js";
 import prisma from "@/apiUtils/prisma-client.js";
 import config from "@/utils/config.js";
 import jwt from "jsonwebtoken";
@@ -7,25 +8,10 @@ const handler = {
   GET: async (request) => {
     try {
       const authHeader = request.headers.get("authorization");
+      const decoded = getTokenData(authHeader);
 
-      if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
-      }
-
-      const token = authHeader.split(" ")[1];
-
-      if (!token) {
-        return NextResponse.json({ error: "Token manquant" }, { status: 400 });
-      }
-
-      let decoded;
-
-      try {
-        decoded = jwt.verify(token, config.security.jwt.secret);
-      } catch (jwtError) {
-        console.error("JWT verification error:", jwtError);
-
-        return NextResponse.json({ error: "Token invalide" }, { status: 400 });
+      if (decoded instanceof NextResponse) {
+        return decoded;
       }
 
       const userId = decoded.userId;

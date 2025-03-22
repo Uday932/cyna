@@ -20,7 +20,7 @@ const handler = {
 
       if (userExist) {
         return NextResponse.json(
-          { message: "Une erreur est survenue, veuillez réessayer." },
+          { message: "Impossible de se connecter, veuillez réessayer." },
           { status: 400 },
         );
       }
