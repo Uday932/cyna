@@ -13,6 +13,10 @@ const apiRoutes = {
     update: () => "/api/users",
     single: () => "/api/users",
   },
+  services: {
+    all: () => "/api/services",
+    single: (id) => `/api/services?id=${id}`,
+  },
 };
 
 export default apiRoutes;

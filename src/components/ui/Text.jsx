@@ -11,6 +11,7 @@ const colors = {
   gray: "text-gray-700",
   black: "text-black",
   success: "text-green-500",
+  error: "text-danger",
 };
 
 const tag = {

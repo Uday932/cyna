@@ -29,6 +29,17 @@ model User {
   passwordHash String
   passwordSalt String
   emailVerified Boolean  @default(false)
-  verificationToken String? @default(dbgenerated("NULL"))
+  verificationToken String?
  }
 
+model Service {
+  id           Int   @id @default(autoincrement())
+  name         String
+  summary      String
+  description  String?
+  category     String?
+  price        Decimal  @db.Decimal(10,2)
+  maxResources Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+} 

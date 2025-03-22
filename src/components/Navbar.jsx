@@ -119,11 +119,11 @@ const Navbar = () => {
             </li>
             <li className="py-2">
               <Link
-                href={routes.products()}
+                href={routes.services.all()}
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-gray-300"
               >
-                Produits
+                Services
               </Link>
             </li>
             <li className="py-2">
