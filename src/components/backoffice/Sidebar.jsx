@@ -6,6 +6,9 @@ const Sidebar = () => {
       <h2 className="mb-4 text-lg font-bold">Back-Office</h2>
       <ul>
         <li>
+          <Link href="/backoffice/homepage">Homepage</Link>
+        </li>
+        <li>
           <Link href="/backoffice">Dashboard</Link>
         </li>
         <li>

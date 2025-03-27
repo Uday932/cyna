@@ -2,6 +2,7 @@
 
 import Button from "@@/ui/Button";
 import Text from "@@/ui/Text";
+import TextSection from "@/components/backoffice/TextSection";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
@@ -114,12 +115,7 @@ export default function Home() {
         </Button>
       </section>
       {/* Fixed Text Section */}
-      <section className="w-full bg-secondary px-4 py-16 text-center">
-        <Text size="text" className="mb-8">
-          Mise à jour régulière des messages importants ou des descriptions
-          spécifiques.
-        </Text>
-      </section>
+      <TextSection />
 
       {/* Categories Section */}
       <section className="bg-secondary py-16">
