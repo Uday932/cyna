@@ -1,6 +1,6 @@
 "use client";
-
 import { useEffect, useState } from "react";
+import apiRoutes from "@/apiUtils/apiRoutes";
 import Text from "@@/ui/Text";
 
 export default function TextSection() {

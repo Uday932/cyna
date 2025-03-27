@@ -7,22 +7,24 @@ const Sidebar = () => {
       <h2 className="mb-4 text-lg font-bold">Back-Office</h2>
       <ul>
         <li>
-          <Link href={routes.homepage()}>Homepage</Link>
+          <Link href={routes.backoffice.homepage()}>Homepage</Link>
         </li>
         <li>
-          <Link href="/backoffice">Dashboard</Link>
+          <Link href={routes.backoffice.dashboard()}>Dashboard</Link>
         </li>
         <li>
-          <Link href="/backoffice/users">Utilisateurs</Link>
+          <Link href={routes.backoffice.users()}>Utilisateurs</Link>
         </li>
         <li>
-          <Link href="/backoffice/products">Produits</Link>
+          <Link href={routes.backoffice.services()}>Services</Link>
         </li>
         <li>
-          <Link href="/backoffice/subscriptions">Abonnements</Link>
+          <Link href={routes.backoffice.subscriptions()}>
+            Abonnements
+          </Link>
         </li>
         <li>
-          <Link href="/backoffice/settings">Paramètres</Link>
+          <Link href={routes.backoffice.settings()}>Paramètres</Link>
         </li>
       </ul>
     </div>
