@@ -9,6 +9,10 @@ const apiRoutes = {
     updatePassword: () => "/api/signs/updatePassword",
     signIn: () => "/api/signs/signIn",
   },
+  backoffice:{
+    textSection: () => "/api/backoffice/text-section",
+  },
+
   users: {
     update: () => "/api/users",
     single: () => "/api/users",

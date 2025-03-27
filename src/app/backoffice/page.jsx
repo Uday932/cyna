@@ -3,26 +3,28 @@
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import AppContext from "@/app/context/AppContext.js";
-import Text from "@/components/ui/Text";
+import Text from "@@/ui/Text";
+import routes from "@/utils/routes";
 
 const BackOffice = () => {
   const { state } = useContext(AppContext);
   const router = useRouter();
 
   useEffect(() => {
-    console.log("Role actuel :", state.session?.role);
     if (!state.session || state.session.role !== "ADMIN") {
-      router.push("/"); // Redirige vers la home si l'utilisateur n'est pas admin
+      router.push(routes.home());
     }
   }, [state.session, router]);
 
   if (!state.session || state.session.role !== "ADMIN") {
-    return null; // Évite d'afficher la page avant la redirection
+    return null;
   }
 
   return (
     <div>
-      <Text tag="title">Bienvenue dans le BackOffice</Text>
+      <Text size="title" color="black" style="center">
+        Bienvenue dans le BackOffice
+      </Text>
     </div>
   );
 };

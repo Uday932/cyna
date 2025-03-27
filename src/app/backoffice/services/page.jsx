@@ -1,7 +1,9 @@
 import Text from "@/components/ui/Text";
 const ServicesPage = () => {
   return (
-      <Text tag="title">Gestion des services</Text>
+    <Text size="title" color="black" style="center">
+      Gestion des services
+    </Text>
   );
 };
 

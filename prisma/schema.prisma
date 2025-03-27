@@ -51,3 +51,8 @@ model Service {
   updatedAt    DateTime @updatedAt
   images Json?
 } 
+
+model TextSection  {
+  id    Int    @id @default(autoincrement())
+  content  String
+}
