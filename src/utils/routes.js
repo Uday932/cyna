@@ -1,6 +1,8 @@
 const routes = {
   home: () => "/",
-  backoffice: () => "/backoffice",
+  backoffice: {
+    home: () => "/homepage",
+  },
   categories: () => "/categories",
   services: {
     single: (id) => `/services/${id}`,

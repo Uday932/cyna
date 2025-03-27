@@ -7,7 +7,7 @@ export default function TextSection() {
   const [textData, setTextData] = useState(null);
 
   useEffect(() => {
-    fetch("/api/backoffice/text-section")
+    fetch(apiRoutes.backoffice.textSection())
       .then((res) => res.json())
       .then((data) => setTextData(data))
       .catch((err) => console.error("Erreur chargement texte dynamique", err));
