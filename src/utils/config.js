@@ -19,6 +19,10 @@ const config = {
       minSpecialCar: 1,
     },
   },
+  cart: {
+    cookieName: "cyna_app_cart",
+    maxAge: 60 * 60 * 24 * 7, // cart valid for 7 days
+  },
 };
 
 export default config;
