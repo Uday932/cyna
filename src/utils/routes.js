@@ -1,7 +1,7 @@
 const routes = {
   home: () => "/",
   backoffice: {
-    home: () => "/homepage",
+    homepage: () => "/homepage",
   },
   categories: () => "/categories",
   services: {
