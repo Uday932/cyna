@@ -8,6 +8,7 @@ const colors = {
   success:
     "bg-green-500 active:bg-success/70 transition-transform duration-100 active:scale-95 shadow-md shadow-black",
   none: "",
+  disabled: "bg-gray-400 text-gray-200 cursor-not-allowed shadow-none",
 };
 
 const Button = (props) => {

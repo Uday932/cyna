@@ -1,5 +1,5 @@
 import { validateRouteData } from "@/apiUtils/apiUtils.js";
-import { idValidator } from "@/apiUtils/apiValidators.js";
+import { categoryValidator, idValidator } from "@/apiUtils/apiValidators.js";
 import prisma from "@/apiUtils/prisma-client.js";
 import { NextResponse } from "next/server.js";
 
@@ -8,23 +8,35 @@ const handler = {
     try {
       const url = new URL(request.url);
       const id = url.searchParams.get("id");
+      const category = url.searchParams.get("category");
 
       const validatedData = await validateRouteData(
-        { id: id ? parseInt(id) : undefined },
-        { id: idValidator.optional() },
+        { id: id ? parseInt(id) : undefined, category: category },
+        {
+          id: idValidator.optional(),
+          category: categoryValidator.nullable().optional(),
+        },
       );
 
       if (validatedData instanceof NextResponse) {
         return validatedData;
       }
 
-      const services = id
-        ? await prisma.service.findUnique({
-            where: { id: parseInt(id) },
-          })
-        : await prisma.service.findMany();
+      let services;
 
-      if (!services) {
+      if (id) {
+        services = await prisma.service.findUnique({
+          where: { id: parseInt(id) },
+        });
+      } else if (category) {
+        services = await prisma.service.findMany({
+          where: { category: category },
+        });
+      } else {
+        services = await prisma.service.findMany();
+      }
+
+      if (!services || services.length === 0) {
         return NextResponse.json(
           { error: "Aucun service trouvé." },
           { status: 404 },

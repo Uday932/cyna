@@ -4,6 +4,7 @@ const sizes = {
   title: "text-4xl   uppercase",
   subtitle: "text-3xl capitalize",
   text: "text-lg",
+  items: "text-xs",
 };
 
 const colors = {
@@ -18,6 +19,7 @@ const tag = {
   title: "h1",
   subtitle: "h2",
   text: "p",
+  items: "p",
 };
 
 const Text = (props) => {

@@ -22,6 +22,21 @@ export const AppContextProvider = (props) => {
   const [state, setState] = useState(initialState);
   const [cartItems, setCartItems] = useState([]);
 
+  const updateCartCookie = (cart) => {
+    setCookie(config.cart.cookieName, JSON.stringify(cart), {
+      ...cookieOptions,
+      maxAge: config.cart.maxAge,
+    });
+  };
+
+  useEffect(() => {
+    const storedCart = getCookie(config.cart.cookieName);
+
+    if (storedCart) {
+      setCartItems(JSON.parse(storedCart));
+    }
+  }, []);
+
   const setSession = useCallback((jwt) => {
     if (!jwt) {
       deleteCookie(config.security.session.cookieName);
@@ -82,26 +97,30 @@ export const AppContextProvider = (props) => {
     }
   }, [state.session, setSession]);
 
-  const addToCart = (service) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === service.id);
+  const addToCart = useCallback((service, quantity = 1) => {
+    setCartItems((prevCartItems) => {
+      const updatedCart = [...prevCartItems];
+      const itemIndex = updatedCart.findIndex((item) => item.id === service.id);
 
-      if (existingItem) {
-        return prevItems.map((item) =>
-          item.id === service.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item,
-        );
+      if (itemIndex !== -1) {
+        updatedCart[itemIndex] = {
+          ...updatedCart[itemIndex],
+          quantity: updatedCart[itemIndex].quantity + quantity,
+        };
+      } else {
+        updatedCart.push({ ...service, quantity });
       }
 
-      return [...prevItems, { ...service, quantity: 1 }];
+      updateCartCookie(updatedCart);
+
+      return updatedCart;
     });
-  };
+  }, []);
 
   return (
     <AppContext.Provider
       {...props}
-      value={{ state, signIn, logOut, setSession, addToCart, cartItems }}
+      value={{ state, signIn, logOut, setSession, cartItems, addToCart }}
     />
   );
 };

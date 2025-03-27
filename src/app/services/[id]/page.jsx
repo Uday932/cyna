@@ -1,27 +1,45 @@
 "use client";
 import apiRoutes from "@/apiUtils/apiRoutes.js";
-import AppContext from "@/app/context/AppContext.js";
-import Button from "@/components/ui/Button.jsx";
 import routes from "@/utils/routes.js";
+import ServiceCard from "@@/business/ServiceCard.jsx";
+import ServiceDetailCard from "@@/business/ServiceDetailCard.jsx";
+import Button from "@@/ui/Button.jsx";
 import Text from "@@/ui/Text.jsx";
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const Service = () => {
   const params = useParams();
   const [service, setService] = useState([]);
+  const [serviceSimilar, setServiceSimilar] = useState([]);
   const [error, setError] = useState(null);
-  const { addToCart, cartItems } = useContext(AppContext);
+
   const router = useRouter();
 
   useEffect(() => {
     const getService = async () => {
       setService(null);
+      setServiceSimilar([]);
 
       try {
-        const { data } = await axios.get(apiRoutes.services.single(params.id));
-        setService(data);
+        const { data: serviceData } = await axios.get(
+          apiRoutes.services.single(params.id),
+        );
+        setService(serviceData);
+
+        const category = serviceData.category;
+
+        const { data: similarServices } = await axios.get(
+          apiRoutes.services.similar(category),
+        );
+
+        const filteredSimilarServices = similarServices.filter(
+          (similarService) => similarService.id !== serviceData.id,
+        );
+
+        setServiceSimilar(filteredSimilarServices);
+
         setError(null);
       } catch (error) {
         if (error.response) {
@@ -35,10 +53,6 @@ const Service = () => {
     getService();
   }, [params.id]);
 
-  const handleAddToCart = () => {
-    addToCart(service);
-  };
-
   if (error) {
     return (
       <div className="flex w-full flex-col items-center justify-center gap-4">
@@ -51,36 +65,23 @@ const Service = () => {
   }
 
   return (
-    <div className="w-full p-10">
-      {service && (
-        <div className="mx-auto flex max-w-3xl flex-col gap-4 rounded-lg p-4 shadow-lg">
-          <Text size="subtitle" className="mb-4 bg-primary/50 text-center">
-            {service.name}
-          </Text>
+    <div className="m-10 w-full bg-white/15 shadow-lg">
+      {service && <ServiceDetailCard service={service} />}
 
-          <ul>
-            {service?.description?.split("\n").map((line, index) => (
-              <li key={index} className="text-slate-200">
-                {line}
-              </li>
-            ))}
-          </ul>
+      <div className="m-4 flex flex-col border-t-2 border-white/10 pt-4">
+        <Text
+          size="subtitle"
+          className="rounded bg-primary/50 text-center font-bold"
+        >
+          Services similaires
+        </Text>
 
-          {service.price && (
-            <Text className="text-lg font-bold">{service.price}€</Text>
-          )}
-          <Text className="mb-6">
-            Ressources disponibles :{" "}
-            <span className="font-semibold">{service.maxResources}</span>
-          </Text>
-          <div className="flex justify-center gap-4">
-            <Button onClick={handleAddToCart}>Ajouter dans le panier</Button>
-            <Button onClick={() => router.push(routes.services.all())}>
-              Retourner à la liste
-            </Button>
-          </div>
+        <div className="flex pt-4">
+          {serviceSimilar.map((similarService) => (
+            <ServiceCard service={similarService} key={similarService.id} />
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 };

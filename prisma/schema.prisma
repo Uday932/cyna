@@ -37,9 +37,17 @@ model Service {
   name         String
   summary      String
   description  String?
+  technicalCharacteristics String?
+  companyBenefits String?
   category     String?
-  price        Decimal  @db.Decimal(10,2)
+  monthlyPrice Decimal  @db.Decimal(10,2)
+  annualPrice  Decimal  @db.Decimal(10,2)
+  perUserPrice Decimal  @db.Decimal(10,2)
+  perDevicePrice Decimal  @db.Decimal(10,2)
   maxResources Int
+  availability String  @default("disponible") 
+  usedResources Int @default(0) 
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  images Json?
 } 

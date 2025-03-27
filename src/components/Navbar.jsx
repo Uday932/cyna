@@ -2,6 +2,7 @@
 
 import AppContext from "@/app/context/AppContext.js";
 import routes from "@/utils/routes";
+import Text from "@@/ui/Text.jsx";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation.js";
@@ -9,7 +10,7 @@ import { useContext, useState } from "react";
 import Button from "./ui/Button";
 
 const Navbar = () => {
-  const { state, logOut } = useContext(AppContext);
+  const { state, logOut, cartItems } = useContext(AppContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const router = useRouter();
@@ -58,15 +59,25 @@ const Navbar = () => {
             style={{ transition: "opacity 0.3s ease, transform 0.3s ease" }}
           />
           {/* Cart Icon */}
-          <Link href="/cart">
-            <Image
-              src="/assets/cart.png"
-              alt="Cart"
-              width={40}
-              height={40}
-              priority
-            />
-          </Link>
+          <div className="relative">
+            {cartItems.length > 0 && (
+              <Text
+                size="items"
+                className="absolute -right-3 -top-2 rounded-full bg-danger px-2 py-1"
+              >
+                {cartItems.length}
+              </Text>
+            )}
+            <Link href="/cart">
+              <Image
+                src="/assets/cart.png"
+                alt="Cart"
+                width={40}
+                height={40}
+                priority
+              />
+            </Link>
+          </div>
           {/* Menu Icon */}
           <Button
             onClick={() => setIsMenuOpen(!isMenuOpen)}

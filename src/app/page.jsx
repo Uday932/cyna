@@ -3,6 +3,7 @@
 import Button from "@@/ui/Button";
 import Text from "@@/ui/Text";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image.js";
 import { useState } from "react";
 
 const carouselItems = [
@@ -80,37 +81,26 @@ export default function Home() {
         {/* Navigation */}
         <Button
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black p-3 text-white shadow-lg hover:bg-gray-800"
+          className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black p-3 shadow-lg hover:bg-gray-800"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
+          <Image
+            width={24}
+            height={24}
+            src="/icons/left-arrows.svg"
+            alt="Précédent"
+          />
         </Button>
+
         <Button
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black p-3 text-white shadow-lg hover:bg-gray-800"
+          className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black p-3 shadow-lg hover:bg-gray-800"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M9 18l6-6-6-6" />
-          </svg>
+          <Image
+            width={24}
+            height={24}
+            src="/icons/right-arrows.svg"
+            alt="Suivant"
+          />
         </Button>
       </section>
       {/* Fixed Text Section */}
