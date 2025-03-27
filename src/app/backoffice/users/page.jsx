@@ -1,6 +1,12 @@
+import Text from "@/components/ui/Text";
+
 const UsersPage = () => {
   return (
-      <h1 className="text-2xl font-bold">Gestion des utilisateurs</h1>
+    <div>
+      <Text size="title" color="black" style="center">
+        Gestion des utilisateurs
+      </Text>
+    </div>
   );
 };
 

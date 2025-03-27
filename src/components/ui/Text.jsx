@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 const sizes = {
-  title: "text-4xl   uppercase",
+  title: "text-4xl uppercase",
   subtitle: "text-3xl capitalize",
   text: "text-lg",
 };
@@ -11,7 +11,22 @@ const colors = {
   gray: "text-gray-700",
   black: "text-black",
   success: "text-green-500",
-  error: "text-danger",
+  error: "text-red-500",
+};
+
+const fonts = {
+  title: "font-bold",
+  subtitle: "font-semibold",
+  text: "font-normal",
+};
+
+
+
+const styles = {
+  shadow: "shadow-sm",
+  center: "text-center",
+  left: "text-left",
+  right: "text-right",
 };
 
 const tag = {
@@ -25,6 +40,7 @@ const Text = (props) => {
     as,
     size = "text",
     color = "white",
+    style,
     className,
     children,
     ...otherProps
@@ -34,7 +50,13 @@ const Text = (props) => {
 
   return (
     <Tag
-      className={clsx(colors[color], sizes[size], className)}
+      className={clsx(
+        colors[color],
+        sizes[size],
+        fonts[size],
+        styles[style],
+        className,
+      )}
       {...otherProps}
     >
       {children}

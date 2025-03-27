@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Input from "@/components/ui/Input";
-import Button from "@/components/ui/Button";
+import Input from "@@/ui/Input";
+import Button from "@@/ui/Button";
 import apiRoutes from "@/apiUtils/apiRoutes";
+import Text from "@@/ui/Text";
 
 export default function Homepage() {
   const [text, setText] = useState("");
@@ -15,7 +16,7 @@ export default function Homepage() {
         if (data && data.content) {
           setText(data.content);
         } else {
-          setText(""); // Valeur par défaut pour éviter le crash
+          setText("");
         }
       })
       .catch((error) => console.error("Erreur lors du fetch :", error));
@@ -31,7 +32,7 @@ export default function Homepage() {
 
   return (
     <div>
-      <h2>Modifier la section de texte</h2>
+      <Text size="subtitle" color="black">Modifier la section de texte</Text>
       <Input value={text} onChange={(e) => setText(e.target.value)}></Input>
 
       <Button onClick={handleUpdate}>Enregistrer</Button>
