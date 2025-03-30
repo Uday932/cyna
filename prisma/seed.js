@@ -33,6 +33,7 @@ async function main() {
         perDevicePrice: 20.0,
         maxResources: 20,
         usedResources: 0,
+        priority: 1,
         images: [
           {
             name: "diagnostic_cyber_1",
@@ -66,6 +67,7 @@ async function main() {
         perUserPrice: 12.0,
         perDevicePrice: 18.0,
         maxResources: 20,
+        availability: "UNAVAILABLE",
         usedResources: 0,
         images: [
           {
@@ -173,6 +175,7 @@ async function main() {
         perDevicePrice: 35.0,
         maxResources: 10,
         usedResources: 0,
+        priority: 2,
         images: [
           {
             name: "investigation_1",

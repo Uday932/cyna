@@ -13,11 +13,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role{
+enum Role {
   USER
   SUPERADMIN
   ADMIN
   GUEST
+}
+
+enum AvailabilityStatus {
+  AVAILABLE
+  UNAVAILABLE
+  MAINTENANCE
 }
 
 model User {
@@ -45,8 +51,9 @@ model Service {
   perUserPrice Decimal  @db.Decimal(10,2)
   perDevicePrice Decimal  @db.Decimal(10,2)
   maxResources Int
-  availability String  @default("disponible") 
   usedResources Int @default(0) 
+  availability AvailabilityStatus  @default(AVAILABLE) 
+  priority      Int     @default(0)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   images Json?

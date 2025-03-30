@@ -1,6 +1,3 @@
--- AlterEnum
-ALTER TYPE "Role" ADD VALUE 'SUPERADMIN';
-
 -- CreateTable
 CREATE TABLE "Service" (
     "id" SERIAL NOT NULL,

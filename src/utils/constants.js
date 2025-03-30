@@ -1,0 +1,5 @@
+export const availabilityStatus = {
+  AVAILABLE: "AVAILABLE",
+  UNAVAILABLE: "UNAVAILABLE",
+  MAINTENANCE: "MAINTENANCE",
+};

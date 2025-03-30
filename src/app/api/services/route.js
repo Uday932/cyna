@@ -43,6 +43,23 @@ const handler = {
         );
       }
 
+      if (Array.isArray(services)) {
+        services.sort((a, b) => {
+          const isAExhausted = a.usedResources >= a.maxResources;
+          const isBExhausted = b.usedResources >= b.maxResources;
+
+          if (isAExhausted && !isBExhausted) {
+            return 1;
+          }
+
+          if (!isAExhausted && isBExhausted) {
+            return -1;
+          }
+
+          return b.priority - a.priority;
+        });
+      }
+
       return NextResponse.json(services, { status: 200 });
     } catch (error) {
       console.error(

@@ -1,6 +1,3 @@
--- AlterEnum
-ALTER TYPE "Role" ADD VALUE 'SUPERADMIN';
-
 -- CreateTable
 CREATE TABLE "TextSection" (
     "id" SERIAL NOT NULL,
