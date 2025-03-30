@@ -1,10 +1,12 @@
 "use client";
 import AppContext from "@/app/context/AppContext.js";
 import routes from "@/utils/routes.js";
+import { getServiceAvailability } from "@/utils/utils.js";
 import PricingSection from "@@/business/PricingSection.jsx";
 import ServiceCarousel from "@@/business/ServiceCarousel.jsx";
 import Button from "@@/ui/Button.jsx";
 import Text from "@@/ui/Text.jsx";
+import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
@@ -36,6 +38,8 @@ const ServiceDetailCard = (props) => {
     addToCart(service);
   };
 
+  const { text, color } = getServiceAvailability(service);
+
   return (
     <div className="flex flex-col xl:flex-row">
       <div className="mx-4 flex flex-col gap-4 border-b-2 border-white/10 p-6 xl:border-b-0 xl:border-r-2">
@@ -50,16 +54,11 @@ const ServiceDetailCard = (props) => {
           <ServiceCarousel images={service.images}></ServiceCarousel>
         )}
 
-        <div className="flex text-left">
-          {service.availability === "disponible" ? (
-            <Text color="gray" className="rounded bg-green-500 px-1 text-left">
-              Disponible immédiatement
-            </Text>
-          ) : (
-            <Text className="rounded bg-red-500 px-1 text-left">
-              Service momentanément indisponible
-            </Text>
-          )}
+        <div className="flex flex-col items-start">
+          <Text color="white" className={clsx(`rounded px-1`, color)}>
+            {text}
+          </Text>
+          <Text>{service.price}</Text>
         </div>
 
         <Text>{service.summary}</Text>
@@ -71,10 +70,6 @@ const ServiceDetailCard = (props) => {
         {formatTextToList(
           "Caractéristiques Techniques",
           service.technicalCharacteristics,
-        )}
-
-        {service.price && (
-          <Text className="text-lg font-bold">{service.price}€</Text>
         )}
       </div>
       <div className="mt-4 flex flex-col items-center gap-4 px-10 xl:mt-20">

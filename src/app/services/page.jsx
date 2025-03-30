@@ -14,16 +14,19 @@ const Services = () => {
     const getServices = async () => {
       try {
         setLoading(true);
+
         const { data } = await axios.get(apiRoutes.services.all());
         if (Array.isArray(data)) {
           setServices(data);
         } else {
           setServices([]);
-          console.warn("Les données reçues ne sont pas valides:", data);
         }
       } catch (error) {
-        console.error("Erreur lors de la récupération des services:", error);
-        setError("Une erreur est survenue lors du chargement des services.");
+        if (error.response) {
+          setError(error.response.data.error || "Une erreur est survenue.");
+        } else {
+          setError("Impossible de récupérer le service.");
+        }
       } finally {
         setLoading(false);
       }
