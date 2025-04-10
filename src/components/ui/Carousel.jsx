@@ -1,10 +1,9 @@
 "use client";
 import * as React from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 import Button from "@@/ui/Button";
+import Image from "@@/ui/Image";
 
 const CarouselContext = React.createContext(null);
 
@@ -181,7 +180,12 @@ const CarouselPrevious = React.forwardRef(
         onClick={scrollPrev}
         {...props}
       >
-        <ArrowLeft className="h-4 w-4" />
+        <Image
+          width={24}
+          height={24}
+          src="/icons/left-arrows.svg"
+          alt="Précédent"
+        />
         <span className="sr-only">Previous slide</span>
       </Button>
     );
@@ -209,7 +213,12 @@ const CarouselNext = React.forwardRef(
         onClick={scrollNext}
         {...props}
       >
-        <ArrowRight className="h-4 w-4" />
+        <Image
+          width={24}
+          height={24}
+          src="/icons/right-arrows.svg"
+          alt="Suivant"
+        />
         <span className="sr-only">Next slide</span>
       </Button>
     );
