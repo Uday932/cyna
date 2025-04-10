@@ -10,7 +10,7 @@ import {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
-} from "@@/ui/carousel";
+} from "@@/ui/Carousel";
 
 export default function CarouselSection() {
   const [carouselItems, setCarouselItems] = useState([]);
@@ -48,9 +48,11 @@ export default function CarouselSection() {
               {/* Image à droite */}
               <div className="flex-1">
                 {item.image?.trim() !== "" && (
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.title}
+                    width={500}
+                    height={300}
                     className="h-full w-full object-cover"
                   />
                 )}
