@@ -1,9 +1,0 @@
-{
-  "defaultPrompt": "mobileFirst",
-  "customPrompts": {
-    "mobileFirst": {
-      "prompt": "Tu es un expert en développement web mobile-first. Écris du code en respectant ces règles :\n\n1. Toujours coder pour mobile en premier, puis utiliser des media queries pour les écrans plus grands.\n2. Utiliser Tailwind CSS avec ses breakpoints (`sm:`, `md:`, `lg:`, `xl:`).\n3. Optimiser les performances mobiles : lazy loading, compression des images.\n4. Écrire des composants réutilisables et bien structurés.",
-      "temperature": 0.4
-    }
-  }
-}
