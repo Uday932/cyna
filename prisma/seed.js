@@ -192,6 +192,43 @@ async function main() {
     skipDuplicates: true,
   });
 
+  await prisma.$executeRawUnsafe(
+    'TRUNCATE TABLE "TextSection" RESTART IDENTITY CASCADE;',
+  );
+
+  console.log("Seeding text section...");
+  await prisma.textSection.createMany({
+    data: [
+      {
+        content: "Votre sécurité est notre métier.",
+      },
+    ],
+    skipDuplicates: true,
+  });
+
+  await prisma.$executeRawUnsafe(
+    'TRUNCATE TABLE "CarouselItem" RESTART IDENTITY CASCADE;',
+  );
+
+  console.log("Seeding new carousel item...");
+  await prisma.carouselItem.createMany({
+    data: [
+      {
+        title: "Service 1",
+        description: "descritpion du Service 1",
+        image: "/assets/cyna-white.png",
+        link: "/services/1",
+      },
+      {
+        title: "Service 2",
+        description: "descritpion du Service 2",
+        image: "/assets/cyna-white.png",
+        link: "/services/1",
+      },
+    ],
+    skipDuplicates: true,
+  });
+
   console.log("Seeding completed!");
 }
 
