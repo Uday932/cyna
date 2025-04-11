@@ -1,6 +1,6 @@
 "use client";
 import apiRoutes from "@/apiUtils/apiRoutes.js";
-import config from "@/utils/config.js";
+import appConfig from "@/utils/appConfig.js";
 import UserInfoModal from "@@/business/UserInfoModal.jsx";
 import Button from "@@/ui/Button";
 import Input from "@@/ui/Input.jsx";
@@ -19,7 +19,7 @@ const Account = () => {
       try {
         const conf = {
           headers: {
-            Authorization: `Bearer ${getCookie(config.security.session.cookieName)}`,
+            Authorization: `Bearer ${getCookie(appConfig.security.session.cookieName)}`,
           },
         };
 

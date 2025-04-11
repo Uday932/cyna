@@ -1,6 +1,6 @@
 "use client";
 import apiRoutes from "@/apiUtils/apiRoutes.js";
-import config from "@/utils/config.js";
+import appConfig from "@/utils/appConfig.js";
 import routes from "@/utils/routes.js";
 import {
   emailValidator,
@@ -38,7 +38,7 @@ const UserInfoModal = (props) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const token = getCookie(config.security.session.cookieName);
+    const token = getCookie(appConfig.security.session.cookieName);
 
     if (!token) {
       router.push(routes.signs.signIn());
@@ -51,7 +51,7 @@ const UserInfoModal = (props) => {
     try {
       const conf = {
         headers: {
-          Authorization: `Bearer ${getCookie(config.security.session.cookieName)}`,
+          Authorization: `Bearer ${getCookie(appConfig.security.session.cookieName)}`,
         },
       };
 

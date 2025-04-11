@@ -1,5 +1,5 @@
 import prisma from "@/apiUtils/prisma-client.js";
-import config from "@/utils/config.js";
+import appConfig from "@/utils/appConfig.js";
 import routes from "@/utils/routes.js";
 import jsonwebtoken from "jsonwebtoken";
 import { NextResponse } from "next/server.js";
@@ -24,7 +24,7 @@ const handler = {
 
       const resetToken = jsonwebtoken.sign(
         { userId: user.id },
-        config.security.jwt.secret,
+        appConfig.security.jwt.secret,
         { expiresIn: "1h" },
       );
 

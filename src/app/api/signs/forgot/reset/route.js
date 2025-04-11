@@ -1,6 +1,6 @@
 import { hashPassword } from "@/apiUtils/apiUtils.js";
 import prisma from "@/apiUtils/prisma-client.js";
-import config from "@/utils/config.js";
+import appConfig from "@/utils/appConfig.js";
 import jsonwebtoken from "jsonwebtoken";
 import { NextResponse } from "next/server.js";
 
@@ -12,7 +12,7 @@ const handler = {
 
       const decoded = jsonwebtoken.verify(
         resetToken,
-        config.security.jwt.secret,
+        appConfig.security.jwt.secret,
       );
 
       if (!decoded) {

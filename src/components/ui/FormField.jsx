@@ -1,5 +1,5 @@
 import Input from "@/components/ui/Input.jsx";
-import config from "@/utils/config.js";
+import appConfig from "@/utils/appConfig.js";
 import clsx from "clsx";
 import { ErrorMessage, Field } from "formik";
 
@@ -36,14 +36,16 @@ const FormField = (props) => {
                   <p>Le mot de passe doit contenir :</p>
                   <ul className="list-disc pl-5">
                     <li>
-                      {config.security.password.minLenght} caractères minimum
+                      {appConfig.security.password.minLenght} caractères minimum
                     </li>
                     <li>
-                      {config.security.password.minNbCapLetter} lettre majuscule
+                      {appConfig.security.password.minNbCapLetter} lettre
+                      majuscule
                     </li>
-                    <li>{config.security.password.minNbDigit} chiffre</li>
+                    <li>{appConfig.security.password.minNbDigit} chiffre</li>
                     <li>
-                      {config.security.password.minSpecialCar} caractère spécial
+                      {appConfig.security.password.minSpecialCar} caractère
+                      spécial
                     </li>
                   </ul>
                 </div>
