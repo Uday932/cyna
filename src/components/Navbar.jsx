@@ -1,6 +1,7 @@
 "use client";
 
 import AppContext from "@/app/context/AppContext.js";
+import { ROLES } from "@/utils/constants.js";
 import routes from "@/utils/routes";
 import Text from "@@/ui/Text.jsx";
 import Image from "next/image";
@@ -21,7 +22,7 @@ const Navbar = () => {
     router.push(routes.home());
   };
 
-  const isAdmin = state.user?.role === "ADMIN";
+  const isAdmin = state.user.role === ROLES.ADMIN;
 
   return (
     <nav className="bg-primary py-4 text-white">
@@ -110,7 +111,7 @@ const Navbar = () => {
             {isAdmin && (
               <li className="py-2">
                 <Link
-                  href={routes.backoffice.homepage()}
+                  href={routes.backoffice.home()}
                   onClick={() => setIsMenuOpen(false)}
                   className="hover:text-gray-300"
                 >

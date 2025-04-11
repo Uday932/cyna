@@ -1,11 +1,14 @@
 const routes = {
   home: () => "/",
   backoffice: {
+    home: () => "/backoffice",
     homepage: () => "/backoffice/homepage",
     dashboard: () => "/backoffice/dashboard",
-    dashboardAnalytics: () => "/backoffice/dashboard/analytics",
     users: () => "/backoffice/users",
-    services: () => "/backoffice/services",
+    services: {
+      all: () => "/backoffice/services",
+      edit: (id) => `/backoffice/services/${id}/edit`,
+    },
     subscriptions: () => "/backoffice/subscriptions",
     settings: () => "/backoffice/settings",
   },

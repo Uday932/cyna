@@ -1,8 +1,8 @@
 import { hashPassword } from "@/apiUtils/apiUtils.js";
 import prisma from "@/apiUtils/prisma-client.js";
-import config from "@/utils/config.js";
+import appConfig from "@/utils/appConfig.js";
 import routes from "@/utils/routes.js";
-import "dotenv/config";
+import "dotenv/appConfig";
 import jsonwebtoken from "jsonwebtoken";
 import { NextResponse } from "next/server.js";
 import { randomBytes } from "node:crypto";
@@ -25,7 +25,7 @@ const handler = {
         );
       }
 
-      const salt = randomBytes(config.security.password.saltLength).toString(
+      const salt = randomBytes(appConfig.security.password.saltLength).toString(
         "hex",
       );
       const hashedPasword = hashPassword(password, salt);
@@ -42,9 +42,9 @@ const handler = {
 
       const token = jsonwebtoken.sign(
         { userId: newUser.id },
-        config.security.jwt.secret,
+        appConfig.security.jwt.secret,
         {
-          expiresIn: config.security.jwt.expiresIn,
+          expiresIn: appConfig.security.jwt.expiresIn,
         },
       );
 

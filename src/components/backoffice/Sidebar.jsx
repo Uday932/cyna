@@ -1,31 +1,25 @@
-import Link from "next/link";
+import Link from "@/components/ui/Link.jsx";
+import Text from "@/components/ui/Text.jsx";
+import { backofficePageTitles } from "@/utils/constants.js";
 import routes from "@/utils/routes";
 
 const Sidebar = () => {
   return (
-    <div className="bg-blue-600 h-screen w-64 p-4 text-white">
-      <h2 className="mb-4 text-lg font-bold">Back-Office</h2>
-      <ul>
-        <li>
-          <Link href={routes.backoffice.homepage()}>Homepage</Link>
-        </li>
-        <li>
-          <Link href={routes.backoffice.dashboard()}>Dashboard</Link>
-        </li>
-        <li>
-          <Link href={routes.backoffice.users()}>Utilisateurs</Link>
-        </li>
-        <li>
-          <Link href={routes.backoffice.services()}>Services</Link>
-        </li>
-        <li>
-          <Link href={routes.backoffice.subscriptions()}>
-            Abonnements
-          </Link>
-        </li>
-        <li>
-          <Link href={routes.backoffice.settings()}>Paramètres</Link>
-        </li>
+    <div className="w-auto bg-secondary p-4">
+      <Link href={routes.backoffice.home()}>
+        <Text as="span" size="subtitle">
+          Back-Office
+        </Text>
+      </Link>
+
+      <ul className="mt-2 flex flex-col gap-2">
+        {Object.entries(backofficePageTitles)
+          .slice(1)
+          .map(([_, { title, pageLink }]) => (
+            <li key={pageLink}>
+              <Link href={pageLink}>{title}</Link>
+            </li>
+          ))}
       </ul>
     </div>
   );

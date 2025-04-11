@@ -1,6 +1,6 @@
 import { getTokenData } from "@/apiUtils/apiUtils.js";
 import prisma from "@/apiUtils/prisma-client.js";
-import config from "@/utils/config.js";
+import appConfig from "@/utils/appConfig.js";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server.js";
 
@@ -70,7 +70,7 @@ const handler = {
       let decoded;
 
       try {
-        decoded = jwt.verify(token, config.security.jwt.secret);
+        decoded = jwt.verify(token, appConfig.security.jwt.secret);
       } catch (jwtError) {
         console.error("JWT verification error:", jwtError);
 
