@@ -1,5 +1,6 @@
 "use client";
 import AppContext from "@/app/context/AppContext.js";
+import { AVAILABILITY_STATUS } from "@/utils/constants.js";
 import routes from "@/utils/routes.js";
 import { getServiceAvailability } from "@/utils/utils.js";
 import PricingSection from "@@/business/PricingSection.jsx";
@@ -45,7 +46,7 @@ const ServiceDetailCard = (props) => {
       <div className="mx-4 flex flex-col gap-4 border-b-2 border-white/10 p-6 xl:border-b-0 xl:border-r-2">
         <Text
           size="title"
-          className="rounded bg-primary/50 text-center font-bold"
+          className="rounded bg-primary/50 p-2 text-center font-bold"
         >
           {service.name}
         </Text>
@@ -77,10 +78,14 @@ const ServiceDetailCard = (props) => {
 
         <Button
           onClick={handleAddService}
-          disabled={service.availability !== "disponible"}
-          color={service.availability === "disponible" ? "button" : "disabled"}
+          disabled={service.availability !== AVAILABILITY_STATUS.AVAILABLE}
+          color={
+            service.availability === AVAILABILITY_STATUS.AVAILABLE
+              ? "button"
+              : "disabled"
+          }
         >
-          {service.availability === "disponible"
+          {service.availability === AVAILABILITY_STATUS.AVAILABLE
             ? "S'ABONNER MAINTENANT"
             : "SERVICE INDISPONIBLE"}
         </Button>
