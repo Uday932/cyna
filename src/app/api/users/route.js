@@ -1,24 +1,23 @@
-import { getTokenData } from "@/apiUtils/apiUtils.js";
+import { validateRouteData } from "@/apiUtils/apiUtils.js";
+import { idValidator } from "@/apiUtils/apiValidators.js";
 import prisma from "@/apiUtils/prisma-client.js";
-import appConfig from "@/utils/appConfig.js";
-import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server.js";
 
 const handler = {
   GET: async (request) => {
     try {
-      const authHeader = request.headers.get("authorization");
-      const decoded = getTokenData(authHeader);
+      const userId = request.headers.get("x-user-id");
 
-      if (decoded instanceof NextResponse) {
-        return decoded;
-      }
-
-      const userId = decoded.userId;
+      const validateParams = await validateRouteData(
+        {
+          id: parseInt(userId),
+        },
+        { id: idValidator.required() },
+      );
 
       const user = await prisma.user.findUnique({
         where: {
-          id: userId,
+          id: validateParams.id,
         },
         select: {
           firstName: true,
@@ -40,7 +39,7 @@ const handler = {
       return NextResponse.json(user, { status: 200 });
     } catch (error) {
       console.error(
-        "Erreur updating password:",
+        "Erreur mise à jour mot de passe :",
         error instanceof Error ? error : new Error(error),
       );
 
@@ -55,33 +54,18 @@ const handler = {
       const body = await request.json();
       const { firstName, lastName, email } = body;
 
-      const authHeader = request.headers.get("authorization");
+      const userId = request.headers.get("x-user-id");
 
-      if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
-      }
-
-      const token = authHeader.split(" ")[1];
-
-      if (!token) {
-        return NextResponse.json({ error: "Token manquant" }, { status: 400 });
-      }
-
-      let decoded;
-
-      try {
-        decoded = jwt.verify(token, appConfig.security.jwt.secret);
-      } catch (jwtError) {
-        console.error("JWT verification error:", jwtError);
-
-        return NextResponse.json({ error: "Token invalide" }, { status: 400 });
-      }
-
-      const userId = decoded.userId;
+      const validatedParams = await validateRouteData(
+        { id: parseInt(userId) },
+        {
+          id: idValidator.required(),
+        },
+      );
 
       const user = await prisma.user.findUnique({
         where: {
-          id: userId,
+          id: validatedParams.id,
         },
       });
 
@@ -99,7 +83,7 @@ const handler = {
           where: { email },
         });
 
-        if (existingUser && existingUser.id !== userId) {
+        if (existingUser && existingUser.id !== validatedParams.id) {
           return NextResponse.json(
             {
               error:
@@ -111,7 +95,7 @@ const handler = {
       }
 
       await prisma.user.update({
-        where: { id: userId },
+        where: { id: validatedParams.id },
         data: {
           firstName: firstName,
           lastName: lastName,
@@ -121,14 +105,13 @@ const handler = {
 
       return NextResponse.json(
         {
-          message:
-            "Les informations de votre compte ont été mises à jour avec succès.",
+          message: "Vos informations ont bien été modifiées.",
         },
         { status: 200 },
       );
     } catch (error) {
       console.error(
-        "Erreur updating password:",
+        "Erreur mise à jour du profil:",
         error instanceof Error ? error : new Error(error),
       );
 

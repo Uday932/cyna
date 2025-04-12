@@ -1,12 +1,10 @@
 "use client";
 import apiRoutes from "@/apiUtils/apiRoutes.js";
-import appConfig from "@/utils/appConfig.js";
 import UserInfoModal from "@@/business/UserInfoModal.jsx";
 import Button from "@@/ui/Button";
 import Input from "@@/ui/Input.jsx";
 import Text from "@@/ui/Text";
 import axios from "axios";
-import { getCookie } from "cookies-next/client";
 import { useEffect, useState } from "react";
 
 const Account = () => {
@@ -17,13 +15,7 @@ const Account = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const conf = {
-          headers: {
-            Authorization: `Bearer ${getCookie(appConfig.security.session.cookieName)}`,
-          },
-        };
-
-        const { data } = await axios(apiRoutes.users.single(), conf);
+        const { data } = await axios(apiRoutes.users.single());
 
         setUser(data);
       } catch (error) {
