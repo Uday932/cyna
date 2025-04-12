@@ -50,3 +50,7 @@ export const isJwtExpired = (token) => {
     return true;
   }
 };
+
+export const normalizeImageNames = (images) => {
+  return images.map((image) => image.replace(/[^\w.-]/g, "_").toLowerCase());
+};

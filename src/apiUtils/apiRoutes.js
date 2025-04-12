@@ -9,8 +9,11 @@ const apiRoutes = {
     updatePassword: () => "/api/signs/updatePassword",
     signIn: () => "/api/signs/signIn",
   },
-
   backoffice: {
+    services: {
+      edit: (id) => `/api/backoffice/services/${id}`,
+      manageImages: (id) => `/api/backoffice/services/manageImages/${id}`,
+    },
     textSection: () => "/api/backoffice/text-section",
     carousel: (id) => `/api/backoffice/carousel/${id}`,
     createCarousel: () => "/api/backoffice/carousel",

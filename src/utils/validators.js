@@ -1,3 +1,4 @@
+import { AVAILABILITY_STATUS } from "@/utils/constants.js";
 import * as yup from "yup";
 
 export const firstNameValidator = yup
@@ -15,6 +16,17 @@ export const emailValidator = yup.string().email("Adresse e-mail invalide");
 export const passwordValidator = yup
   .string()
   .matches(/^(?=.*[^\p{L}0-9])(?=.*[0-9])(?=.*\p{Lu})(?=.*\p{Ll}).{8,}$/u, "-"); // Don't change the message for this because it's managed in FormField
+
+export const integerValidator = (min = 1) => {
+  return yup
+    .number()
+    .typeError("Doit être un nombre")
+    .min(min, `doit être >= ${min}`);
+};
+
+export const availabilityValidator = yup
+  .mixed()
+  .oneOf(Object.values(AVAILABILITY_STATUS), "Statut non valide");
 
 export const stringValidator = (
   label,

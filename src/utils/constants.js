@@ -41,3 +41,11 @@ export const ROLES = {
   ADMIN: "ADMIN",
   USER: "USER",
 };
+
+export const CURRENCY_SYMBOL = "€";
+
+export const AVAILABILITY_STATUS = {
+  AVAILABLE: "AVAILABLE",
+  UNAVAILABLE: "UNAVAILABLE",
+  MAINTENANCE: "MAINTENANCE",
+};
