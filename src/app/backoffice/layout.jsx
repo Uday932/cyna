@@ -18,7 +18,7 @@ const BackOfficeLayout = ({ children }) => {
 
   const showBackButton = pathname !== routes.backoffice.home();
 
-  const isEditingService = /^\/backoffice\/services\/[^/]+\/edit$/.test(
+  const isEditingService = /^\/backoffice\/services\/edit\/[^/]+$/.test(
     pathname,
   );
 

@@ -40,7 +40,3 @@ export async function middleware(request) {
     return NextResponse.redirect(new URL(routes.signs.signIn(), request.url));
   }
 }
-
-export const config = {
-  matcher: protectedRoutes.map(({ path }) => `${path}/**`),
-};

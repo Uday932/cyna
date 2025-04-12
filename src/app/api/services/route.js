@@ -1,6 +1,7 @@
 import { validateRouteData } from "@/apiUtils/apiUtils.js";
-import { categoryValidator, idValidator } from "@/apiUtils/apiValidators.js";
+import { idValidator, stringValidator } from "@/apiUtils/apiValidators.js";
 import prisma from "@/apiUtils/prisma-client.js";
+import { AVAILABILITY_STATUS } from "@/utils/constants.js";
 import { NextResponse } from "next/server.js";
 
 const handler = {
@@ -10,27 +11,29 @@ const handler = {
       const id = url.searchParams.get("id");
       const category = url.searchParams.get("category");
 
-      const validatedData = await validateRouteData(
+      const valide = await validateRouteData(
         { id: id ? parseInt(id) : undefined, category: category },
         {
           id: idValidator.optional(),
-          category: categoryValidator.nullable().optional(),
+          category: stringValidator("category", {
+            nullable: true,
+          }).notRequired(),
         },
       );
 
-      if (validatedData instanceof NextResponse) {
-        return validatedData;
+      if (valide instanceof NextResponse) {
+        return valide;
       }
 
       let services;
 
-      if (id) {
+      if (valide.id) {
         services = await prisma.service.findUnique({
-          where: { id: parseInt(id) },
+          where: { id: valide.id },
         });
-      } else if (category) {
+      } else if (valide.category) {
         services = await prisma.service.findMany({
-          where: { category: category },
+          where: { category: valide.category },
         });
       } else {
         services = await prisma.service.findMany();
@@ -44,26 +47,42 @@ const handler = {
       }
 
       if (Array.isArray(services)) {
-        services.sort((a, b) => {
-          const isAExhausted = a.usedResources >= a.maxResources;
-          const isBExhausted = b.usedResources >= b.maxResources;
+        const serviceAvailable = services.filter(
+          (s) =>
+            s.availability === AVAILABILITY_STATUS.AVAILABLE &&
+            s.usedResources < s.maxResources,
+        );
 
-          if (isAExhausted && !isBExhausted) {
-            return 1;
+        const serviceUnavailable = services.filter(
+          (s) => s.availability !== AVAILABILITY_STATUS.AVAILABLE,
+        );
+
+        serviceAvailable.sort((a, b) => {
+          const aHasPriority = typeof a.priority === "number";
+          const bHasPriority = typeof b.priority === "number";
+
+          if (aHasPriority && bHasPriority) {
+            return b.priority - a.priority;
           }
 
-          if (!isAExhausted && isBExhausted) {
+          if (aHasPriority) {
             return -1;
           }
 
-          return b.priority - a.priority;
+          if (bHasPriority) {
+            return 1;
+          }
+
+          return 0;
         });
+
+        services = [...serviceAvailable, ...serviceUnavailable];
       }
 
       return NextResponse.json(services, { status: 200 });
     } catch (error) {
       console.error(
-        "Erreur updating password:",
+        "Erreur de récupération de service(s):",
         error instanceof Error ? error : new Error(error),
       );
 

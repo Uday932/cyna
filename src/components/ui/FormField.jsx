@@ -1,5 +1,7 @@
-import Input from "@/components/ui/Input.jsx";
 import appConfig from "@/utils/appConfig.js";
+import { AVAILABILITY_STATUS } from "@/utils/constants.js";
+import Input from "@@/ui/Input.jsx";
+import Text from "@@/ui/Text.jsx";
 import clsx from "clsx";
 import { ErrorMessage, Field } from "formik";
 
@@ -9,24 +11,51 @@ const FormField = (props) => {
     className,
     placeholder = "",
     type = "text",
+    as,
+    label,
     ...otherProps
   } = props;
 
   return (
     <div className="flex flex-col">
-      <Field name={name}>
-        {({ field, meta }) => (
-          <Input
-            {...field}
-            type={type}
-            placeholder={placeholder}
-            className={clsx(className, {
-              "border-red-500": meta.touched && meta.error,
-            })}
-            {...otherProps}
-          />
-        )}
-      </Field>
+      {as === "select" ? (
+        <>
+          <Text as="label" htmlFor="availability">
+            {label}
+          </Text>
+          <Field
+            as="select"
+            name="availability"
+            className="rounded-lg border p-3"
+          >
+            {Object.entries(AVAILABILITY_STATUS).map(([key, value]) => (
+              <option key={key} value={value}>
+                {key === "AVAILABLE"
+                  ? "Disponible"
+                  : key === "UNAVAILABLE"
+                    ? "Indisponible"
+                    : "Maintenance"}
+              </option>
+            ))}
+          </Field>{" "}
+        </>
+      ) : (
+        <Field name={name}>
+          {({ field, meta }) => (
+            <Input
+              {...field}
+              type={type}
+              placeholder={placeholder}
+              className={clsx(className, {
+                "border-red-500": meta.touched && meta.error,
+              })}
+              as={as}
+              label={label}
+              {...otherProps}
+            />
+          )}
+        </Field>
+      )}
       <div className="min-h-[25px] text-clip text-sm text-red-500">
         <ErrorMessage name={name}>
           {(msg) => {
