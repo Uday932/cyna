@@ -1,9 +1,7 @@
-import { hashPassword } from "@/apiUtils/apiUtils.js";
+import { hashPassword, signJwtToken } from "@/apiUtils/apiUtils.js";
 import prisma from "@/apiUtils/prisma-client.js";
 import appConfig from "@/utils/appConfig.js";
 import routes from "@/utils/routes.js";
-import "dotenv/appConfig";
-import jsonwebtoken from "jsonwebtoken";
 import { NextResponse } from "next/server.js";
 import { randomBytes } from "node:crypto";
 import nodemailer from "nodemailer";
@@ -40,13 +38,7 @@ const handler = {
         },
       });
 
-      const token = jsonwebtoken.sign(
-        { userId: newUser.id },
-        appConfig.security.jwt.secret,
-        {
-          expiresIn: appConfig.security.jwt.expiresIn,
-        },
-      );
+      const token = await signJwtToken({ userId: newUser.id });
 
       await prisma.user.update({
         where: { id: newUser.id },

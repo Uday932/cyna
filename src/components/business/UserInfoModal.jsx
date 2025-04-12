@@ -49,42 +49,36 @@ const UserInfoModal = (props) => {
     setError(null);
 
     try {
-      const conf = {
-        headers: {
-          Authorization: `Bearer ${getCookie(appConfig.security.session.cookieName)}`,
-        },
-      };
-
       let msg = "";
 
       if (values.newPassword) {
-        const { data } = await axios.patch(
-          apiRoutes.signs.updatePassword(),
-          {
-            oldPassword: values.actualPassword,
-            newPassword: values.newPassword,
-          },
-          conf,
-        );
+        const { data } = await axios.patch(apiRoutes.signs.updatePassword(), {
+          oldPassword: values.actualPassword,
+          newPassword: values.newPassword,
+        });
 
-        msg = data.message + " - ";
+        msg = data.message;
       }
 
-      const { data } = await axios.patch(
-        apiRoutes.users.update(),
-        {
+      if (
+        values.firstName !== user.firstName ||
+        values.lastName !== user.lastName ||
+        values.email !== user.email
+      ) {
+        const { data } = await axios.patch(apiRoutes.users.update(), {
           firstName: values.firstName,
           lastName: values.lastName,
           email: values.email,
-        },
-        conf,
-      );
+        });
 
-      setMessageSucces(msg + data.message);
+        msg += values.newPassword ? " - " + data.message : data.message;
+      }
+
+      setMessageSucces(msg);
       onClose();
     } catch (error) {
       if (error.response) {
-        setError("Une erreur est survenue. Veuillez réessayer.");
+        setError(error.response.data.error);
       } else if (error.request) {
         setError(
           "Le serveur est actuellement hors ligne. Veuillez réessayer plus tard.",

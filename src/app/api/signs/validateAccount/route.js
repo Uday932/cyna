@@ -1,6 +1,5 @@
 import prisma from "@/apiUtils/prisma-client.js";
-import appConfig from "@/utils/appConfig.js";
-import jsonwebtoken from "jsonwebtoken";
+import { verifyJwtToken } from "@/utils/utils.js";
 import { NextResponse } from "next/server";
 
 const handler = {
@@ -9,7 +8,7 @@ const handler = {
       const { searchParams } = new URL(request.url);
       const token = searchParams.get("token");
 
-      const decoded = jsonwebtoken.verify(token, appConfig.security.jwt.secret);
+      const decoded = await verifyJwtToken(token);
 
       if (!token) {
         return NextResponse.json({ error: "Token manquant" }, { status: 400 });

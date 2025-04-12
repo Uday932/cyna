@@ -1,7 +1,5 @@
-import { hashPassword } from "@/apiUtils/apiUtils.js";
+import { hashPassword, signJwtToken } from "@/apiUtils/apiUtils.js";
 import prisma from "@/apiUtils/prisma-client.js";
-import appConfig from "@/utils/appConfig.js";
-import jsonwebtoken from "jsonwebtoken";
 import { NextResponse } from "next/server.js";
 
 const handler = {
@@ -32,11 +30,7 @@ const handler = {
         );
       }
 
-      const jwt = jsonwebtoken.sign(
-        { userId: user.id, role: user.role },
-        appConfig.security.jwt.secret,
-        { expiresIn: appConfig.security.jwt.expiresIn },
-      );
+      const jwt = await signJwtToken({ userId: user.id, role: user.role });
 
       return NextResponse.json(
         { message: "Connexion réussie", jwt },
