@@ -1,14 +1,39 @@
 import { PrismaClient } from "@prisma/client";
+import { randomBytes, scryptSync } from "node:crypto";
+
+import appConfig from "../src/utils/appConfig.js";
 
 const prisma = new PrismaClient();
 
+const hashPassword = (password, salt) => {
+  const hash = scryptSync(
+    password,
+    salt,
+    appConfig.security.password.hashLength,
+  ).toString("hex");
+
+  return `${salt}$${hash}`;
+};
+
 async function main() {
-  console.log("Deleting existing services...");
-  await prisma.$executeRawUnsafe(
-    'TRUNCATE TABLE "Service" RESTART IDENTITY CASCADE;',
-  );
+  if (process.env.NODE_ENV !== "production") {
+    console.log("Deleting existing data...");
+
+    await prisma.$executeRawUnsafe(
+      'TRUNCATE TABLE "Service" RESTART IDENTITY CASCADE;',
+    );
+
+    await prisma.$executeRawUnsafe(
+      'TRUNCATE TABLE "User" RESTART IDENTITY CASCADE;',
+    );
+
+    await prisma.$executeRawUnsafe(
+      'TRUNCATE TABLE "TextSection" RESTART IDENTITY CASCADE;',
+    );
+  }
 
   console.log("Seeding new services...");
+
   await prisma.service.createMany({
     data: [
       {
@@ -35,15 +60,9 @@ async function main() {
         usedResources: 0,
         priority: 1,
         images: [
-          {
-            name: "diagnostic_cyber_1",
-          },
-          {
-            name: "diagnostic_cyber_2",
-          },
-          {
-            name: "diagnostic_cyber_3",
-          },
+          "diagnostic_cyber_1",
+          "diagnostic_cyber_2",
+          "diagnostic_cyber_3",
         ],
       },
       {
@@ -69,17 +88,7 @@ async function main() {
         maxResources: 20,
         availability: "UNAVAILABLE",
         usedResources: 0,
-        images: [
-          {
-            name: "test_intrusion_1",
-          },
-          {
-            name: "test_intrusion_2",
-          },
-          {
-            name: "test_intrusion_3",
-          },
-        ],
+        images: ["test_intrusion_1", "test_intrusion_2", "test_intrusion_3"],
       },
       {
         name: "Micro SOC",
@@ -104,18 +113,9 @@ async function main() {
         perUserPrice: 20.0,
         perDevicePrice: 25.0,
         maxResources: 20,
+        availability: "MAINTENANCE",
         usedResources: 0,
-        images: [
-          {
-            name: "micro_soc_1",
-          },
-          {
-            name: "micro_soc_2",
-          },
-          {
-            name: "micro_soc_3",
-          },
-        ],
+        images: ["micro_soc_1", "micro_soc_2", "micro_soc_3"],
       },
       {
         name: "SOC Managé",
@@ -140,19 +140,8 @@ async function main() {
         perDevicePrice: 30.0,
         maxResources: 20,
         usedResources: 0,
-        images: [
-          {
-            name: "soc_manage_1",
-          },
-          {
-            name: "soc_manage_2",
-          },
-          {
-            name: "soc_manage_3",
-          },
-        ],
+        images: ["soc_manage_1", "soc_manage_2", "soc_manage_3"],
       },
-
       {
         name: "Investigation, éradication, remédiation",
         summary:
@@ -176,20 +165,37 @@ async function main() {
         maxResources: 10,
         usedResources: 0,
         priority: 2,
-        images: [
-          {
-            name: "investigation_1",
-          },
-          {
-            name: "investigation_2",
-          },
-          {
-            name: "investigation_3",
-          },
-        ],
+        images: ["investigation_1", "investigation_2", "investigation_3"],
       },
     ],
     skipDuplicates: true,
+  });
+
+  console.log("Seeding users ...");
+
+  const salt = randomBytes(appConfig.security.password.saltLength).toString(
+    "hex",
+  );
+
+  const hashedPasword = hashPassword("123Admin*", salt);
+
+  await prisma.user.create({
+    data: {
+      firstName: "Admin",
+      lastName: "MUUDMA",
+      email: "muudma.solutions@gmail.com",
+      role: "ADMIN",
+      passwordHash: hashedPasword,
+      passwordSalt: salt,
+      emailVerified: true,
+      verificationToken: null,
+    },
+  });
+
+  console.log("Seeding text section...");
+
+  await prisma.textSection.create({
+    data: { content: "Votre sécurité est notre métier." },
   });
 
   console.log("Seeding completed!");
