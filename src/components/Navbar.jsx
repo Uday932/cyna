@@ -110,7 +110,7 @@ const Navbar = () => {
             {isAdmin && (
               <li className="py-2">
                 <Link
-                  href={routes.backoffice.homepage()}
+                  href={routes.backoffice.homepage.home()}
                   onClick={() => setIsMenuOpen(false)}
                   className="hover:text-gray-300"
                 >
