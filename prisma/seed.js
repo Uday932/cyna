@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { randomBytes, scryptSync } from "node:crypto";
-
 import appConfig from "../src/utils/appConfig.js";
 
 const prisma = new PrismaClient();
@@ -29,6 +28,10 @@ async function main() {
 
     await prisma.$executeRawUnsafe(
       'TRUNCATE TABLE "TextSection" RESTART IDENTITY CASCADE;',
+    );
+
+    await prisma.$executeRawUnsafe(
+      'TRUNCATE TABLE "CarouselItem" RESTART IDENTITY CASCADE;',
     );
   }
 
@@ -171,10 +174,6 @@ async function main() {
     skipDuplicates: true,
   });
 
-  await prisma.$executeRawUnsafe(
-    'TRUNCATE TABLE "TextSection" RESTART IDENTITY CASCADE;',
-  );
-
   console.log("Seeding text section...");
   await prisma.textSection.createMany({
     data: [
@@ -184,10 +183,6 @@ async function main() {
     ],
     skipDuplicates: true,
   });
-
-  await prisma.$executeRawUnsafe(
-    'TRUNCATE TABLE "CarouselItem" RESTART IDENTITY CASCADE;',
-  );
 
   console.log("Seeding new carousel item...");
   await prisma.carouselItem.createMany({
