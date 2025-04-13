@@ -4,11 +4,13 @@ import AppContext from "@/app/context/AppContext.js";
 import { ROLES } from "@/utils/constants.js";
 import routes from "@/utils/routes";
 import Text from "@@/ui/Text.jsx";
+import Button from "./ui/Button";
+import Input from "./ui/Input";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation.js";
 import { useContext, useState } from "react";
-import Button from "./ui/Button";
+
 
 const Navbar = () => {
   const { state, logOut, cartItems } = useContext(AppContext);
@@ -53,7 +55,7 @@ const Navbar = () => {
             />
           </Button>
           {/* Search Input */}
-          <input
+          <Input
             type="text"
             placeholder="Rechercher des produits..."
             className={`ml-2 rounded-lg border border-gray-300 px-4 py-2 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-button ${isSearchOpen ? "translate-x-0 opacity-100" : "pointer-events-none translate-x-[-20px] opacity-0"}`}

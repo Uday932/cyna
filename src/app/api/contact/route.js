@@ -12,7 +12,6 @@ const transporter = nodemailer.createTransport({
 export async function POST(request) {
   try {
     const body = await request.json();
-    console.log("Données reçues dans le corps de la requête :", body);
 
     const { name, email, message } = body;
 
@@ -34,11 +33,7 @@ export async function POST(request) {
       text: `Nom : ${name}\nE-mail : ${email}\n\nMessage :\n${message}`,
     };
 
-    console.log("Options d'e-mail préparées :", mailOptions);
-
-    console.log("Tentative d'envoi de l'e-mail...");
     await transporter.sendMail(mailOptions);
-    console.log("E-mail envoyé avec succès.");
 
     return NextResponse.json(
       { message: "Message envoyé avec succès !" },
