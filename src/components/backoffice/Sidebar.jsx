@@ -2,7 +2,6 @@ import { backofficePageTitles } from "@/utils/constants.js";
 import routes from "@/utils/routes";
 import Link from "@@/ui/Link.jsx";
 import Text from "@@/ui/Text.jsx";
-import Link from "next/link";
 
 const Sidebar = () => {
   return (

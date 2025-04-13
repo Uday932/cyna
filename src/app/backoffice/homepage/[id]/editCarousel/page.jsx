@@ -1,5 +1,7 @@
 "use client";
 import apiRoutes from "@/apiUtils/apiRoutes.js";
+import { stringValidator } from "@/utils/validators";
+import Button from "@@/ui/Button";
 import FormField from "@@/ui/FormField.jsx";
 import Text from "@@/ui/Text.jsx";
 import axios from "axios";
@@ -7,8 +9,6 @@ import { Form, Formik } from "formik";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as yup from "yup";
-import { stringValidator } from "@/utils/validators";
-import Button from "@/components/ui/Button";
 
 const editCarouselSchema = yup.object().shape({
   title: stringValidator("title"),
@@ -47,13 +47,16 @@ const EditCarousel = () => {
     setMessage(null);
 
     try {
-      const { data } = await axios.post(apiRoutes.backoffice.carousel(carousel.id), {
-        title: values.title,
-        description: values.description,
-        image: values.image,
-        link: values.link,
-        priority: values.priority,
-      });
+      const { data } = await axios.post(
+        apiRoutes.backoffice.carousel(carousel.id),
+        {
+          title: values.title,
+          description: values.description,
+          image: values.image,
+          link: values.link,
+          priority: values.priority,
+        },
+      );
 
       setMessage(data.message);
     } catch (error) {
@@ -70,7 +73,7 @@ const EditCarousel = () => {
   };
 
   return (
-    <div className="w-full rounded-xl bg-secondary p-4">
+    <div className="w-full rounded-xl">
       <div>
         <Text size="subtitle" className="text-center">
           Modifier le carousel

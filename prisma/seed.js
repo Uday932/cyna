@@ -35,7 +35,7 @@ async function main() {
     );
   }
 
-  console.log("Seeding new services...");
+  console.log("Seeding services...");
 
   await prisma.service.createMany({
     data: [
@@ -174,43 +174,6 @@ async function main() {
     skipDuplicates: true,
   });
 
-  console.log("Seeding text section...");
-  await prisma.textSection.createMany({
-    data: [
-      {
-        content: "Votre sécurité est notre métier.",
-      },
-    ],
-    skipDuplicates: true,
-  });
-
-  console.log("Seeding new carousel item...");
-  await prisma.carouselItem.createMany({
-    data: [
-      {
-        title: "Service 1",
-        description: "descritpion du Service 1",
-        image: "carousel1",
-        link: "/services/1",
-      },
-      {
-        title: "Service 2",
-        description: "descritpion du Service 2",
-        image: "carousel2",
-        link: "/services/2",
-        priority: 1,
-      },
-      {
-        title: "Service 3",
-        description: "descritpion du Service 3",
-        image: "carousel3",
-        link: "/services/3",
-        priority: 2,
-      },
-    ],
-    skipDuplicates: true,
-  });
-
   console.log("Seeding users ...");
 
   const salt = randomBytes(appConfig.security.password.saltLength).toString(
@@ -236,6 +199,34 @@ async function main() {
 
   await prisma.textSection.create({
     data: { content: "Votre sécurité est notre métier." },
+  });
+
+  console.log("Seeding new carousel item...");
+
+  await prisma.carouselItem.createMany({
+    data: [
+      {
+        title: "Service 1",
+        description: "descritpion du Service 1",
+        image: "carousel1",
+        link: "/services/1",
+      },
+      {
+        title: "Service 2",
+        description: "descritpion du Service 2",
+        image: "carousel2",
+        link: "/services/2",
+        priority: 1,
+      },
+      {
+        title: "Service 3",
+        description: "descritpion du Service 3",
+        image: "carousel3",
+        link: "/services/3",
+        priority: 2,
+      },
+    ],
+    skipDuplicates: true,
   });
 
   console.log("Seeding completed!");

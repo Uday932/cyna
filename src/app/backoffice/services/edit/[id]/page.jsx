@@ -1,13 +1,13 @@
 "use client";
 import apiRoutes from "@/apiUtils/apiRoutes.js";
-import ServiceCarouselAdmin from "@/components/business/ServiceCarouselAdmin.jsx";
 import { AVAILABILITY_STATUS, CURRENCY_SYMBOL } from "@/utils/constants.js";
 import {
   availabilityValidator,
   integerValidator,
-  textValdator,
+  stringValidator,
 } from "@/utils/validators.js";
 import ImageUploader from "@@/business/ImageUploader.jsx";
+import ServiceCarouselAdmin from "@@/business/ServiceCarouselAdmin.jsx";
 import FormField from "@@/ui/FormField.jsx";
 import SubmitButton from "@@/ui/SubmitButton.jsx";
 import Text from "@@/ui/Text.jsx";
@@ -18,12 +18,12 @@ import { useEffect, useState } from "react";
 import * as yup from "yup";
 
 const editServiceSchema = yup.object().shape({
-  name: textValdator("nom", 1, 100).required(),
-  summary: textValdator("résumé", 1, 300).required(),
-  description: textValdator("description"),
-  technicalCharacteristics: textValdator("caractéristiques"),
-  companyBenefits: textValdator("avantages"),
-  category: textValdator("catégorie"),
+  name: stringValidator("nom", 1, 100).required(),
+  summary: stringValidator("résumé", 1, 300).required(),
+  description: stringValidator("description"),
+  technicalCharacteristics: stringValidator("caractéristiques"),
+  companyBenefits: stringValidator("avantages"),
+  category: stringValidator("catégorie"),
   monthlyPrice: integerValidator().required("Prix mensuel requis"),
   annualPrice: integerValidator().required("Prix annuel requis"),
   perUserPrice: integerValidator().nullable(),
@@ -142,7 +142,7 @@ const EditService = () => {
   }
 
   return (
-    <div className="w-full rounded-xl bg-secondary p-4">
+    <div className="w-full rounded-xl">
       <div>
         <Text size="subtitle" className="text-center">
           Modifier le service

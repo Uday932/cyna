@@ -1,4 +1,4 @@
-import Text from "@/components/ui/Text.jsx";
+import Text from "@@/ui/Text.jsx";
 import clsx from "clsx";
 import { useEffect } from "react";
 

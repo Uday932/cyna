@@ -1,5 +1,5 @@
-import Button from "@/components/ui/Button.jsx";
-import Image from "@/components/ui/Image.jsx";
+import Button from "@@/ui/Button.jsx";
+import Image from "@@/ui/Image.jsx";
 import clsx from "clsx";
 
 const SubmitButton = (props) => {

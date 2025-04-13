@@ -1,10 +1,10 @@
 "use client";
-import Image from "@/components/ui/Image.jsx";
-import Link from "@/components/ui/Link.jsx";
-import Text from "@/components/ui/Text.jsx";
 import { backofficePageTitles } from "@/utils/constants.js";
 import routes from "@/utils/routes.js";
 import Sidebar from "@@/backoffice/Sidebar";
+import Image from "@@/ui/Image.jsx";
+import Link from "@@/ui/Link.jsx";
+import Text from "@@/ui/Text.jsx";
 import { usePathname } from "next/navigation";
 
 const BackOfficeLayout = ({ children }) => {
@@ -49,10 +49,12 @@ const BackOfficeLayout = ({ children }) => {
           )}
 
           <div className="flex w-full flex-col items-center">
-            <Text size="title">{title}</Text>
+            <Text color="black" size="title">
+              {title}
+            </Text>
           </div>
         </div>
-        {children}
+        <div className="rounded-xl bg-secondary p-2">{children}</div>
       </div>
     </div>
   );

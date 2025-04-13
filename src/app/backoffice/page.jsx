@@ -1,7 +1,7 @@
 "use client";
-import Link from "@/components/ui/Link.jsx";
-import Text from "@/components/ui/Text.jsx";
 import { backofficePageTitles } from "@/utils/constants.js";
+import Link from "@@/ui/Link.jsx";
+import Text from "@@/ui/Text.jsx";
 
 const BackOffice = () => {
   return (
@@ -13,7 +13,7 @@ const BackOffice = () => {
             key={pageLink}
             href={pageLink}
             noUnderline
-            className="rounded-xl bg-secondary p-2 shadow transition-transform duration-100 ease-out hover:scale-105"
+            className="rounded-xl border-2 border-white/50 p-2 shadow transition-transform duration-100 ease-out hover:scale-105"
           >
             <Text as="span">{title}</Text>
           </Link>

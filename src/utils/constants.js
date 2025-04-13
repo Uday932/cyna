@@ -13,7 +13,7 @@ export const backofficePageTitles = {
   },
   homepage: {
     title: "Homepage",
-    pageLink: routes.backoffice.homepage(),
+    pageLink: routes.backoffice.homepage.home(),
   },
   dashboard: {
     title: "Tableau de bord",
