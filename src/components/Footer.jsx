@@ -20,7 +20,7 @@ const Footer = () => {
           </ul>
           <div className="flex space-x-4">
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/cyna-it/"
               target="_blank"
               rel="noopener noreferrer"
             >
