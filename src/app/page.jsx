@@ -1,8 +1,8 @@
 "use client";
 
 import Text from "@@/ui/Text";
-import TextSection from "@/components/backoffice/TextSection";
-import CarouselSection from "@/components/backoffice/CarouselSection";
+import TextSection from "@@/business/homepage/TextSection";
+import CarouselSection from "@@/business/homepage/CarouselSection";
 export default function Home() {
   return (
     <div className="w-full">

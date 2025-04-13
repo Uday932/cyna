@@ -7,7 +7,7 @@ const Sidebar = () => {
       <h2 className="mb-4 text-lg font-bold">Back-Office</h2>
       <ul>
         <li>
-          <Link href={routes.backoffice.homepage()}>Homepage</Link>
+          <Link href={routes.backoffice.homepage.home()}>Homepage</Link>
         </li>
         <li>
           <Link href={routes.backoffice.dashboard()}>Dashboard</Link>
@@ -19,9 +19,7 @@ const Sidebar = () => {
           <Link href={routes.backoffice.services()}>Services</Link>
         </li>
         <li>
-          <Link href={routes.backoffice.subscriptions()}>
-            Abonnements
-          </Link>
+          <Link href={routes.backoffice.subscriptions()}>Abonnements</Link>
         </li>
         <li>
           <Link href={routes.backoffice.settings()}>Paramètres</Link>

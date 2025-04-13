@@ -5,6 +5,7 @@ CREATE TABLE "CarouselItem" (
     "description" TEXT NOT NULL,
     "image" TEXT NOT NULL,
     "link" TEXT NOT NULL,
+    "priority" INTEGER NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

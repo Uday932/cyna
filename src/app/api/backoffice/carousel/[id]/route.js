@@ -1,8 +1,8 @@
 import prisma from "@/apiUtils/prisma-client";
 import { NextResponse } from "next/server";
 
-export async function DELETE(_, { params }) {
-  const { id } = params;
+export async function DELETE(_, context) {
+  const { id } = await context.params;
 
   if (!id || isNaN(Number(id))) {
     return NextResponse.json({ error: "ID invalide" }, { status: 400 });
@@ -24,5 +24,38 @@ export async function DELETE(_, { params }) {
       { error: "Erreur lors de la suppression" },
       { status: 500 },
     );
-  } 
+  }
+}
+
+export async function POST(request, context) {
+  const params = await context.params;
+  const id = params?.id;
+
+  if (!id || isNaN(Number(id))) {
+    return NextResponse.json({ error: "ID invalide" }, { status: 400 });
+  }
+
+  const body = await request.json();
+  const { title, description, image, link } = body;
+
+  try {
+    const updatedCarousel = await prisma.carouselItem.update({
+      where: { id: parseInt(id) },
+      data: {
+        title,
+        description,
+        image,
+        link,
+      },
+    });
+
+    return NextResponse.json({ updatedCarousel }, { status: 200 });
+  } catch (error) {
+    console.error("Erreur Mise à jour carousel:", error);
+
+    return NextResponse.json(
+      { error: "Erreur lors de la mise à jour du carousel" },
+      { status: 500 },
+    );
+  }
 }

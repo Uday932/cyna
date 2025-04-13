@@ -1,7 +1,10 @@
 const routes = {
   home: () => "/",
   backoffice: {
-    homepage: () => "/backoffice/homepage",
+    homepage: {
+      home: () => "/backoffice/homepage",
+      editCarousel:(id)=> `/backoffice/homepage/${id}/editCarousel`
+    },
     dashboard: () => "/backoffice/dashboard",
     dashboardAnalytics: () => "/backoffice/dashboard/analytics",
     users: () => "/backoffice/users",

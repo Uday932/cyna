@@ -1,20 +1,6 @@
 import prisma from "@/apiUtils/prisma-client.js";
 import { NextResponse } from "next/server.js";
 
-export async function GET() {
-  try {
-    const items = await prisma.carouselItem.findMany({
-      orderBy: { id: "asc" },
-    });
-
-    return NextResponse.json(items, { status: 200 });
-  } catch (error) {
-    console.error("Erreur lors de la récupération du carrousel :", error);
-
-    return NextResponse.json({ error: "Erreur interne" }, { status: 500 });
-  }
-}
-
 export async function PUT(req) {
   try {
     const { items } = await req.json();
@@ -53,3 +39,31 @@ export async function PUT(req) {
   }
 }
 
+export async function POST(request) {
+  try {
+    const body = await request.json();
+    const { title, description, image, link } = body;
+
+    if (!title || !description || !image || !link) {
+      return NextResponse.json(
+        { error: "Tous les champs sont requis" },
+        { status: 400 },
+      );
+    }
+
+    const newCarouselItem = await prisma.carouselItem.create({
+      data: {
+        title,
+        description,
+        image,
+        link,
+      },
+    });
+
+    return NextResponse.json({ newCarouselItem }, { status: 201 });
+  } catch (error) {
+    console.error("Erreur lors de la création du carousel :", error);
+
+    return NextResponse.json({ error: "Erreur interne" }, { status: 500 });
+  }
+}
