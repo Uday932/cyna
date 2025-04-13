@@ -1,30 +1,23 @@
 "use client";
-
-import { useContext, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import AppContext from "@/app/context/AppContext.js";
-import Text from "@@/ui/Text";
-import routes from "@/utils/routes";
+import { backofficePageTitles } from "@/utils/constants.js";
+import Link from "@@/ui/Link.jsx";
+import Text from "@@/ui/Text.jsx";
 
 const BackOffice = () => {
-  const { state } = useContext(AppContext);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!state.session || state.session.role !== "ADMIN") {
-      router.push(routes.home());
-    }
-  }, [state.session, router]);
-
-  if (!state.session || state.session.role !== "ADMIN") {
-    return null;
-  }
-
   return (
-    <div>
-      <Text size="title" color="black" style="center">
-        Bienvenue dans le BackOffice
-      </Text>
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {Object.entries(backofficePageTitles)
+        .slice(1)
+        .map(([_, { title, pageLink }]) => (
+          <Link
+            key={pageLink}
+            href={pageLink}
+            noUnderline
+            className="rounded-xl border-2 border-white/50 p-2 shadow transition-transform duration-100 ease-out hover:scale-105"
+          >
+            <Text as="span">{title}</Text>
+          </Link>
+        ))}
     </div>
   );
 };

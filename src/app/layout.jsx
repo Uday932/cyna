@@ -1,6 +1,6 @@
 import { AppContextProvider } from "@/app/context/AppContext.js";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+import Footer from "@@/Footer";
+import Navbar from "@@/Navbar";
 import "./globals.css";
 
 export const metadata = {

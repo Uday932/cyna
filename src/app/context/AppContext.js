@@ -1,6 +1,8 @@
 "use client";
 import apiRoutes from "@/apiUtils/apiRoutes.js";
-import config from "@/utils/config.js";
+import appConfig from "@/utils/appConfig.js";
+import { ROLES } from "@/utils/constants.js";
+import { isJwtExpired, verifyJwtToken } from "@/utils/utils.js";
 import axios from "axios";
 import {
   deleteCookie,
@@ -10,7 +12,7 @@ import {
 } from "cookies-next/client";
 import { createContext, useCallback, useEffect, useState } from "react";
 
-const initialState = { session: null, user: { role: "USER" } };
+const initialState = { session: null, user: { role: ROLES.USER } };
 
 const cookieOptions = {
   secure: process.env.NODE_ENV === "production",
@@ -23,43 +25,52 @@ export const AppContextProvider = (props) => {
   const [cartItems, setCartItems] = useState([]);
 
   const updateCartCookie = (cart) => {
-    setCookie(config.cart.cookieName, JSON.stringify(cart), {
+    setCookie(appConfig.cart.cookieName, JSON.stringify(cart), {
       ...cookieOptions,
-      maxAge: config.cart.maxAge,
+      maxAge: appConfig.cart.maxAge,
     });
   };
 
   useEffect(() => {
-    const storedCart = getCookie(config.cart.cookieName);
+    const storedCart = getCookie(appConfig.cart.cookieName);
 
     if (storedCart) {
       setCartItems(JSON.parse(storedCart));
     }
   }, []);
 
-  const setSession = useCallback((jwt) => {
+  const setSession = useCallback(async (jwt) => {
     if (!jwt) {
-      deleteCookie(config.security.session.cookieName);
-      setState((prev) => ({ ...prev, session: null, user: { role: "USER" } }));
+      deleteCookie(appConfig.security.session.cookieName);
+      setState((prev) => ({
+        ...prev,
+        session: null,
+        user: { role: ROLES.USER },
+      }));
 
       return;
     }
 
-    setCookie(config.security.session.cookieName, jwt, {
+    setCookie(appConfig.security.session.cookieName, jwt, {
       ...cookieOptions,
-      maxAge: config.security.session.maxAge,
+      maxAge: appConfig.security.session.maxAge,
     });
 
     try {
-      const sessionData = JSON.parse(atob(jwt.split(".")[1]));
+      const payload = await verifyJwtToken(jwt);
+
       setState((prev) => ({
         ...prev,
-        session: sessionData,
-        user: { role: sessionData.role },
+        session: { userId: payload.userId },
+        user: { role: payload.role },
       }));
     } catch (error) {
       console.error("JWT parsing error:", error);
-      setState((prev) => ({ ...prev, session: null, user: { role: "USER" } }));
+      setState((prev) => ({
+        ...prev,
+        session: null,
+        user: { role: ROLES.USER },
+      }));
     }
   }, []);
 
@@ -76,13 +87,13 @@ export const AppContextProvider = (props) => {
   );
 
   const logOut = useCallback(() => {
-    if (hasCookie(config.security.session.cookieName)) {
-      deleteCookie(config.security.session.cookieName, cookieOptions);
+    if (hasCookie(appConfig.security.session.cookieName)) {
+      deleteCookie(appConfig.security.session.cookieName, cookieOptions);
 
       setState((state) => ({
         ...state,
         session: null,
-        user: { role: "USER" },
+        user: { role: ROLES.USER },
       }));
 
       return;
@@ -90,11 +101,23 @@ export const AppContextProvider = (props) => {
   }, []);
 
   useEffect(() => {
-    const jwt = getCookie(config.security.session.cookieName);
+    const jwt = getCookie(appConfig.security.session.cookieName);
 
-    if (jwt && !state.session) {
-      setSession(jwt);
+    if (!jwt) {
+      return;
     }
+
+    if (isJwtExpired(jwt)) {
+      deleteCookie(appConfig.security.session.cookieName);
+
+      return;
+    }
+
+    if (state.session) {
+      return;
+    }
+
+    setSession(jwt);
   }, [state.session, setSession]);
 
   const addToCart = useCallback((service, quantity = 1) => {

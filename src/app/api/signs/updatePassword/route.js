@@ -1,6 +1,7 @@
-import { getTokenData, hashPassword } from "@/apiUtils/apiUtils.js";
+import { hashPassword, validateRouteData } from "@/apiUtils/apiUtils.js";
+import { idValidator } from "@/apiUtils/apiValidators.js";
 import prisma from "@/apiUtils/prisma-client.js";
-import config from "@/utils/config.js";
+import appConfig from "@/utils/appConfig.js";
 import { NextResponse } from "next/server.js";
 import { randomBytes } from "node:crypto";
 
@@ -10,18 +11,18 @@ const handler = {
       const body = await request.json();
       const { oldPassword, newPassword } = body;
 
-      const authHeader = request.headers.get("authorization");
-      const decoded = getTokenData(authHeader);
+      const userId = request.headers.get("x-user-id");
 
-      if (decoded instanceof NextResponse) {
-        return decoded;
-      }
-
-      const userId = decoded.userId;
+      const validatedParams = await validateRouteData(
+        { id: parseInt(userId) },
+        {
+          id: idValidator.required(),
+        },
+      );
 
       const user = await prisma.user.findUnique({
         where: {
-          id: userId,
+          id: validatedParams.id,
         },
       });
 
@@ -36,12 +37,12 @@ const handler = {
         );
       }
 
-      const salt = randomBytes(config.security.password.saltLength).toString(
+      const salt = randomBytes(appConfig.security.password.saltLength).toString(
         "hex",
       );
 
       await prisma.user.update({
-        where: { id: userId },
+        where: { id: validatedParams.id },
         data: {
           passwordHash: hashPassword(newPassword, salt),
           passwordSalt: salt,
@@ -49,12 +50,12 @@ const handler = {
       });
 
       return NextResponse.json(
-        { message: "Password updated successfully" },
+        { message: "Mot de passe mis à jour !" },
         { status: 200 },
       );
     } catch (error) {
       console.error(
-        "Erreur updating password:",
+        "Erreur mise à jour moit de passe :",
         error instanceof Error ? error : new Error(error),
       );
 

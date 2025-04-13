@@ -1,7 +1,6 @@
+import { signJwtToken } from "@/apiUtils/apiUtils.js";
 import prisma from "@/apiUtils/prisma-client.js";
-import config from "@/utils/config.js";
 import routes from "@/utils/routes.js";
-import jsonwebtoken from "jsonwebtoken";
 import { NextResponse } from "next/server.js";
 import nodemailer from "nodemailer";
 
@@ -22,11 +21,7 @@ const handler = {
         );
       }
 
-      const resetToken = jsonwebtoken.sign(
-        { userId: user.id },
-        config.security.jwt.secret,
-        { expiresIn: "1h" },
-      );
+      const resetToken = await signJwtToken({ userId: user.id });
 
       await prisma.user.update({
         where: { id: user.id },

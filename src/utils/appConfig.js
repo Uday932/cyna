@@ -1,13 +1,11 @@
-import "dotenv/config.js";
-
-const config = {
+const appConfig = {
   security: {
     session: {
       maxAge: 60 * 60 * 24, // session valid for 24 hours
       cookieName: "cyna_app_session",
     },
     jwt: {
-      secret: process.env.JWT_SECRET,
+      secret: process.env.NEXT_PUBLIC_JWT_SECRET,
       expiresIn: "1 day",
     },
     password: {
@@ -25,4 +23,4 @@ const config = {
   },
 };
 
-export default config;
+export default appConfig;
