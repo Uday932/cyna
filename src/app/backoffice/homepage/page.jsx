@@ -68,7 +68,6 @@ export default function Homepage() {
     try {
       setMessage("");
       setIsError(false);
-      console.log(values.textePrincipal);
 
       const { data } = await axios.patch(apiRoutes.backoffice.textSection(), {
         textePrincipal: values.textePrincipal,

@@ -34,6 +34,8 @@ const apiRoutes = {
     single: (id) => `/api/services?id=${id}`,
     similar: (category) => `/api/services?category=${category}`,
   },
+
+  contact: () => "/api/contact",
 };
 
 export default apiRoutes;

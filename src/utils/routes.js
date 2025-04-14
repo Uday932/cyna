@@ -21,7 +21,6 @@ const routes = {
     all: () => "/services",
   },
   cart: () => "/cart",
-  contact: () => "/contact",
   account: () => "/account",
   signs: {
     signUp: () => "/signs/signUp",
@@ -33,6 +32,7 @@ const routes = {
     },
   },
   mentionLegalesCgu: () => "/mentions-legales-cgu",
+  contact: () => "/contact",
 };
 
 export default routes;

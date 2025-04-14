@@ -1,5 +1,6 @@
 import routes from "@/utils/routes.js";
 import Link from "@@/ui/Link";
+import Image from "./ui/Image";
 
 const Footer = () => {
   return (
@@ -14,17 +15,22 @@ const Footer = () => {
             </li>
 
             <li>
-              <Link href="/contact">Contact</Link>
+              <Link href={routes.contact()}>Contact</Link>
             </li>
           </ul>
           <div className="flex space-x-4">
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/cyna-it/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-700 hover:text-[primary]"
             >
-              LinkedIn
+              <Image
+                src="/icons/linkedin.png"
+                alt="LinkedIn"
+                width={50}
+                height={24}
+                className="transition-opacity hover:opacity-80"
+              />
             </a>
           </div>
         </div>
