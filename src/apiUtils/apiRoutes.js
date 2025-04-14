@@ -11,7 +11,9 @@ const apiRoutes = {
   },
   backoffice: {
     services: {
+      create: () => "/api/backoffice/services",
       edit: (id) => `/api/backoffice/services/${id}`,
+      delete: (id) => `/api/backoffice/services/${id}`,
       manageImages: (id) => `/api/backoffice/services/manageImages/${id}`,
     },
     textSection: () => "/api/backoffice/text-section",
