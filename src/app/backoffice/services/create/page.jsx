@@ -16,12 +16,12 @@ import { useState } from "react";
 import * as yup from "yup";
 
 const createServiceInitialValues = {
-  name: "Test",
-  summary: "Test service",
-  description: "Test description",
-  technicalCharacteristics: "test de technicalCharacteristics",
-  companyBenefits: "test companyBenefits",
-  category: "Cat 1",
+  name: "",
+  summary: "",
+  description: "",
+  technicalCharacteristics: "",
+  companyBenefits: "",
+  category: "",
   monthlyPrice: 1,
   annualPrice: 1,
   perUserPrice: 1,
