@@ -14,7 +14,7 @@ import Text from "@@/ui/Text.jsx";
 import axios from "axios";
 import { Form, Formik } from "formik";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as yup from "yup";
 
 const editServiceSchema = yup.object().shape({
@@ -39,9 +39,8 @@ const EditService = () => {
   const [service, setService] = useState(null);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
-  const [resetUploader, setResetUploader] = useState(false);
-  const [imageFiles, setImageFiles] = useState([]);
   const [imagesToDelete, setImagesToDelete] = useState([]);
+  const uploaderRef = useRef(null);
 
   useEffect(() => {
     const fetchService = async () => {
@@ -57,25 +56,9 @@ const EditService = () => {
     fetchService();
   }, [id]);
 
-  const handleEditService = async (values) => {
+  const handleEditService = async (values, { resetForm, setFieldValue }) => {
     setError(null);
     setMessage(null);
-
-    const imagesHaveChanged = imageFiles.some(
-      (file) => !service.images.includes(file.name),
-    );
-
-    const dataHasChanged = Object.entries(values).some(
-      ([key, val]) => JSON.stringify(service[key]) !== JSON.stringify(val),
-    );
-
-    const hasChanges =
-      dataHasChanged || imagesHaveChanged || imagesToDelete.length > 0;
-
-    if (!hasChanges) {
-      setMessage("Aucune modification détectée.");
-      return;
-    }
 
     let updatedService = { ...service };
 
@@ -88,54 +71,40 @@ const EditService = () => {
           },
         );
 
-        updatedService = data.updatedService || updatedService;
-        setService(updatedService);
+        updatedService = data.updatedService;
       }
 
-      if (imagesHaveChanged && imageFiles.length > 0) {
-        const formData = new FormData();
-        imageFiles.forEach((file) => formData.append("images", file));
+      const formData = new FormData();
 
-        const { data } = await axios.post(
-          apiRoutes.backoffice.services.manageImages(service.id),
-          formData,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          },
-        );
-
-        updatedService = data.updatedService || {
-          ...updatedService,
-          images: [
-            ...new Set([...updatedService.images, ...data.uploadedImages]),
-          ],
-        };
-
-        setService(updatedService);
-      }
-
-      await axios.patch(apiRoutes.backoffice.services.edit(service.id), {
-        ...values,
-        images: updatedService.images,
+      Object.keys(values).forEach((key) => {
+        if (key !== "images") {
+          formData.append(key, values[key]);
+        }
       });
 
-      setService(updatedService);
-      setImageFiles([]);
-      setImagesToDelete([]);
-      setResetUploader(true);
+      values.images?.forEach((file) => formData.append("images", file));
 
-      setTimeout(() => setResetUploader(false), 100);
+      const patchResponse = await axios.patch(
+        apiRoutes.backoffice.services.edit(service.id),
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } },
+      );
+
+      updatedService = patchResponse.data.updatedService;
+
+      setService(updatedService);
+      setImagesToDelete([]);
       setMessage("Service mis à jour avec succès !");
+      resetForm();
+      setFieldValue("images", []);
+      uploaderRef.current?.reset();
     } catch (error) {
-      console.log(error);
       setError(
         error.response?.data?.error ||
           "Une erreur interne s'est produite. Veuillez réessayer.",
       );
     }
   };
-
-  const handleFileChange = (files) => setImageFiles(files);
 
   if (!service) {
     return <Text>Chargement...</Text>;
@@ -156,19 +125,17 @@ const EditService = () => {
         validationSchema={editServiceSchema}
         onSubmit={handleEditService}
       >
-        {({ isSubmitting }) => (
+        {({ setFieldValue, isSubmitting, resetForm }) => (
           <Form className="flex flex-col">
-            {[
-              ["name", "Nom"],
-              ["summary", "Résumé"],
-            ].map(([field, label]) => (
-              <FormField
-                key={field}
-                name={field}
-                label={label}
-                className="w-full"
-              />
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                ["name", "Nom"],
+                ["summary", "Résumé"],
+                ["category", "Catégorie"],
+              ].map(([field, label]) => (
+                <FormField key={field} name={field} label={label} />
+              ))}
+            </div>
 
             {[
               ["description", "Description détaillée"],
@@ -184,31 +151,12 @@ const EditService = () => {
               />
             ))}
 
-            <FormField
-              key="category"
-              name="category"
-              label="Catégorie"
-              className="w-full"
-            />
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4">
               {[
-                ["monthlyPrice", "Prix mensuel"],
-                ["annualPrice", "Prix annuel"],
-                ["perUserPrice", "Prix par utilisateur"],
-                ["perDevicePrice", "Prix par appareil"],
-              ].map(([field, label]) => (
-                <FormField
-                  key={field}
-                  name={field}
-                  label={label + `(${CURRENCY_SYMBOL})`}
-                  type="number"
-                />
-              ))}
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              {[
+                ["monthlyPrice", `Prix mensuel ${CURRENCY_SYMBOL}`],
+                ["annualPrice", `Prix annuel ${CURRENCY_SYMBOL}`],
+                ["perUserPrice", `Prix par utilisateur ${CURRENCY_SYMBOL}`],
+                ["perDevicePrice", `Prix par appareil ${CURRENCY_SYMBOL}`],
                 ["maxResources", "Ressources max"],
                 ["usedResources", "Ressources utilisées"],
               ].map(([field, label]) => (
@@ -219,9 +167,7 @@ const EditService = () => {
                   type="number"
                 />
               ))}
-            </div>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <FormField as="select" name="availability" label="Disponibilité">
                 {Object.entries(AVAILABILITY_STATUS).map(([key, value]) => (
                   <option key={key} value={value}>
@@ -243,19 +189,22 @@ const EditService = () => {
             </div>
 
             <div className="flex flex-col justify-center gap-10">
-              <ServiceCarouselAdmin
-                images={service.images}
-                imagesToDelete={imagesToDelete}
-                setImagesToDelete={setImagesToDelete}
-              />
+              {service.images && (
+                <ServiceCarouselAdmin
+                  images={service.images}
+                  imagesToDelete={imagesToDelete}
+                  setImagesToDelete={setImagesToDelete}
+                />
+              )}
 
               <ImageUploader
-                onFilesChange={handleFileChange}
-                reset={resetUploader}
+                ref={uploaderRef}
+                setFieldValue={setFieldValue}
+                fieldName="images"
               />
             </div>
 
-            <div className="mt-10 flex justify-center">
+            <div className="my-5 flex justify-center">
               <SubmitButton isSubmitting={isSubmitting}>Valider</SubmitButton>
             </div>
           </Form>

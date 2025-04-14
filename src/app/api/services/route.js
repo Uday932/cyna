@@ -50,7 +50,7 @@ const handler = {
         const serviceAvailable = services.filter(
           (s) =>
             s.availability === AVAILABILITY_STATUS.AVAILABLE &&
-            s.usedResources < s.maxResources,
+            s.usedResources <= s.maxResources,
         );
 
         const serviceUnavailable = services.filter(

@@ -69,18 +69,22 @@ const Service = () => {
       {service && <ServiceDetailCard service={service} />}
 
       <div className="m-4 flex flex-col border-t-2 border-white/10 pt-4">
-        <Text
-          size="subtitle"
-          className="rounded bg-primary/50 text-center font-bold"
-        >
-          Services similaires
-        </Text>
+        {serviceSimilar.length > 0 && (
+          <>
+            <Text
+              size="subtitle"
+              className="rounded bg-primary/50 text-center font-bold"
+            >
+              Services similaires
+            </Text>
 
-        <div className="flex pt-4">
-          {serviceSimilar.map((similarService) => (
-            <ServiceCard service={similarService} key={similarService.id} />
-          ))}
-        </div>
+            <div className="flex pt-4">
+              {serviceSimilar.map((similarService) => (
+                <ServiceCard service={similarService} key={similarService.id} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

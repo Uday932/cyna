@@ -13,6 +13,7 @@ const FormField = (props) => {
     type = "text",
     as,
     label,
+    children,
     ...otherProps
   } = props;
 
@@ -28,16 +29,8 @@ const FormField = (props) => {
             name="availability"
             className="rounded-lg border p-3"
           >
-            {Object.entries(AVAILABILITY_STATUS).map(([key, value]) => (
-              <option key={key} value={value}>
-                {key === "AVAILABLE"
-                  ? "Disponible"
-                  : key === "UNAVAILABLE"
-                    ? "Indisponible"
-                    : "Maintenance"}
-              </option>
-            ))}
-          </Field>{" "}
+            {children}
+          </Field>
         </>
       ) : (
         <Field name={name}>

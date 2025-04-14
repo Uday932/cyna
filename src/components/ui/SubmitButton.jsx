@@ -7,7 +7,7 @@ const SubmitButton = (props) => {
   return (
     <div
       className={clsx(
-        "active:bg-success/70 flex flex-row rounded bg-green-500 px-2 shadow-md shadow-black transition-transform duration-100 first-letter:uppercase active:scale-95",
+        "active:bg-success/70 flex flex-row justify-center rounded bg-green-500 px-2 shadow-md shadow-black transition-transform duration-100 active:scale-95",
         className,
       )}
     >
@@ -25,7 +25,6 @@ const SubmitButton = (props) => {
         type="submit"
         disabled={isSubmitting}
         color="none"
-        className=""
         {...otherProps}
       >
         {isSubmitting
