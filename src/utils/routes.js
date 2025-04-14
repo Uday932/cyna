@@ -10,6 +10,8 @@ const routes = {
     users: () => "/backoffice/users",
     services: {
       all: () => "/backoffice/services",
+      single: (id) => `/backoffice/services/${id}`,
+      create: () => "/backoffice/services/create",
       edit: (id) => `/backoffice/services/edit/${id}`,
     },
     subscriptions: () => "/backoffice/subscriptions",

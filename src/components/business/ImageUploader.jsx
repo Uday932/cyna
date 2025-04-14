@@ -1,13 +1,7 @@
 import { normalizeImageNames } from "@/utils/utils.js";
 import Button from "@@/ui/Button.jsx";
 import Image from "@@/ui/Image.jsx";
-import {
-  forwardRef,
-  useCallback,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from "react";
+import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from "react";
 
 const ImageUploader = forwardRef(
   (
