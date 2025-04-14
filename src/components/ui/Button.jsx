@@ -4,7 +4,7 @@ const colors = {
   button:
     "bg-button active:bg-button/70 transition-transform duration-100 active:scale-95 shadow-md shadow-black",
   danger:
-    "bg-red-500 active:bg-danger/70 transition-transform duration-100 active:scale-95 shadow-md shadow-black",
+    "bg-red-500 active:bg-red-500/70 transition-transform duration-100 active:scale-95 shadow-md shadow-black",
   success:
     "bg-green-500 active:bg-success/70 transition-transform duration-100 active:scale-95 shadow-md shadow-black",
   none: "",

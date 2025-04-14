@@ -18,11 +18,11 @@ const BackOfficeLayout = ({ children }) => {
 
   const showBackButton = pathname !== routes.backoffice.home();
 
-  const isEditingService = /^\/backoffice\/services\/edit\/[^/]+$/.test(
-    pathname,
+  const isInServiceSubRoute = pathname.startsWith(
+    routes.backoffice.services.all() + "/",
   );
 
-  const backButtonLink = isEditingService
+  const backButtonLink = isInServiceSubRoute
     ? routes.backoffice.services.all()
     : routes.backoffice.home();
 

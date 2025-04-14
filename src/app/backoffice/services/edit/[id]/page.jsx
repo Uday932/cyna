@@ -158,17 +158,15 @@ const EditService = () => {
       >
         {({ isSubmitting }) => (
           <Form className="flex flex-col">
-            {[
-              ["name", "Nom"],
-              ["summary", "Résumé"],
-            ].map(([field, label]) => (
-              <FormField
-                key={field}
-                name={field}
-                label={label}
-                className="w-full"
-              />
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                ["name", "Nom"],
+                ["summary", "Résumé"],
+                ["category", "Catégorie"],
+              ].map(([field, label]) => (
+                <FormField key={field} name={field} label={label} />
+              ))}
+            </div>
 
             {[
               ["description", "Description détaillée"],
@@ -184,31 +182,12 @@ const EditService = () => {
               />
             ))}
 
-            <FormField
-              key="category"
-              name="category"
-              label="Catégorie"
-              className="w-full"
-            />
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4">
               {[
-                ["monthlyPrice", "Prix mensuel"],
-                ["annualPrice", "Prix annuel"],
-                ["perUserPrice", "Prix par utilisateur"],
-                ["perDevicePrice", "Prix par appareil"],
-              ].map(([field, label]) => (
-                <FormField
-                  key={field}
-                  name={field}
-                  label={label + `(${CURRENCY_SYMBOL})`}
-                  type="number"
-                />
-              ))}
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              {[
+                ["monthlyPrice", `Prix mensuel ${CURRENCY_SYMBOL}`],
+                ["annualPrice", `Prix annuel ${CURRENCY_SYMBOL}`],
+                ["perUserPrice", `Prix par utilisateur ${CURRENCY_SYMBOL}`],
+                ["perDevicePrice", `Prix par appareil ${CURRENCY_SYMBOL}`],
                 ["maxResources", "Ressources max"],
                 ["usedResources", "Ressources utilisées"],
               ].map(([field, label]) => (
@@ -219,9 +198,7 @@ const EditService = () => {
                   type="number"
                 />
               ))}
-            </div>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <FormField as="select" name="availability" label="Disponibilité">
                 {Object.entries(AVAILABILITY_STATUS).map(([key, value]) => (
                   <option key={key} value={value}>
@@ -243,19 +220,22 @@ const EditService = () => {
             </div>
 
             <div className="flex flex-col justify-center gap-10">
-              <ServiceCarouselAdmin
-                images={service.images}
-                imagesToDelete={imagesToDelete}
-                setImagesToDelete={setImagesToDelete}
-              />
+              {service.images && (
+                <ServiceCarouselAdmin
+                  images={service.images}
+                  imagesToDelete={imagesToDelete}
+                  setImagesToDelete={setImagesToDelete}
+                />
+              )}
 
               <ImageUploader
-                onFilesChange={handleFileChange}
-                reset={resetUploader}
+                ref={uploaderRef}
+                setFieldValue={setFieldValue}
+                fieldName="images"
               />
             </div>
 
-            <div className="mt-10 flex justify-center">
+            <div className="my-5 flex justify-center">
               <SubmitButton isSubmitting={isSubmitting}>Valider</SubmitButton>
             </div>
           </Form>

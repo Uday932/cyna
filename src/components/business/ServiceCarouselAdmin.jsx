@@ -29,7 +29,7 @@ const ServiceCarouselAdmin = ({
               src={`${CLOUDINARY_BASE_URL}${decodeURIComponent(img)}`}
               alt={`Image ${idx + 1}`}
               fill
-              className={`h-full w-full object-cover transition ${
+              className={`h-full w-full object-contain transition ${
                 isMarkedForDeletion ? "border-2 border-red-400 opacity-50" : ""
               }`}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
