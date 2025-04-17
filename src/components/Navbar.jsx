@@ -1,22 +1,43 @@
 "use client";
-
 import AppContext from "@/app/context/AppContext.js";
+import appConfig from "@/utils/appConfig.js";
 import { ROLES } from "@/utils/constants.js";
 import routes from "@/utils/routes";
+import LanguageSelector from "@@/business/LanguageSelector.jsx";
+import Image from "@@/ui/Image.jsx";
 import Text from "@@/ui/Text.jsx";
-import Button from "./ui/Button";
-import Input from "./ui/Input";
-import Image from "next/image";
+import { getCookie, setCookie } from "cookies-next/client";
+import { useLocale } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation.js";
-import { useContext, useState } from "react";
-
+import { useContext, useEffect, useState } from "react";
+import Button from "./ui/Button";
+import Input from "./ui/Input";
 
 const Navbar = () => {
   const { state, logOut, cartItems } = useContext(AppContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const router = useRouter();
+  const [locale, setLocale] = useState("");
+  const serverLocale = useLocale();
+
+  useEffect(() => {
+    const cookieLocale = getCookie(appConfig.locales.cookieName);
+
+    if (cookieLocale) {
+      setLocale(cookieLocale);
+    } else {
+      setLocale(serverLocale);
+      setCookie(appConfig.locales.cookieName, serverLocale);
+    }
+  }, [router, locale]);
+
+  const changeLocale = (newLocal) => {
+    setLocale(newLocal);
+    setCookie(appConfig.locales.cookieName, newLocal);
+    router.refresh();
+  };
 
   const handleLogOut = () => {
     logOut();
@@ -40,8 +61,8 @@ const Navbar = () => {
             />
           </Link>
         </div>
+
         <div className="ml-auto flex items-center gap-4">
-          {/* Search Icon */}
           <Button
             onClick={() => setIsSearchOpen(!isSearchOpen)}
             color="transparent"
@@ -54,14 +75,16 @@ const Navbar = () => {
               priority
             />
           </Button>
-          {/* Search Input */}
+
           <Input
             type="text"
             placeholder="Rechercher des produits..."
             className={`ml-2 rounded-lg border border-gray-300 px-4 py-2 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-button ${isSearchOpen ? "translate-x-0 opacity-100" : "pointer-events-none translate-x-[-20px] opacity-0"}`}
             style={{ transition: "opacity 0.3s ease, transform 0.3s ease" }}
           />
-          {/* Cart Icon */}
+
+          <LanguageSelector handleClick={changeLocale} currentLocale={locale} />
+
           <div className="relative">
             {cartItems.length > 0 && (
               <Text
@@ -81,7 +104,7 @@ const Navbar = () => {
               />
             </Link>
           </div>
-          {/* Menu Icon */}
+
           <Button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             color="transparent"
@@ -97,7 +120,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Side Menu */}
       {isMenuOpen && (
         <div
           className="fixed left-0 top-0 z-40 size-full bg-gray-700 opacity-30"

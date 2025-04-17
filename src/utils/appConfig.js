@@ -1,4 +1,11 @@
 const appConfig = {
+  cart: {
+    cookieName: "cyna_app_cart",
+    maxAge: 60 * 60 * 24 * 7, // cart valid for 7 days
+  },
+  locales: {
+    cookieName: "CYNA_APP_LOCALE",
+  },
   security: {
     session: {
       maxAge: 60 * 60 * 24, // session valid for 24 hours
@@ -16,10 +23,6 @@ const appConfig = {
       minNbDigit: 1,
       minSpecialCar: 1,
     },
-  },
-  cart: {
-    cookieName: "cyna_app_cart",
-    maxAge: 60 * 60 * 24 * 7, // cart valid for 7 days
   },
 };
 
