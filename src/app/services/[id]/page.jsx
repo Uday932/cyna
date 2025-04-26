@@ -6,6 +6,7 @@ import ServiceDetailCard from "@@/business/ServiceDetailCard.jsx";
 import Button from "@@/ui/Button.jsx";
 import Text from "@@/ui/Text.jsx";
 import axios from "axios";
+import { useTranslations } from "next-intl";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -14,8 +15,8 @@ const Service = () => {
   const [service, setService] = useState([]);
   const [serviceSimilar, setServiceSimilar] = useState([]);
   const [error, setError] = useState(null);
-
   const router = useRouter();
+  const t = useTranslations();
 
   useEffect(() => {
     const getService = async () => {
@@ -43,9 +44,15 @@ const Service = () => {
         setError(null);
       } catch (error) {
         if (error.response) {
-          setError(error.response.data.error || "Une erreur est survenue.");
+          setError(
+            error.response.data.error ||
+              error.response.data.message ||
+              t("form.apiErrors.genericError"),
+          );
+        } else if (error.request) {
+          setError(t("form.apiErrors.offlineError"));
         } else {
-          setError("Impossible de récupérer le service.");
+          setError(t("form.apiErrors.internalError"));
         }
       }
     };
@@ -58,7 +65,7 @@ const Service = () => {
       <div className="flex w-full flex-col items-center justify-center gap-4">
         <Text color="error">{error}</Text>
         <Button onClick={() => router.push(routes.services.all())}>
-          Retourner à la liste des services
+          {t("services.details.returnBackToServices")}
         </Button>
       </div>
     );
@@ -75,7 +82,7 @@ const Service = () => {
               size="subtitle"
               className="rounded bg-primary/50 text-center font-bold"
             >
-              Services similaires
+              {t("services.details.similarServices")}
             </Text>
 
             <div className="flex pt-4">

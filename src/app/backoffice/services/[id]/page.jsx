@@ -29,7 +29,7 @@ const ServiceBackofficeDetail = () => {
         const { data } = await axios.get(apiRoutes.services.single(id));
         setService(data);
       } catch (err) {
-        setError("Impossible de charger le service.");
+        setError("Unable to load the service.");
       }
     };
 
@@ -41,7 +41,7 @@ const ServiceBackofficeDetail = () => {
       <div className="flex flex-col items-center gap-4 py-10">
         <Text color="error">{error}</Text>
         <Button onClick={() => router.push(routes.backoffice.services.all())}>
-          Retour à la liste
+          Back to services list
         </Button>
       </div>
     );
@@ -53,7 +53,7 @@ const ServiceBackofficeDetail = () => {
         <div>
           <div className="mb-6 flex items-center justify-between">
             <Text size="subtitle" className="font-bold">
-              Détail du service
+              Service details
             </Text>
             <div className="flex gap-2">
               <Button
@@ -62,45 +62,42 @@ const ServiceBackofficeDetail = () => {
                   router.push(routes.backoffice.services.edit(service.id))
                 }
               >
-                Modifier
+                Edit
               </Button>
-              <Button variant="danger">Supprimer</Button>
+              <Button variant="danger">Delete</Button>
             </div>
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <Item label="Nom" value={service.name} />
-            <Item label="Catégorie" value={service.category || "N/A"} />
-            <Item label="Résumé" value={service.summary} />
+            <Item label="Name" value={service.name} />
+            <Item label="Category" value={service.category || "N/A"} />
+            <Item label="Summary" value={service.summary} />
             <Item label="Description" value={service.description || "—"} />
             <Item
-              label="Caractéristiques techniques"
+              label="Technical characteristics"
               value={service.technicalCharacteristics || "—"}
             />
             <Item
-              label="Bénéfices entreprise"
+              label="Company Benefits"
               value={service.companyBenefits || "—"}
             />
-            <Item label="Prix mensuel" value={`${service.monthlyPrice} €`} />
-            <Item label="Prix annuel" value={`${service.annualPrice} €`} />
+            <Item label="Monthly price" value={`${service.monthlyPrice} €`} />
+            <Item label="Annual price" value={`${service.annualPrice} €`} />
+            <Item label="Price per user" value={`${service.perUserPrice} €`} />
             <Item
-              label="Prix par utilisateur"
-              value={`${service.perUserPrice} €`}
-            />
-            <Item
-              label="Prix par appareil"
+              label="Price per device"
               value={`${service.perDevicePrice} €`}
             />
-            <Item label="Ressources max" value={service.maxResources} />
-            <Item label="Ressources utilisées" value={service.usedResources} />
-            <Item label="Disponibilité" value={service.availability} />
-            <Item label="Priorité" value={service.priority} />
+            <Item label="Maximum resources" value={service.maxResources} />
+            <Item label="Resources used" value={service.usedResources} />
+            <Item label="Availability" value={service.availability} />
+            <Item label="Priority" value={service.priority} />
             <Item
-              label="Créé le"
+              label="Created on"
               value={new Date(service.createdAt).toLocaleString("fr-FR")}
             />
             <Item
-              label="Mis à jour le"
+              label="Updated on"
               value={new Date(service.updatedAt).toLocaleString("fr-FR")}
             />
           </div>

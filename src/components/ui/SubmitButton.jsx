@@ -1,13 +1,22 @@
 import Button from "@@/ui/Button.jsx";
 import Image from "@@/ui/Image.jsx";
 import clsx from "clsx";
+import { useTranslations } from "next-intl";
 
 const SubmitButton = (props) => {
-  const { className, isSubmitting = false, children, ...otherProps } = props;
+  const t = useTranslations("components.submitButton");
+  const {
+    className,
+    isSubmitting = true,
+    loadingText = t("loading"),
+    defaultText = t("default"),
+    children,
+    ...otherProps
+  } = props;
   return (
     <div
       className={clsx(
-        "active:bg-success/70 flex flex-row justify-center rounded bg-green-500 px-2 shadow-md shadow-black transition-transform duration-100 active:scale-95",
+        "flex flex-row justify-center rounded bg-button active:bg-button/70 shadow-md shadow-black transition-transform duration-100 active:scale-95",
         className,
       )}
     >
@@ -27,11 +36,7 @@ const SubmitButton = (props) => {
         color="none"
         {...otherProps}
       >
-        {isSubmitting
-          ? "Enregistrement..."
-          : children
-            ? children
-            : "Enregistrer"}
+        {isSubmitting ? loadingText : children || defaultText}
       </Button>
     </div>
   );

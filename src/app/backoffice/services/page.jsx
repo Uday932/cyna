@@ -77,9 +77,9 @@ const ServicesPage = () => {
         }
       } catch (error) {
         if (error.response) {
-          setError(error.response.data.error || "Une erreur est survenue.");
+          setError(error.response.data.error || "An error has occurred.");
         } else {
-          setError("Impossible de récupérer le service.");
+          setError("Unable to recover service.");
         }
       } finally {
         setLoading(false);
@@ -89,46 +89,47 @@ const ServicesPage = () => {
     getServices();
   }, []);
 
-  const handleMultipleDeleteService = async () => {
+  const handleMultipleDeleteService = () => {
     setError(null);
-
-    try {
-      await Promise.all(
-        selectedItems.map((id) =>
-          axios.delete(apiRoutes.backoffice.services.delete(id)),
-        ),
-      );
-      setServices((prev) => prev.filter((s) => !selectedItems.includes(s.id)));
-      setSelectedItems([]);
-    } catch (error) {
-      if (error.response) {
-        setError(error.response.data.error || "Une erreur est survenue.");
-      } else {
-        setError("Impossible de récupérer le service.");
-      }
-    }
+    setServiceToDelete(selectedItems);
+    setShowDeleteModal(true);
   };
 
-  const handleDeleteService = async (serviceId) => {
+  const handleSingleDeleteService = (serviceId) => {
     setError(null);
     setServiceToDelete(serviceId);
     setShowDeleteModal(true);
   };
 
-  const handleDeleteConfirmation = async () => {
+  const handleDeleteConfirmation = async (serviceIds) => {
     try {
-      await axios.delete(apiRoutes.backoffice.services.delete(serviceToDelete));
+      if (Array.isArray(serviceIds)) {
+        await Promise.all(
+          serviceIds.map((id) =>
+            axios.delete(apiRoutes.backoffice.services.delete(id)),
+          ),
+        );
 
-      setServices((prevServices) =>
-        prevServices.filter((service) => service.id !== serviceToDelete),
-      );
+        setServices((prevServices) =>
+          prevServices.filter((service) => !serviceIds.includes(service.id)),
+        );
 
+        setSelectedItems([]);
+      } else {
+        await axios.delete(
+          apiRoutes.backoffice.services.delete(serviceToDelete),
+        );
+
+        setServices((prevServices) =>
+          prevServices.filter((service) => service.id !== serviceToDelete),
+        );
+      }
       setShowDeleteModal(false);
     } catch (error) {
       if (error.response) {
-        setError(error.response.data.error || "Une erreur est survenue.");
+        setError(error.response.data.error || "An error has occurred.");
       } else {
-        setError("Impossible de supprimer le service.");
+        setError("Unable to delete service.");
       }
     }
   };
@@ -194,7 +195,7 @@ const ServicesPage = () => {
             src="/icons/down-arrow.png"
             width={25}
             height={25}
-            alt="up arrow"
+            alt="down arrow"
             className="inline-block align-middle"
           />
         );
@@ -270,7 +271,7 @@ const ServicesPage = () => {
           ))}
         </div>
       ) : (
-        <div className="3xl:bg-red-500 mx-auto flex max-w-xs flex-col justify-center p-1 md:max-w-xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl">
+        <div className="mx-auto flex max-w-xs flex-col justify-center p-1 md:max-w-xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl">
           {services.length > 0 ? (
             <>
               <div className="my-2">
@@ -288,7 +289,7 @@ const ServicesPage = () => {
                       width={20}
                       height={20}
                       src="/icons/delete.png"
-                      alt="Supprimer"
+                      alt="Delete"
                     />
                   </Button>
                   <Link href={routes.backoffice.services.create()} noUnderline>
@@ -296,7 +297,7 @@ const ServicesPage = () => {
                       width={35}
                       height={35}
                       src="/icons/add.png"
-                      alt="Créer service"
+                      alt="Create service"
                       className="rounded bg-button p-2"
                     />
                   </Link>
@@ -385,12 +386,12 @@ const ServicesPage = () => {
                             {[
                               [
                                 routes.backoffice.services.single(service.id),
-                                "voir détail",
+                                "see details",
                                 "/icons/view.png",
                               ],
                               [
                                 routes.backoffice.services.edit(service.id),
-                                "Modifier",
+                                "Edit",
                                 "/icons/edit.png",
                               ],
                             ].map(([link, label, icon], i) => (
@@ -406,14 +407,16 @@ const ServicesPage = () => {
                             ))}
 
                             <Button
-                              onClick={() => handleDeleteService(service.id)}
+                              onClick={() =>
+                                handleSingleDeleteService(service.id)
+                              }
                               className="rounded-xl bg-button p-1 shadow-none"
                             >
                               <Image
                                 width={20}
                                 height={20}
                                 src="/icons/delete.png"
-                                alt="Supprimer"
+                                alt="Delete"
                               />
                             </Button>
                           </div>
@@ -433,9 +436,9 @@ const ServicesPage = () => {
             </>
           ) : (
             <div className="flex flex-col items-center">
-              <Text className="text-center">Aucun service trouvé</Text>
+              <Text className="text-center">No service found</Text>
               <Link href={routes.backoffice.services.create()}>
-                Créer un nouveau service
+                Create a new service
               </Link>
             </div>
           )}

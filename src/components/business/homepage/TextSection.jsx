@@ -1,8 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
 import apiRoutes from "@/apiUtils/apiRoutes";
 import Text from "@@/ui/Text";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function TextSection() {
   const [textData, setTextData] = useState(null);
@@ -24,7 +24,10 @@ export default function TextSection() {
   return (
     <section className="w-full bg-secondary px-4 py-16 text-center">
       <div className="flex flex-col items-center">
-        <Text size="subtitle" className="mb-8 rounded-lg p-2 shadow-lg border-2 border-gray-200/30">
+        <Text
+          size="subtitle"
+          className="mb-8 rounded-lg p-2 shadow-lg border-2 border-gray-200/30"
+        >
           {textData.content}
         </Text>
       </div>

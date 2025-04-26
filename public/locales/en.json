@@ -1,0 +1,396 @@
+{
+  "components": {
+    "submitButton": {
+      "default": "Save",
+      "loading": "Saving..."
+    }
+  },
+  "metadata": {
+    "title": "Cyna | Home",
+    "description": "Homepage for all your cyber services"
+  },
+  "navbar": {
+    "categories": "Categories"
+  },
+  "api": {
+    "carousel": {
+      "error": "Error retrieving the carousel data."
+    },
+    "contact": {
+      "errorRequiredField": "Please fill in all required fields.",
+      "messageSuccess": "Message sent successfully!",
+      "errorInternalServer": "Internal server error. Please try again.",
+      "mail": {
+        "subject": "Contact Request",
+        "text": "Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
+      }
+    },
+    "users": {
+      "notFound": "User not found",
+      "updateSuccess": "Your information has been successfully updated.",
+      "emailAlreadyUsed": "Unable to update the profile, please try again.",
+      "internalError": "Internal server error, please try again."
+    },
+    "services": {
+      "notFound": "No service found.",
+      "internalError": "Internal server error, please try again."
+    },
+    "signs": {
+      "forgot": {
+        "request": {
+          "message": "If an account exists with this email, you will receive a reset link.",
+          "mail": {
+            "subject": "Resetting your password",
+            "text": "Hello {firstName}, we have received a request to reset your password. To proceed, please click on the following link: {resetUrl}\n\nSincerely,\nThe Cyna Team"
+          },
+          "error": "Internal server error, please try again."
+        },
+        "reset": {
+          "tokenError": "Authentication error, please check your information",
+          "error": "Internal server error, please try again."
+        }
+      },
+      "signIn": {
+        "userNotFound": "Unable to connect, please try again.",
+        "invalidPassword": "Incorrect password, please try again.",
+        "error": "Internal server error, please try again."
+      },
+      "signUp": {
+        "userExist": "Unable to connect, please try again.",
+        "mail": {
+          "subject": "Validating your account",
+          "text": "Hello {firstName},\n\nPlease validate your account by clicking on the following link: {validationUrl}\n\nSincerely,\nThe Cyna Team"
+        },
+        "error": "Internal server error, please try again."
+      },
+      "validate": {
+        "tokenError": "Authentication error, please check your information",
+        "error": "Internal server error, please try again."
+      },
+      "update": {
+        "passwordUpdated": "Password updated!",
+        "internalError": "Internal server error, please try again."
+      }
+    },
+    "text-section": {
+      "updateError": "Error updating the dynamic text."
+    }
+  },
+  "navigation": {
+    "goToHomePage": "Go to the home page"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "cart": "Cart",
+    "connection": "connection",
+    "createAccount": "Create an account",
+    "description": "Description",
+    "edit": "Edit",
+    "email": "email",
+    "error": "error",
+    "firstName": "first name",
+    "hidePassword": "Hide password",
+    "iconExternalLink": "External link icon",
+    "iconMailto": "Email Icon",
+    "imageNotAvailable": "Image not available",
+    "invalidPassword": "Invalid password",
+    "lastName": "last name",
+    "learnMore": "Learn more",
+    "logIn": "Log in",
+    "logOut": "Log out",
+    "myAccount": "My account",
+    "name": "name",
+    "newPassword": "New password",
+    "newPasswordConfirm": "Password confirmation",
+    "next": "Next",
+    "password": "password",
+    "previous": "Previous",
+    "send": "send",
+    "sending": "Sending",
+    "serviceAvailability": {
+      "temporarilyUnavailable": "Service temporarily unavailable",
+      "notAvailable": "Service not available",
+      "available": "Service available",
+      "outOfStock": "Out of stock"
+    },
+    "showPassword": "Show password",
+    "technicalCharacteristics": "Technical characteristics",
+    "textFetchError": "Error retrieving dynamic text",
+    "validate": "Validate",
+    "yourAdvantages": "Your advantages"
+  },
+  "password": {
+    "rules": "The password must contain:",
+    "minLength": "{count} minimum characters",
+    "minCapLetter": "{count} uppercase letters",
+    "minDigit": "{count} digits",
+    "minSpecialChar": "{count} special characters"
+  },
+  "account": {
+    "title": "My account",
+    "confirmPasswordWarning": "Passwords must match",
+    "modalTitle": "Edit my information"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "messageSuccess": "Your message has been sent successfully!"
+  },
+  "home": {
+    "ourCategories": "Our Categories",
+    "topServices": "Top Services of the Moment"
+  },
+  "services": {
+    "title": "Our Services",
+    "noServices": "No services available at the moment.",
+    "card": {
+      "byMonth": "/ month",
+      "priceNotAvailable": "Price not available",
+      "learnMore": "Learn more",
+      "learnMoreLinkTitle": "Learn more about the service"
+    },
+    "details": {
+      "returnBackToServices": "Return to the list of services",
+      "similarServices": "Similar services",
+      "detailsCard": {
+        "subscribeNow": "Subscribe now",
+        "notAvailable": "SERVICE UNAVAILABLE",
+        "chooseAnOption": "Choose an option",
+        "perMonth": "/ month",
+        "perYear": "/ year",
+        "perUser": "/ user (month)",
+        "perDevice": "/ device (month)"
+      }
+    }
+  },
+  "signs": {
+    "forgot": {
+      "request": {
+        "title": "FORGOTTEN PASSWORD",
+        "instructions": "Please enter your email address to reset your password."
+      },
+      "reset": {
+        "title": "PASSWORD RESET",
+        "confirmPassword": "Confirm Password",
+        "messageSuccess": "Your password has been successfully reset.",
+        "submit": {
+          "label": "Reset Password",
+          "loading": "Resetting..."
+        }
+      }
+    },
+    "signIn": {
+      "title": "CONNECTION",
+      "connect": "Log in",
+      "forgotPassword": "Forgot your password?",
+      "notRegistered": "Don't have an account yet? Sign up",
+      "gotToPwdResetPage": "Go to the password reset page"
+    },
+    "signUp": {
+      "title": "CREATE ACCOUNT",
+      "createAccount": "Create an account",
+      "messageSuccess": "User created successfully. Please check your email to validate your account.",
+      "alreadyHaveAnAccount": "Already have an account? Log in."
+    },
+    "validate": {
+      "inProgress": "Validation in progress...",
+      "success": "Your account has been successfully validated.",
+      "returnHomePage": "Go to the home page"
+    }
+  },
+  "mentionAndCGU": {
+    "title": "LEGAL NOTICE AND GENERAL CONDITIONS OF USE"
+  },
+  "footer": {
+    "mentionAndCGU": "Legal Notice and Terms of Use"
+  },
+  "form": {
+    "required": "{field} is required",
+    "format": {
+      "email": "Email is not valid."
+    },
+    "min": "{field} must contain at least {min} characters",
+    "confirmation": "Passwords must match",
+    "apiErrors": {
+      "genericError": "An error has occurred. Please try again.",
+      "offlineError": "The server is currently offline. Please try again later.",
+      "internalError": "An internal error has occurred."
+    }
+  },
+  "legal": {
+    "sectionOrder": [
+      "definitions",
+      "presentation",
+      "conditions",
+      "description",
+      "limitations",
+      "intellectualProperty",
+      "liabilityLimitations",
+      "personalDataManagement",
+      "dataCollectionResponsibility",
+      "dataCollectionPurposes",
+      "dataAccessRights",
+      "dataNonDisclosure",
+      "incidentNotification",
+      "hyperlinksCookiesAndTags",
+      "cookies",
+      "balises_internet",
+      "droit_applicable"
+    ],
+    "sections": {
+      "definitions": {
+        "title": "Definitions",
+        "content": {
+          "0": "<u>Client</u> : any professional or natural person capable within the meaning of articles 1123 et seq. of the civil code, or legal entity, who visits the site subject to these general conditions.",
+          "1": "<u>Content</u>: all the elements constituting the information present on the site, in particular text: “ images : “ videos.",
+          "2": "Customer information: hereinafter referred to as “information(s)” which correspond to all personal data likely to be held by <l>cyna</l> for the management of your account, customer relationship management and for analysis and statistical purposes.",
+          "3": "<u>User</u>:internet user logging on, using the aforementioned site.",
+          "4": "Personal information: «information which allows, in any form whatsoever, directly or indirectly, the identification of the natural persons to whom it applies » (article 4 of law no. 78-17 of 6 January 1978).",
+          "5": "The terms «personal data », «data subject », “processor” and «sensitive data » have the meaning defined by the General Data Protection Regulation (GDPR: no. 2016-679)."
+        }
+      },
+      "presentation": {
+        "title": "1. Presentation of the website.",
+        "content": {
+          "0": "By virtue of Article 6 of Law No. 2004-575 of 21 June 2004 on confidence in the digital economy, users of the <l>cyna</l> website are informed of the identity of the various parties involved in its creation and follow-up:",
+          "1": "Owner : sas cyna-it share capital of 1000 euros, vat number : fr20913711032 : “ 10 rue de Penthièvre 75008 paris",
+          "2": "Publication manager: elbaz alexandre <a>alexandre.elbaz@cyna-it.fr</a>",
+          "3": "The person responsible for publication is a natural person or a legal entity.",
+          "4": "Host : OVH : “ 2 rue kellermann 59100 roubaix 1007",
+          "5": "Data Protection Officer: nathan bramli : <a>nathan.bramli@cyna-it.fr</a>",
+          "6": "These rgpd legal notices are taken from the free legal notice generator for a website"
+        }
+      },
+      "conditions": {
+        "title": "2. General terms and conditions of use of the site and the services offered.",
+        "content": {
+          "0": "The site constitutes an intellectual work protected by the provisions of the French Intellectual Property Code and applicable international regulations. The customer may not in any way reuse, transfer or exploit on his own account all or part of the elements or works on the site.",
+          "1": "Use of the <l>cyna</l> site implies full acceptance of the general conditions of use described below. These conditions of use may be modified or supplemented at any time, and users of the <l>cyna</l> site are therefore invited to consult them regularly.",
+          "2": "This website is normally accessible to users at all times. An interruption due to technical maintenance may however be decided by <l>cyna</l>, who will then endeavour to inform users in advance of the dates and times of the intervention. The <l>cyna</l> website is regularly updated by <l>cyna</l> responsible. Similarly, the legal notices may be modified at any time: they are nevertheless binding on the user, who is invited to refer to them as often as possible in order to become aware of them."
+        }
+      },
+      "description": {
+        "title": "3. Description of services provided.",
+        "content": {
+          "0": "The purpose of the <l>cyna</l> website is to provide information concerning all of the company's activities. <l>mentions</l> endeavours to provide information on the <l>cyna</l> website that is as accurate as possible. However, it cannot be held responsible for any omissions, inaccuracies or shortcomings in updating, whether caused by itself or by third-party partners who provide it with this information.",
+          "1": "All information indicated on the <l>cyna</l> site is given for information only, and is likely to change. Furthermore, the information on the <l>cyna</l> site is not exhaustive. It is subject to modifications having been made since it was put on line.."
+        }
+      },
+      "limitations": {
+        "title": "4. Contractual limitations on technical data.",
+        "content": {
+          "0": "The site uses Javascript technology. The website cannot be held responsible for any material damage linked to the use of the site. In addition, the user of the site undertakes to access the site using recent, virus-free equipment and with a last-generation updated browser. The <l>cyna</l> site is hosted by a service provider on the territory of the European Union in accordance with the provisions of the General Data Protection Regulation (rgpd: n° 2016-679).",
+          "1": "The aim is to provide a service that ensures the highest level of accessibility. The host ensures continuity of service 24 hours a day, every day of the year. However, it reserves the right to interrupt the hosting service for the shortest possible periods, in particular for maintenance purposes, to improve its infrastructures, in the event of infrastructure failure or if the services generate traffic deemed to be abnormal. <l>mentions</l> and the host cannot be held responsible in the event of malfunction of the Internet network, telephone lines or computer and telephony equipment linked in particular to network congestion preventing access to the server."
+        }
+      },
+      "intellectualProperty": {
+        "title": "5. Intellectual property and counterfeiting.",
+        "content": {
+          "0": "<l>cyna</l> is the owner of the intellectual property rights and holds the usage rights to all the elements accessible on the website, including texts, images, graphics, logos, videos, icons and sounds. Any reproduction, representation, modification, publication, adaptation of all or part of the elements of the site, whatever the means or process used, is prohibited, except with the prior written authorisation of : <l>cyna</l>. Any unauthorised use of the site or of any of the elements it contains will be considered as constituting an infringement and will be prosecuted in accordance with the provisions of articles l.335-2 et seq. of the French Intellectual Property Code."
+        }
+      },
+      "liabilityLimitations": {
+        "title": "6. Limitation of liability.",
+        "content": {
+          "0": "<l>cyna</l> acts as the publisher of the site. <l>mentions</l> is responsible for the quality and truthfulness of the content it publishes.",
+          "1": "<l>cyna</l> cannot be held responsible for direct and indirect damage caused to the user's equipment, when accessing the <l>cyna</l> website, and resulting either from the use of equipment that does not meet the specifications indicated in point 4, or from the appearance of a bug or incompatibility.",
+          "2": "<l>cyna</l> may also not be held liable for indirect damage (such as loss of market or loss of opportunity) resulting from the use of the <l>cyna</l> site. Interactive areas (possibility to ask questions in the contact area) are available to users. <l>mentions</l> reserves the right to delete, without prior notice, any content posted in this space that contravenes the legislation applicable in France, in particular the provisions relating to data protection. Where applicable, <l>cyna</l> also reserves the right to hold the user civilly and/or criminally liable, in particular in the event of messages of a racist, insulting, defamatory or pornographic nature, whatever the medium used (text, photographyâ€¦)."
+        }
+      },
+      "personalDataManagement": {
+        "title": "7. Personal data management.",
+        "content": {
+          "0": "The customer is informed of the regulations concerning marketing communications, the law of 21 June 2014 for confidence in the digital economy, the law on information technology and freedom of 06 August 2004 as well as the general regulation on data protection (rgpd: n° 2016-679)."
+        }
+      },
+      "dataCollectionResponsibility": {
+        "title": "7.1 Persons responsible for collecting personal data",
+        "content": {
+          "0": "For personal data collected in the context of creating the user's personal account and browsing the site, the person responsible for processing personal data is: cyna-it. <l>mentions</l> by bramli nathan, its legal representative.",
+          "1": "As the party responsible for processing the data it collects, <l>cyna</l> undertakes to comply with the framework of the legal provisions in force. In particular, it is the customer's responsibility to establish the purposes of its data processing, to provide its prospects and customers, from the collection of their consents, with complete information on the processing of their personal data and to maintain a register of processing in accordance with reality.",
+          "2": "Whenever <l>cyna</l> processes personal data, <l>cyna</l> takes all reasonable steps to ensure that the personal data is accurate and relevant to the purposes for which <l>cyna</l> processes it."
+        }
+      },
+      "dataCollectionPurposes": {
+        "title": "7.2 Purpose of the data collected",
+        "content": {
+          "0": "<l>cyna</l> is likely to process all or part of the data:",
+          "1": "<ul><li>To enable navigation on the site and the management and traceability of the services ordered by the user: connection and site usage data, invoicing, order history, etc. </li><li>To prevent and combat computer fraud (spamming, hacking: ¦): computer equipment used for navigation, IP address, password</li><li>To improve navigation on the site: connection and usage data to conduct optional satisfaction surveys on <l>cyna</l>: email address</li><li>To conduct communication campaigns (SMS, email): telephone number, email address</li></ul>",
+          "2": "<l>cyna</l> does not sell your personal data. It is only used when necessary or for statistical and analytical purposes.."
+        }
+      },
+      "dataAccessRights": {
+        "title": "7.3 Right of access, rectification and opposition",
+        "content": {
+          "0": "In accordance with current European regulations, users of <l>cyna</l> have the following rights :",
+          "1": "Right of access (Article 15 GDPR) and rectification (Article 16 GDPR), updating, and completion of user data Right to block or erase personal user data (Article 17 GDPR), when they are inaccurate, incomplete, ambiguous, outdated, or whose collection, use, communication or storage is prohibited Right to withdraw consent at any time (Article 13-2c GDPR) Right to limit the processing of user data (Article 18 GDPR) Right to object to the processing of user data (Article 21 GDPR) Right to the portability of data that users have provided, when these data are subject to automated processing based on their consent or on a contract (Article 20 GDPR) Right to define the fate of user data after their death and to choose to whom <l>cyna</l> r must communicate (or not) its data to a third party that they have previously designated",
+          "2": "As soon as <l>cyna</l> becomes aware of the death of a user and in the absence of instructions from the user, <l>cyna</l> undertakes to destroy the user's data, unless their retention proves necessary for evidentiary purposes or to meet a legal obligation.",
+          "3": "If the user wishes to know how <l>cyna</l> uses his/her personal data, request to rectify them or oppose their processing, the user can contact <l>cyna</l> in writing at the following address :",
+          "4": "Cyna-it : “ dpo, nathan bramli",
+          "5": "10 rue de penthièvre 75008 paris.",
+          "6": "In this case, the user must indicate the personal data that he/she would like <l>cyna</l> to correct, update or delete, identifying himself/herself precisely with a copy of an identity document (identity card or passport).",
+          "7": "Requests for deletion of personal data will be subject to the obligations imposed on <l>cyna</l> by law, particularly regarding the retention or archiving of documents. Finally, users of <l>cyna</l> may file a complaint with the supervisory authorities, and in particular the CNIL (<l>plaintes</l>).."
+        }
+      },
+      "dataNonDisclosure": {
+        "title": "7.4 Non-disclosure of personal data",
+        "content": {
+          "0": "<l>cyna</l> prohibits itself from processing, hosting or transferring the information collected on its customers to a country located outside the European Union or recognized as “inadequate” by the European Commission without first informing the customer.",
+          "1": "However, <l>cyna</l> remains free to choose its technical and commercial subcontractors, provided that they provide sufficient guarantees with regard to the requirements of the General Data Protection Regulation (GDPR: no. 2016-679).",
+          "2": "<l>cyna</l> undertakes to take all necessary precautions to preserve the security of the information and in particular to ensure that it is not communicated to unauthorized persons.",
+          "3": "However, if an incident impacting the integrity or confidentiality of the client's information is brought to the attention of <l>cyna</l>, the latter must inform the client as soon as possible and inform them of the corrective measures taken.",
+          "4": "Furthermore, <l>cyna</l> does not collect any “sensitive data”.",
+          "5": "The user's personal data may be processed by subsidiaries of <l>cyna</l> and subcontractors (service providers), exclusively to achieve the purposes of this policy.",
+          "6": "Within the limits of their respective responsibilities and for the purposes mentioned above, the main people likely to have access to the data of <l>cyna</l> users are mainly the agents of our customer service."
+        }
+      },
+      "incidentNotification": {
+        "title": "8. Incident Notification",
+        "content": {
+          "0": "Despite our best efforts, no method of transmission over the Internet, or method of electronic storage, is completely secure. We therefore cannot guarantee absolute security. If we become aware of a security breach, we will notify affected users so that they can take appropriate action. Our incident notification procedures take into account our legal obligations, whether at the national or European level. We are committed to fully informing our customers of all matters relating to the security of their account and to providing them with all the information necessary to help them comply with their own regulatory reporting obligations..",
+          "1": "No personal information of the user of the <l>cyna</l> site is published without the user's knowledge, exchanged, transferred, assigned or sold on any medium whatsoever to third parties. Only the hypothesis of the purchase of <l>cyna</l> and its rights would allow the transmission of said information to the potential purchaser who would in turn be bound by the same obligation of conservation and modification of data with regard to the user of the <l>cyna</l> site.",
+          "2": "Security",
+          "3": "To ensure the security and confidentiality of personal data and personal health data, <l>cyna</l> uses networks protected by standard devices such as firewalls, pseudonymization, encryption and passwords..",
+          "4": "When processing personal data, <l>cyna</l> takes all reasonable steps to protect it from loss, misuse, unauthorized access, disclosure, alteration or destruction."
+        }
+      },
+      "hyperlinksCookiesAndTags": {
+        "title": "9. Hypertext links, cookies and internet tags",
+        "content": {
+          "0": "The <l>cyna</l> site contains a number of hypertext links to other sites, set up with the authorization of <l>cyna</l>. However, <l>cyna</l> does not have the possibility of verifying the content of the sites thus visited, and will therefore assume no responsibility for this fact..",
+          "1": "Unless you decide to disable cookies, you agree that the site may use them. You can disable these cookies at any time, free of charge, using the deactivation options offered to you and detailed below, knowing that this may reduce or prevent access to all or part of the services offered by the site.."
+        }
+      },
+      "cookies": {
+        "title": "9.1. Cookies",
+        "content": {
+          "0": "A “cookie” is a small information file sent to the user’s browser and stored on the user’s terminal (e.g. computer, smartphone), (hereinafter “cookies”). This file includes information such as the user’s domain name, the user’s internet service provider, the user’s operating system, as well as the date and time of access. Cookies do not in any way risk damaging the user’s terminal.",
+          "1": "<l>cyna</l> may process user information about their visit to the site, such as pages viewed and searches performed. This information allows <l>cyna</l> to improve the content of the site and the user's navigation.",
+          "2": "Since cookies facilitate navigation and/or the provision of services offered by the site, the user can configure his browser to allow him to decide whether or not he wishes to accept them so that cookies are saved in the terminal or, on the contrary, that they are rejected, either systematically or according to their issuer. The user can also configure his browser software so that the acceptance or rejection of cookies is offered to him punctually, before a cookie is likely to be saved in his terminal.",
+          "3": "<l>cyna</l> informs the user that, in this case, the functionalities of their navigation software may not all be available.",
+          "4": "If the user refuses the recording of cookies in his terminal or browser, or if the user deletes those that are recorded there, the user is informed that his navigation and experience on the site may be limited. This could also be the case when <l>cyna</l> or one of its service providers cannot recognize, for technical compatibility purposes, the type of browser used by the terminal, the language and display settings or the country from which the terminal appears to be connected to the internet.",
+          "5": "Where applicable, <l>cyna</l> declines all responsibility for the consequences linked to the degraded functioning of the site and the services possibly offered by <l>cyna</l>, resulting (i) from the refusal of cookies by the user (ii) from the impossibility for <l>cyna</l> to record or consult the cookies necessary for their functioning due to the choice of the user.",
+          "6": "For the management of cookies and user choices, the configuration of each browser is different. It is described in the browser's help menu, which will allow you to know how the user can modify their wishes regarding cookies..",
+          "7": "At any time, the user can choose to express and modify their wishes regarding cookies. <l>cyna</l> may also use the services of external service providers to help it collect and process the information described in this section.",
+          "8": "Finally, by clicking on the icons dedicated to the social networks Twitter, Facebook, LinkedIn and Google Plus appearing on the <l>cyna</l> website or in its mobile application and if the user has accepted the deposit of cookies by continuing to browse the website or the mobile application of <l>cyna</l>, Twitter, Facebook, LinkedIn and Google Plus may also deposit cookies on your terminals (computer, tablet, mobile phone).",
+          "9": "These types of cookies are only placed on your devices if you consent to them by continuing to browse the <l>cyna</l> website or mobile application. However, the user can withdraw their consent to <l>cyna</l> placing this type of cookie at any time."
+        }
+      },
+      "balises_internet": {
+        "title": "9.2. Internet tags",
+        "content": {
+          "0": "<l>cyna</l> may occasionally use web beacons (also known as « tags» , or action tags, single-pixel GIFs, transparent GIFs, invisible GIFs, and one-to-one GIFs) and deploy them through a specialist web analytics partner who may be located (and therefore store the corresponding information, including the user's IP address) in a foreign country.",
+          "1": "These tags are placed both in online advertisements that allow users to access the site, and on the various pages of the site.",
+          "2": "This technology allows <l>cyna</l> to evaluate visitors' responses to the site and the effectiveness of its actions (for example, the number of times a page is opened and the information viewed), as well as the user's use of this site.",
+          "3": "The external service provider may collect information about visitors to the site and other websites through these tags, compile reports on site activity for <l>cyna</l>, and provide other services relating to site and internet usage."
+        }
+      },
+      "droit_applicable": {
+        "title": "10. Applicable law and attribution of jurisdiction",
+        "content": {
+          "0": "Any dispute relating to the use of the <l>cyna</l> website is subject to French law.",
+          "1": "Except in cases where the law does not permit it, exclusive jurisdiction is granted to the competent courts of Paris."
+        }
+      }
+    }
+  }
+}

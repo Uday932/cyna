@@ -1,12 +1,14 @@
 "use client";
-import axios from "axios";
-import { Form, Formik } from "formik";
-import * as Yup from "yup";
+import apiRoutes from "@/apiUtils/apiRoutes";
+import { getTranslatedMetadata } from "@/utils/utils.js";
 import Button from "@@/ui/Button.jsx";
 import FormField from "@@/ui/FormField.jsx";
 import Text from "@@/ui/Text.jsx";
+import axios from "axios";
+import { Form, Formik } from "formik";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
-import apiRoutes from "@/apiUtils/apiRoutes";
+import * as Yup from "yup";
 
 const ContactInitialValues = {
   name: "",
@@ -14,21 +16,10 @@ const ContactInitialValues = {
   message: "",
 };
 
-const ContactSchema = Yup.object().shape({
-  name: Yup.string()
-    .required("Le nom est requis.")
-    .min(2, "Le nom doit contenir au moins 2 caractères."),
-  email: Yup.string()
-    .email("L'e-mail n'est pas valide.")
-    .required("L'e-mail est requis."),
-  message: Yup.string()
-    .required("Le message est requis.")
-    .min(10, "Le message doit contenir au moins 10 caractères."),
-});
-
 const ContactPage = () => {
   const [message, setMessage] = useState();
   const [isError, setIsError] = useState(false);
+  const t = useTranslations();
 
   const handleSubmitContact = async (values, { resetForm }) => {
     try {
@@ -37,19 +28,29 @@ const ContactPage = () => {
 
       await axios.post(apiRoutes.contact(), values);
 
-      setMessage("Votre message a été envoyé avec succès !");
+      setMessage(t("contact.messageSuccess"));
       resetForm();
     } catch (error) {
-      console.error("Erreur lors de l'envoi du message :", error);
       setIsError(true);
-      setMessage("Une erreur est survenue. Veuillez réessayer.");
+
+      if (error.response) {
+        setMessage(
+          error.response.data.error ||
+            error.response.data.message ||
+            t("form.apiErrors.genericError"),
+        );
+      } else if (error.request) {
+        setMessage(t("form.apiErrors.offlineError"));
+      } else {
+        setMessage(t("form.apiErrors.internalError"));
+      }
     }
   };
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-y-4 p-6">
       <Text size="title" className="text-center">
-        NOUS CONTACTER
+        {t("contact.title")}
       </Text>
 
       {message && (
@@ -64,7 +65,17 @@ const ContactPage = () => {
 
       <Formik
         initialValues={ContactInitialValues}
-        validationSchema={ContactSchema}
+        validationSchema={Yup.object().shape({
+          name: Yup.string()
+            .required(t("form.required", { field: t("common.name") }))
+            .min(2, t("form.min", { field: t("common.name"), min: 2 })),
+          email: Yup.string()
+            .email(t("form.format.email"))
+            .required(t("form.required", { field: t("common.email") })),
+          message: Yup.string()
+            .required(t("form.required", { field: "Message" }))
+            .min(10, t("form.min", { field: "Message", min: 10 })),
+        })}
         onSubmit={(values, { resetForm }) =>
           handleSubmitContact(values, { resetForm })
         }
@@ -73,7 +84,7 @@ const ContactPage = () => {
           <Form className="flex w-full max-w-md flex-col gap-4">
             <FormField
               name="name"
-              placeholder="Nom"
+              placeholder={t("common.name")}
               className="w-full"
               required
             />
@@ -81,7 +92,7 @@ const ContactPage = () => {
             <FormField
               name="email"
               type="email"
-              placeholder="E-mail"
+              placeholder={t("common.email")}
               className="w-full"
               required
             />
@@ -95,7 +106,7 @@ const ContactPage = () => {
             />
 
             <Button type="submit">
-              {isSubmitting ? "Envoi en cours..." : "Envoyer"}
+              {isSubmitting ? t("common.sending") : t("common.send")}
             </Button>
           </Form>
         )}

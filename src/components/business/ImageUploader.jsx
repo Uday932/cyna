@@ -1,7 +1,13 @@
 import { normalizeImageNames } from "@/utils/utils.js";
 import Button from "@@/ui/Button.jsx";
 import Image from "@@/ui/Image.jsx";
-import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from "react";
+import {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 
 const ImageUploader = forwardRef(
   (
@@ -65,7 +71,7 @@ const ImageUploader = forwardRef(
           className={className}
           {...otherProps}
         >
-          Choisir des images
+          Choose images
         </Button>
 
         <input
@@ -80,8 +86,8 @@ const ImageUploader = forwardRef(
 
         <div className="mt-2 text-sm text-gray-300">
           {fileNames.length > 0
-            ? `${fileNames.length} fichier${fileNames.length > 1 ? "s" : ""} sélectionné${fileNames.length > 1 ? "s" : ""} : ${fileNames.join(", ")}`
-            : "Aucun fichier sélectionné"}
+            ? `${fileNames.length} file${fileNames.length > 1 ? "s" : ""} selected${fileNames.length > 1 ? "s" : ""} : ${fileNames.join(", ")}`
+            : "No file selected"}
         </div>
       </div>
     );

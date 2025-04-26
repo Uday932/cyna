@@ -28,14 +28,11 @@ export async function PUT(req) {
       }
     }
 
-    return NextResponse.json(
-      { message: "Carrousel mis à jour" },
-      { status: 200 },
-    );
+    return NextResponse.json({ message: "Carousel updated!" }, { status: 200 });
   } catch (error) {
-    console.error("Erreur lors de la mise à jour du carrousel :", error);
+    console.error("Error updating carousel :", error);
 
-    return NextResponse.json({ error: "Erreur interne" }, { status: 500 });
+    return NextResponse.json({ error: "Internal error" }, { status: 500 });
   }
 }
 
@@ -46,7 +43,7 @@ export async function POST(request) {
 
     if (!title || !description || !image || !link) {
       return NextResponse.json(
-        { error: "Tous les champs sont requis" },
+        { error: "All fields are required" },
         { status: 400 },
       );
     }
@@ -62,8 +59,8 @@ export async function POST(request) {
 
     return NextResponse.json({ newCarouselItem }, { status: 201 });
   } catch (error) {
-    console.error("Erreur lors de la création du carousel :", error);
+    console.error("Error creating carousel :", error);
 
-    return NextResponse.json({ error: "Erreur interne" }, { status: 500 });
+    return NextResponse.json({ error: "Internal error" }, { status: 500 });
   }
 }

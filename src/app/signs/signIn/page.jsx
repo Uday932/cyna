@@ -2,12 +2,13 @@
 import AppContext from "@/app/context/AppContext.js";
 import routes from "@/utils/routes.js";
 import { emailValidator, passwordValidator } from "@/utils/validators.js";
-import Button from "@@/ui/Button.jsx";
 import FormField from "@@/ui/FormField.jsx";
 import Link from "@@/ui/Link.jsx";
+import SubmitButton from "@@/ui/SubmitButton.jsx";
 import Text from "@@/ui/Text.jsx";
 import clsx from "clsx";
 import { Form, Formik } from "formik";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation.js";
 import { useContext, useState } from "react";
 import * as Yup from "yup";
@@ -17,18 +18,23 @@ const SignInInitialValues = {
   password: "",
 };
 
-const SignInSchema = Yup.object().shape({
-  email: emailValidator.required("L'e-mail est requis"),
-  password: passwordValidator
-    .required("Le mot de passe est requis")
-    .label("Mot de passe"),
-});
+const getSignInSchema = (t) => {
+  return Yup.object().shape({
+    email: emailValidator.required(
+      t("form.required", { field: t("common.email") }),
+    ),
+    password: passwordValidator
+      .required(t("form.required", { field: t("common.password") }))
+      .label(t("common.password")),
+  });
+};
 
 const SignIn = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const router = useRouter();
   const { signIn } = useContext(AppContext);
+  const t = useTranslations();
 
   const handleSubmitSignUp = async (values) => {
     try {
@@ -42,11 +48,15 @@ const SignIn = () => {
       setIsError(true);
 
       if (error.response) {
-        setMessage(error.response.data.error || "Une erreur est survenue.");
+        setMessage(
+          error.response.data.error ||
+            error.response.data.message ||
+            t("form.apiErrors.genericError"),
+        );
       } else if (error.request) {
-        setMessage("Problème de connexion au serveur. Veuillez réessayer.");
+        setMessage(t("form.apiErrors.offlineError"));
       } else {
-        setMessage("Une erreur est survenue. Veuillez réessayer.");
+        setMessage(t("form.apiErrors.internalError"));
       }
     }
   };
@@ -54,7 +64,7 @@ const SignIn = () => {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-y-2">
       <Text size="title" className="flex justify-center">
-        CONNEXION
+        {t("signs.signIn.title")}
       </Text>
 
       <Text
@@ -68,7 +78,7 @@ const SignIn = () => {
 
       <Formik
         initialValues={SignInInitialValues}
-        validationSchema={SignInSchema}
+        validationSchema={getSignInSchema(t)}
         onSubmit={(values, { resetForm }) =>
           handleSubmitSignUp(values, { resetForm })
         }
@@ -78,7 +88,7 @@ const SignIn = () => {
             <FormField
               name="email"
               type="email"
-              placeholder="E-mail"
+              placeholder={t("common.email")}
               className="w-full"
               required
             />
@@ -86,28 +96,29 @@ const SignIn = () => {
             <FormField
               name="password"
               type="password"
-              placeholder="Mot de passe"
+              placeholder={t("common.password")}
               className="w-full"
               required
             />
 
-            <Button type="submit">
-              {isSubmitting ? "Connexion..." : "Se connecter"}
-            </Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              loadingText={t("common.connection") + "..."}
+              defaultText={t("signs.signIn.connect")}
+            />
           </Form>
         )}
       </Formik>
 
       <Link
         href={routes.signs.forgotPassword.request()}
-        className="text-blue-500"
-        title="Aller à la page de réinitialisation du mot de passe"
+        title={t("signs.signIn.gotToPwdResetPage")}
       >
-        Mot de passe oublié ?
+        {t("signs.signIn.forgotPassword")}
       </Link>
 
-      <Link href={routes.signs.signUp()} className="text-blue-500">
-        Pas encore de compte ? Inscrivez-vous
+      <Link href={routes.signs.signUp()}>
+        {t("signs.signIn.notRegistered")}
       </Link>
     </div>
   );

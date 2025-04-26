@@ -1,12 +1,13 @@
 "use client";
 import apiRoutes from "@/apiUtils/apiRoutes.js";
 import { passwordValidator } from "@/utils/validators.js";
-import Button from "@@/ui/Button.jsx";
 import FormField from "@@/ui/FormField.jsx";
+import SubmitButton from "@@/ui/SubmitButton.jsx";
 import Text from "@@/ui/Text.jsx";
 import axios from "axios";
 import clsx from "clsx";
 import { Form, Formik } from "formik";
+import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import * as Yup from "yup";
@@ -16,85 +17,93 @@ const ResetInitialValues = {
   confirmPassword: "",
 };
 
-const ResetSchema = Yup.object().shape({
-  password: passwordValidator
-    .required("Le mot de passe est requis")
-    .label("Mot de passe"),
-  confirmPassword: passwordValidator
-    .required("Le mot de passe est requis")
-    .oneOf(
-      [Yup.ref("password"), null],
-      "Les mots de passe doivent correspondre",
-    )
-    .label("Mot de passe"),
-});
+const getResetSchema = (t) => {
+  return Yup.object().shape({
+    password: passwordValidator
+      .required(t("form.required", { field: t("common.password") }))
+      .label(t("common.password")),
+    confirmPassword: passwordValidator
+      .required(t("form.required", { field: t("common.password") }))
+      .oneOf([Yup.ref("password"), null], t("form.confirmation"))
+      .label(t("common.password")),
+  });
+};
 
 const ResetPassword = () => {
   const params = useParams();
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
+  const t = useTranslations();
 
   const handleSubmitSignIn = async (values, { resetForm }) => {
     try {
       setMessage("");
       setIsError(false);
 
-      const {
-        data: { message },
-      } = await axios.post(apiRoutes.signs.forgotPassword.reset(), {
+      await axios.post(apiRoutes.signs.forgotPassword.reset(), {
         password: values.password,
         resetToken: params.resetToken,
       });
 
-      setMessage(message);
+      setMessage(t("signs.forgot.reset.messageSuccess"));
       resetForm();
     } catch (error) {
       setIsError(true);
-      setMessage(error.response.data.message);
+
+      if (error.response) {
+        setMessage(
+          error.response.data.error ||
+            error.response.data.message ||
+            t("form.apiErrors.genericError"),
+        );
+      } else if (error.request) {
+        setMessage(t("form.apiErrors.offlineError"));
+      } else {
+        setMessage(t("form.apiErrors.internalError"));
+      }
     }
   };
 
   return (
     <div className="flex w-full flex-col items-center justify-center">
       <Text size="title" className="flex justify-center">
-        RÉINITIALISATION DE MOT DE PASSE
+        {t("signs.forgot.reset.title")}
       </Text>
 
       <Text
-        className={clsx(
-          "min-h-[40px] rounded p-1",
-          isError ? "bg-red-500" : "",
-        )}
+        className={clsx("min-h-[40px] rounded p-1", isError && "bg-red-500")}
       >
         {message}
       </Text>
 
       <Formik
         initialValues={ResetInitialValues}
-        validationSchema={ResetSchema}
+        validationSchema={getResetSchema(t)}
         onSubmit={(values, { resetForm }) =>
           handleSubmitSignIn(values, { resetForm })
         }
       >
-        {() => (
+        {({ isSubmitting }) => (
           <Form className="flex w-1/4 flex-col gap-2">
             <FormField
-              className="text-ellipsis"
               name="password"
               type="password"
-              placeholder="Mot de passe"
+              placeholder={t("common.password")}
               required
             />
 
             <FormField
-              className="text-ellipsis"
               name="confirmPassword"
               type="password"
-              placeholder="Confirmer mot de passe"
+              placeholder={t("signs.forgot.reset.confirmPassword")}
               required
             />
 
-            <Button type="submit">Réinitialiser le mot de passe</Button>
+            <SubmitButton
+              isSubmitting={isSubmitting}
+              loadingText={t("signs.forgot.reset.submit.loading")}
+              defaultText={t("signs.forgot.reset.submit.label")}
+            />
           </Form>
         )}
       </Formik>

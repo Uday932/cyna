@@ -46,7 +46,7 @@ const ServiceCarouselAdmin = ({
                 width={20}
                 height={20}
                 src="/icons/cross.png"
-                alt={isMarkedForDeletion ? "Restaurer" : "Supprimer"}
+                alt={isMarkedForDeletion ? "Restore" : "Delete"}
                 className="transition duration-500"
               />
             </Button>

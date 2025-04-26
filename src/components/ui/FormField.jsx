@@ -1,9 +1,9 @@
 import appConfig from "@/utils/appConfig.js";
-import { AVAILABILITY_STATUS } from "@/utils/constants.js";
 import Input from "@@/ui/Input.jsx";
 import Text from "@@/ui/Text.jsx";
 import clsx from "clsx";
 import { ErrorMessage, Field } from "formik";
+import { useTranslations } from "next-intl";
 
 const FormField = (props) => {
   const {
@@ -16,6 +16,8 @@ const FormField = (props) => {
     children,
     ...otherProps
   } = props;
+
+  const t = useTranslations("password");
 
   return (
     <div className="flex flex-col">
@@ -39,9 +41,13 @@ const FormField = (props) => {
               {...field}
               type={type}
               placeholder={placeholder}
-              className={clsx(className, {
-                "border-red-500": meta.touched && meta.error,
-              })}
+              className={clsx(
+                "placeholder:capitalize placeholder:italic",
+                className,
+                {
+                  "border-red-500": meta.touched && meta.error,
+                },
+              )}
               as={as}
               label={label}
               {...otherProps}
@@ -49,25 +55,33 @@ const FormField = (props) => {
           )}
         </Field>
       )}
-      <div className="min-h-[25px] text-clip text-sm text-red-500">
+      <div className="min-h-[25px] text-clip text-sm text-red-500 first-letter:uppercase">
         <ErrorMessage name={name}>
           {(msg) => {
             if (msg == "-") {
               return (
                 <div>
-                  <p>Le mot de passe doit contenir :</p>
+                  <p>{t("rules")}</p>
                   <ul className="list-disc pl-5">
                     <li>
-                      {appConfig.security.password.minLenght} caractères minimum
+                      {t("minLength", {
+                        count: appConfig.security.password.minLenght,
+                      })}
                     </li>
                     <li>
-                      {appConfig.security.password.minNbCapLetter} lettre
-                      majuscule
+                      {t("minCapLetter", {
+                        count: appConfig.security.password.minNbCapLetter,
+                      })}
                     </li>
-                    <li>{appConfig.security.password.minNbDigit} chiffre</li>
                     <li>
-                      {appConfig.security.password.minSpecialCar} caractère
-                      spécial
+                      {t("minDigit", {
+                        count: appConfig.security.password.minNbDigit,
+                      })}
+                    </li>
+                    <li>
+                      {t("minSpecialChar", {
+                        count: appConfig.security.password.minSpecialCar,
+                      })}
                     </li>
                   </ul>
                 </div>

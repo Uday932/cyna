@@ -42,7 +42,7 @@ export default function Homepage() {
       .get(apiRoutes.textSection())
       .then((response) => setText(response.data?.content || ""))
       .catch((error) => {
-        console.error("Erreur lors du fetch du texte :", error);
+        console.error("Error fetching text:", error);
       });
 
     axios
@@ -51,7 +51,7 @@ export default function Homepage() {
         setCarouselItems(response.data);
       })
       .catch((error) => {
-        console.error("Erreur lors du fetch du carrousel :", error);
+        console.error("Error fetching carousel :", error);
       });
   }, []);
 
@@ -60,7 +60,7 @@ export default function Homepage() {
       const response = await axios.get(apiRoutes.carousel.all());
       setCarouselItems(response.data);
     } catch (error) {
-      console.error("Erreur lors du fetch du carrousel :", error);
+      console.error("Error fetching carousel :", error);
     }
   };
 
@@ -78,13 +78,11 @@ export default function Homepage() {
       setIsError(true);
 
       if (error.response) {
-        setMessage("Une erreur est survenue. Veuillez réessayer.");
+        setMessage("An error has occurred. Please try again..");
       } else if (error.request) {
-        setMessage(
-          "Le serveur est actuellement hors ligne. Veuillez réessayer plus tard.",
-        );
+        setMessage("The server is currently offline. Please try again later..");
       } else {
-        setMessage("Une erreur interne s'est produite.");
+        setMessage("An internal error has occurred.");
       }
     }
   };
@@ -108,7 +106,7 @@ export default function Homepage() {
 
       fetchCarouselData();
     } catch (error) {
-      console.error("Erreur lors de l'ajout du slide :", error);
+      console.error("Error adding slide :", error);
     }
   };
 
@@ -120,7 +118,7 @@ export default function Homepage() {
         const deleteUrl = apiRoutes.backoffice.carousel(id);
         await axios.delete(deleteUrl);
       } catch (error) {
-        console.error("Erreur lors de la suppression de la slide :", error);
+        console.error("Error deleting slide:", error);
         return;
       }
     }
@@ -130,9 +128,7 @@ export default function Homepage() {
 
   return (
     <div className="p-6">
-      <Text size="subtitle" color="black">
-        Modifier la section de texte
-      </Text>
+      <Text size="subtitle">Edit the text section</Text>
 
       <Formik
         initialValues={{
@@ -145,14 +141,9 @@ export default function Homepage() {
       >
         {({ isSubmitting }) => (
           <Form className="flex w-1/3 flex-col gap-2">
-            <FormField
-              name="textePrincipal"
-              placeholder="Texte principal"
-              className="w-full"
-              required
-            />
+            <FormField name="textePrincipal" className="w-full" required />
             <Button type="submit">
-              {isSubmitting ? "En cours..." : "Valider"}
+              {isSubmitting ? "In progress..." : "Validate"}
             </Button>
           </Form>
         )}
@@ -167,8 +158,8 @@ export default function Homepage() {
       </Text>
       {/* Section du carrousel */}
       <div className="mb-10 flex flex-col items-center">
-        <Text size="subtitle" color="black" className="mt-6">
-          Modifier le carrousel
+        <Text size="subtitle" className="mt-6">
+          Edit the carousel
         </Text>
       </div>
 
@@ -179,10 +170,7 @@ export default function Homepage() {
               {Object.keys(carouselItems[0]).map((key) => {
                 return (
                   <th key={key} className="px-6">
-                    <Text
-                      color="black"
-                      className="flex flex-row items-center justify-center first-letter:uppercase"
-                    >
+                    <Text className="flex flex-row items-center justify-center first-letter:uppercase">
                       {key}
                     </Text>
                   </th>
@@ -210,7 +198,7 @@ export default function Homepage() {
                   } else if (column === "createdAt" || column === "updatedAt") {
                     return (
                       <td key={column}>
-                        <Text color="black" className="px-2 text-center">
+                        <Text className="px-2 text-center">
                           {dateFormatter.format(new Date(item[column]))}
                         </Text>
                       </td>
@@ -218,9 +206,7 @@ export default function Homepage() {
                   } else {
                     return (
                       <td key={column}>
-                        <Text color="black" className="px-2 text-center">
-                          {item[column]}
-                        </Text>
+                        <Text className="px-2 text-center">{item[column]}</Text>
                       </td>
                     );
                   }
@@ -246,8 +232,8 @@ export default function Homepage() {
                       width={35}
                       height={35}
                       src="/icons/delete.png"
-                      alt="Supprimer"
-                      className="rounded-xl bg-button p-1"
+                      alt="Delete"
+                      className="rounded-xl p-1"
                     />
                   </Button>
                 </td>
@@ -256,11 +242,8 @@ export default function Homepage() {
           </tbody>
         </table>
       )}
-      <Button
-        onClick={handleAddSlide}
-        className="bg-blue-600 rounded px-4 py-2 text-white"
-      >
-        Ajouter un slide
+      <Button onClick={handleAddSlide} className="px-4">
+        Add a slide
       </Button>
     </div>
   );

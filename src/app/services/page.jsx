@@ -3,12 +3,14 @@ import apiRoutes from "@/apiUtils/apiRoutes.js";
 import ServiceCard from "@@/business/ServiceCard.jsx";
 import Text from "@@/ui/Text.jsx";
 import axios from "axios";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 const Services = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const t = useTranslations();
 
   useEffect(() => {
     const getServices = async () => {
@@ -23,9 +25,15 @@ const Services = () => {
         }
       } catch (error) {
         if (error.response) {
-          setError(error.response.data.error || "Une erreur est survenue.");
+          setError(
+            error.response.data.error ||
+              error.response.data.message ||
+              t("form.apiErrors.genericError"),
+          );
+        } else if (error.request) {
+          setError(t("form.apiErrors.offlineError"));
         } else {
-          setError("Impossible de récupérer le service.");
+          setError(t("form.apiErrors.internalError"));
         }
       } finally {
         setLoading(false);
@@ -38,7 +46,7 @@ const Services = () => {
   return (
     <div className="w-full bg-secondary p-10">
       <Text size="title" className="mb-10 text-center">
-        Nos Services
+        {t("services.title")}
       </Text>
 
       {loading ? (
@@ -61,7 +69,7 @@ const Services = () => {
               );
             })
           ) : (
-            <Text className="text-center">Aucun service trouvé.</Text>
+            <Text className="text-center">{t("services.noServices")}</Text>
           )}
         </div>
       )}

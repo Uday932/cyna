@@ -100,10 +100,10 @@ export async function PATCH(request, { params }) {
       { status: 200 },
     );
   } catch (error) {
-    console.error("Erreur:", error instanceof Error ? error : new Error(error));
+    console.error("Error:", error instanceof Error ? error : new Error(error));
 
     return NextResponse.json(
-      { error: "Erreur interne du serveur, veuillez réessayer." },
+      { error: "Internal server error, please try again." },
       { status: 500 },
     );
   }
@@ -127,10 +127,7 @@ export async function DELETE(request, { params }) {
     });
 
     if (!serviceExist) {
-      return NextResponse.json(
-        { error: "Service non trouvé" },
-        { status: 404 },
-      );
+      return NextResponse.json({ error: "Service not found" }, { status: 404 });
     }
 
     await prisma.service.delete({
@@ -141,13 +138,13 @@ export async function DELETE(request, { params }) {
 
     return NextResponse.json(
       { status: 200 },
-      { message: "services supprimées avec succès" },
+      { message: "services successfully deleted" },
     );
   } catch (error) {
-    console.error("Erreur lors de la suppression des services:", error);
+    console.error("Error deleting services:", error);
 
     return NextResponse.json(
-      { error: "Erreur lors de la suppression des services" },
+      { error: "Error deleting services" },
       { status: 500 },
     );
   }

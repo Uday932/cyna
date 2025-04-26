@@ -1,23 +1,25 @@
 "use client";
 
-import Text from "@@/ui/Text";
-import TextSection from "@@/business/homepage/TextSection";
 import CarouselSection from "@@/business/homepage/CarouselSection";
+import TextSection from "@@/business/homepage/TextSection";
+import Text from "@@/ui/Text";
+import { useTranslations } from "next-intl";
+
 export default function Home() {
+  const t = useTranslations("home");
+
   return (
     <div className="w-full">
       <CarouselSection />
-      {/* Section Texte dynamique */}
       <TextSection />
 
-      {/* Categories Section */}
       <section className="bg-secondary py-16">
         <div className="container mx-auto px-4">
           <Text
             size="title"
             className="mb-12 text-center font-black uppercase text-primary"
           >
-            Nos Catégories
+            {t("ourCategories")}
           </Text>
           <div className="grid gap-8 md:grid-cols-3">
             {["Catégorie 1", "Catégorie 2", "Catégorie 3"].map((cat, index) => (
@@ -32,14 +34,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Top Products Section */}
       <section className="bg-secondary py-16">
         <div className="container mx-auto px-4">
           <Text
             size="title"
             className="mb-12 text-center font-black uppercase text-primary"
           >
-            Les Top services du moment
+            {t("topServices")}
           </Text>
 
           <div className="grid gap-8 md:grid-cols-3">

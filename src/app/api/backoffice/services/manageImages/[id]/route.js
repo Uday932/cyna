@@ -27,17 +27,14 @@ export async function DELETE(request, { params }) {
     });
 
     if (!service) {
-      return NextResponse.json(
-        { error: "Service non trouvé" },
-        { status: 404 },
-      );
+      return NextResponse.json({ error: "Service not found" }, { status: 404 });
     }
 
     const { imagesToDelete } = await request.json();
 
     if (!Array.isArray(imagesToDelete) || imagesToDelete.length === 0) {
       return NextResponse.json(
-        { error: "Aucune image à supprimer" },
+        { error: "No images to delete" },
         { status: 400 },
       );
     }
@@ -61,14 +58,14 @@ export async function DELETE(request, { params }) {
 
     return NextResponse.json({
       success: true,
-      message: "Images supprimées avec succès",
+      message: "Images successfully deleted",
       updatedService,
     });
   } catch (error) {
-    console.error("Erreur lors de la suppression des images:", error);
+    console.error("Error deleting images:", error);
 
     return NextResponse.json(
-      { error: "Erreur lors de la suppression des images" },
+      { error: "Error deleting images" },
       { status: 500 },
     );
   }

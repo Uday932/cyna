@@ -17,16 +17,18 @@ export const passwordValidator = yup
   .string()
   .matches(/^(?=.*[^\p{L}0-9])(?=.*[0-9])(?=.*\p{Lu})(?=.*\p{Ll}).{8,}$/u, "-"); // Don't change the message for this because it's managed in FormField
 
+// BACKOFFICE
+
 export const integerValidator = (min = 1) => {
   return yup
     .number()
-    .typeError("Doit être un nombre")
-    .min(min, `doit être >= ${min}`);
+    .typeError("Must be a number")
+    .min(min, `Must be >= ${min}`);
 };
 
 export const availabilityValidator = yup
   .mixed()
-  .oneOf(Object.values(AVAILABILITY_STATUS), "Statut non valide");
+  .oneOf(Object.values(AVAILABILITY_STATUS), "Invalid status");
 
 export const stringValidator = (
   label,
@@ -38,17 +40,17 @@ export const stringValidator = (
     validator.nullable();
   }
 
-  validator.min(min, `${label} doit contenir au moins ${min} caractère`);
+  validator.min(min, `${label} must contain at least ${min} characters`);
 
   if (max !== undefined) {
     validator = validator.max(
       max,
-      `${label} doit contenir au max ${max} caractères`,
+      `${label} must contain at most ${max} characters`,
     );
   }
 
   if (!nullable) {
-    validator = validator.required(`${label} est requis`);
+    validator = validator.required(`${label} is required`);
   }
 
   return validator;

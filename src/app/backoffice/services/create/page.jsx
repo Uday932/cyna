@@ -34,16 +34,16 @@ const createServiceInitialValues = {
 };
 
 const createServiceValidationSchema = yup.object().shape({
-  name: stringValidator("Nom"),
-  summary: stringValidator("Résumé"),
-  description: stringValidator("Description", { nullable: true }),
-  technicalCharacteristics: stringValidator("Caractéristiques techniques", {
+  name: stringValidator("Name"),
+  summary: stringValidator("Summary"),
+  description: stringValidator("Detailed description", { nullable: true }),
+  technicalCharacteristics: stringValidator("Technical characteristics", {
     nullable: true,
   }),
-  companyBenefits: stringValidator("Avantages pour l'entreprise", {
+  companyBenefits: stringValidator("Company Benefits", {
     nullable: true,
   }),
-  category: stringValidator("Catégorie", { nullable: true }),
+  category: stringValidator("Category", { nullable: true }),
   monthlyPrice: integerValidator(),
   annualPrice: integerValidator(),
   perUserPrice: integerValidator(),
@@ -52,7 +52,7 @@ const createServiceValidationSchema = yup.object().shape({
   usedResources: integerValidator(),
   availability: availabilityValidator,
   priority: integerValidator(),
-  images: yup.array().of(yup.mixed().required("Les images sont obligatoires")),
+  images: yup.array().of(yup.mixed().required("Images are required")),
 });
 
 const ServiceCreateForm = () => {
@@ -73,11 +73,14 @@ const ServiceCreateForm = () => {
     values.images?.forEach((file) => formData.append("images", file));
 
     try {
-      await axios.post(apiRoutes.backoffice.services.create(), formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      setMessage("Service crée avec succès !");
+      const { data } = await axios.post(
+        apiRoutes.backoffice.services.create(),
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        },
+      );
+      setMessage(data.message);
       resetForm();
     } catch (error) {
       console.error(error);
@@ -88,8 +91,7 @@ const ServiceCreateForm = () => {
         setError(data.details.join("\n"));
       } else {
         setError(
-          data?.error ||
-            "Une erreur interne s'est produite. Veuillez réessayer.",
+          data?.error || "An internal error has occurred. Please try again.",
         );
       }
     }
@@ -105,77 +107,36 @@ const ServiceCreateForm = () => {
         {({ setFieldValue, isSubmitting, resetForm }) => (
           <Form>
             {[
-              ["name", "Nom du service", "Entrez le nom du service"],
-              ["summary", "Résumé", "Entrez un résumé"],
-
-              ["description", "Description", "Entrez la description"],
-              [
-                "technicalCharacteristics",
-                "Caractéristiques techniques",
-                "Entrez les caractéristiques",
-              ],
-              [
-                "companyBenefits",
-                "Avantages pour l'entreprise",
-                "Entrez les avantages",
-              ],
-              ["category", "Catégorie", "Entrez la catégorie"],
-            ].map(([field, label, placeholder], i) => (
-              <FormField
-                key={i}
-                name={field}
-                label={label}
-                placeholder={placeholder}
-              />
+              ["name", "Service Name"],
+              ["summary", "Summary"],
+              ["description", "Description"],
+              ["technicalCharacteristics", "Technical Characteristics"],
+              ["companyBenefits", "Company Benefits"],
+              ["category", "Category"],
+            ].map(([field, label], i) => (
+              <FormField key={i} name={field} label={label} />
             ))}
 
             <div className="grid grid-cols-1 md:grid-cols-2 space-x-2 lg:grid-cols-3 xl:grid-cols-4">
               {[
-                ["monthlyPrice", "Prix mensuel", "Entrez le prix mensuel"],
-                ["annualPrice", "Prix annuel", "Entrez le prix annuel"],
-                [
-                  "perUserPrice",
-                  "Prix par utilisateur",
-                  "Entrez le prix par utilisateur",
-                ],
-                [
-                  "perDevicePrice",
-                  "Prix par appareil",
-                  "Entrez le prix par appareil",
-                ],
-                [
-                  "maxResources",
-                  "Ressources maximales",
-                  "Entrez le nombre maximum de ressources",
-                ],
-                [
-                  "usedResources",
-                  "Ressources utilisées",
-                  "Entrez le nombre de ressources utilisées",
-                ],
-                ["priority", "Priorité", "Entrez la priorité"],
-              ].map(([name, label, placeholder], i) => (
-                <FormField
-                  key={i}
-                  name={name}
-                  label={label}
-                  type="number"
-                  placeholder={placeholder}
-                />
+                ["monthlyPrice", "Monthly Price"],
+                ["annualPrice", "Annual Price"],
+                ["perUserPrice", "Price per user"],
+                ["perDevicePrice", "Price per device"],
+                ["maxResources", "Maximum resources"],
+                ["usedResources", "Used resources"],
+                ["priority", "Priority"],
+              ].map(([name, label], i) => (
+                <FormField key={i} name={name} label={label} type="number" />
               ))}
 
-              <FormField
-                name="availability"
-                label="Disponibilité"
-                as="select"
-                placeholder="Sélectionner la disponibilité"
-              >
+              <FormField name="availability" label="Availability" as="select">
                 {Object.entries(AVAILABILITY_STATUS).map(([key, value]) => (
                   <option key={key} value={value}>
                     {key === "AVAILABLE"
-                      ? "Disponible"
+                      ? "Available"
                       : key === "UNAVAILABLE"
-                        ? "Indisponible"
+                        ? "Unavailable"
                         : "Maintenance"}
                   </option>
                 ))}
@@ -185,12 +146,8 @@ const ServiceCreateForm = () => {
             <ImageUploader setFieldValue={setFieldValue} fieldName="images" />
 
             <div className="flex justify-center">
-              <SubmitButton
-                isSubmitting={isSubmitting}
-                type="submit"
-                className="mt-2"
-              >
-                Créer le service
+              <SubmitButton isSubmitting={isSubmitting} className="mt-2">
+                Create the service
               </SubmitButton>
             </div>
           </Form>

@@ -1,12 +1,13 @@
 "use client";
 import apiRoutes from "@/apiUtils/apiRoutes.js";
 import { emailValidator } from "@/utils/validators.js";
-import Button from "@@/ui/Button.jsx";
 import FormField from "@@/ui/FormField.jsx";
+import SubmitButton from "@@/ui/SubmitButton.jsx";
 import Text from "@@/ui/Text.jsx";
 import axios from "axios";
 import clsx from "clsx";
 import { Form, Formik } from "formik";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import * as Yup from "yup";
 
@@ -14,13 +15,18 @@ const ForgotInitialValues = {
   email: "",
 };
 
-const ForgotSchema = Yup.object().shape({
-  email: emailValidator.required("L'e-mail est requis"),
-});
+const getForgotSchema = (t) => {
+  return Yup.object().shape({
+    email: emailValidator.required(
+      t("form.required", { field: t("common.email") }),
+    ),
+  });
+};
 
 const Forgot = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
+  const t = useTranslations();
 
   const handleSubmitSignIn = async (values, { resetForm }) => {
     try {
@@ -37,16 +43,25 @@ const Forgot = () => {
       resetForm();
     } catch (error) {
       setIsError(true);
-      setMessage(
-        "Une erreur est survenue. Veuillez réessayer." + error.message,
-      );
+
+      if (error.response) {
+        setMessage(
+          error.response.data.error ||
+            error.response.data.message ||
+            t("form.apiErrors.genericError"),
+        );
+      } else if (error.request) {
+        setMessage(t("form.apiErrors.offlineError"));
+      } else {
+        setMessage(t("form.apiErrors.internalError"));
+      }
     }
   };
 
   return (
     <div className="flex w-full flex-col items-center justify-center">
       <Text size="title" className="flex justify-center">
-        MOT DE PASSE OUBLIÉ
+        {t("signs.forgot.request.title")}
       </Text>
 
       <Text
@@ -58,31 +73,31 @@ const Forgot = () => {
         {message}
       </Text>
 
-      <Text className="mb-2">
-        Veuillez saisir votre adresse e-mail pour réinitialiser votre mot de
-        passe.
-      </Text>
+      <Text className="mb-2">{t("signs.forgot.request.instructions")}</Text>
 
       <Formik
         initialValues={ForgotInitialValues}
-        validationSchema={ForgotSchema}
+        validationSchema={getForgotSchema(t)}
         onSubmit={(values, { resetForm }) =>
           handleSubmitSignIn(values, { resetForm })
         }
       >
-        {() => (
+        {({ isSubmitting }) => (
           <Form className="flex w-1/5 flex-col">
             <FormField
               className="w-full"
               name="email"
               type="email"
-              placeholder="E-mail"
+              placeholder={t("common.email")}
               required
             />
 
-            <Button type="submit" className="mt-2">
-              Envoyer
-            </Button>
+            <SubmitButton
+              className="mt-2"
+              isSubmitting={isSubmitting}
+              loadingText={t("common.sending") + "..."}
+              defaultText={t("common.send")}
+            />
           </Form>
         )}
       </Formik>
