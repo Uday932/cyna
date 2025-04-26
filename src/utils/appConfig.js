@@ -4,6 +4,8 @@ const appConfig = {
     maxAge: 60 * 60 * 24 * 7, // cart valid for 7 days
   },
   locales: {
+    defaultLocale: "fr",
+    supportedLocales: ["fr", "en"],
     cookieName: "CYNA_APP_LOCALE",
   },
   security: {

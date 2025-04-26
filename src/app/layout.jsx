@@ -5,12 +5,14 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css";
 
-export const metadata = {
-  title: {
-    default: "Cyna | Accueil",
-  },
-  description: "Page d'accueil pour tous vos services en cyber",
-};
+export async function generateMetadata() {
+  const messages = await getMessages();
+
+  return {
+    title: messages.metadata?.title || "Cyna",
+    description: messages.metadata?.description || "Page d'accueil",
+  };
+}
 
 export default async function RootLayout({ children }) {
   const messages = await getMessages();

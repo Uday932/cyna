@@ -14,28 +14,38 @@ import Modal from "@@/ui/Modal.jsx";
 import axios from "axios";
 import { getCookie } from "cookies-next/client";
 import { Form, Formik } from "formik";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation.js";
 import { useEffect, useState } from "react";
 import * as yup from "yup";
 
-const EditUserInfoSchema = yup.object().shape({
-  firstName: firstNameValidator.required("Le prénom est requis"),
-  lastName: lastNameValidator.required("Le nom est requis"),
-  email: emailValidator.required("L'email est requis"),
-  actualPassword: passwordValidator.label("Mot de passe actuel"),
-  newPassword: passwordValidator.label("Nouveau mot de passe"),
-  repeatPassword: passwordValidator
-    .label("Répéter mot de passe")
-    .oneOf(
-      [yup.ref("newPassword"), null],
-      "Les mots de passe doivent correspondre",
+const getEditUserInfoSchema = (t) => {
+  return yup.object().shape({
+    firstName: firstNameValidator.required(
+      t("form.required", { field: t("common.firstName") }),
     ),
-});
+    lastName: lastNameValidator.required(
+      t("form.required", { field: t("common.lastName") }),
+    ),
+    email: emailValidator.required(
+      t("form.required", { field: t("common.email") }),
+    ),
+    actualPassword: passwordValidator.label(t("common.password")),
+    newPassword: passwordValidator.label(t("common.password")),
+    repeatPassword: passwordValidator
+      .label(t("common.password"))
+      .oneOf(
+        [yup.ref("newPassword"), null],
+        t("account.confirmPasswordWarning"),
+      ),
+  });
+};
 
 const UserInfoModal = (props) => {
   const router = useRouter();
   const { isOpen, onClose, user, setMessageSucces } = props;
   const [error, setError] = useState(null);
+  const t = useTranslations();
 
   useEffect(() => {
     const token = getCookie(appConfig.security.session.cookieName);
@@ -78,20 +88,22 @@ const UserInfoModal = (props) => {
       onClose();
     } catch (error) {
       if (error.response) {
-        setError(error.response.data.error);
-      } else if (error.request) {
         setError(
-          "Le serveur est actuellement hors ligne. Veuillez réessayer plus tard.",
+          error.response.data.error ||
+            error.response.data.message ||
+            t("form.apiErrors.genericError"),
         );
+      } else if (error.request) {
+        setError(t("form.apiErrors.offlineError"));
       } else {
-        setError("Une erreur interne s'est produite.");
+        setError(t("form.apiErrors.internalError"));
       }
     }
   };
 
   return (
     <Modal
-      title="Modifier mes informations"
+      title={t("account.modalTitle")}
       isOpen={isOpen}
       onClose={onClose}
       errorMessage={error}
@@ -105,7 +117,7 @@ const UserInfoModal = (props) => {
           newPassword: "",
           repeatPassword: "",
         }}
-        validationSchema={EditUserInfoSchema}
+        validationSchema={getEditUserInfoSchema(t)}
         onSubmit={(values) => handleEditUserInfo(values)}
       >
         {() => (
@@ -113,24 +125,21 @@ const UserInfoModal = (props) => {
             <FormField
               size="md"
               name="firstName"
-              placeholder="firstName"
-              label="Prénom"
+              label={t("common.firstName")}
               className="w-full"
             />
 
             <FormField
               size="md"
               name="lastName"
-              placeholder="lastName"
-              label="Nom"
+              label={t("common.lastName")}
               className="w-full"
             />
 
             <FormField
               size="md"
               name="email"
-              placeholder="email"
-              label="Email"
+              label={t("common.email")}
               type="email"
               className="w-full"
             />
@@ -139,8 +148,7 @@ const UserInfoModal = (props) => {
               size="md"
               type="password"
               name="actualPassword"
-              placeholder="oldPassword"
-              label="Mot de passe"
+              label={t("common.password")}
               className="w-full"
             />
 
@@ -148,8 +156,7 @@ const UserInfoModal = (props) => {
               size="md"
               type="password"
               name="newPassword"
-              placeholder="newPassword"
-              label="Nouveau mot de passe"
+              label={t("common.newPassword")}
               className="w-full"
             />
 
@@ -157,18 +164,17 @@ const UserInfoModal = (props) => {
               size="md"
               type="password"
               name="repeatPassword"
-              placeholder="repeatPassword"
-              label="Confirmer le mot de passe"
+              label={t("common.newPasswordConfirm")}
               className="w-full"
             />
 
             <div className="flex justify-between space-x-4">
               <Button onClick={onClose} color="danger">
-                Annuler
+                {t("common.cancel")}
               </Button>
 
               <Button type="submit" color="success">
-                Valider
+                {t("common.validate")}
               </Button>
             </div>
           </Form>

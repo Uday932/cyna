@@ -1,5 +1,6 @@
-import nodemailer from "nodemailer";
+import { getTranslations } from "next-intl/server";
 import { NextResponse } from "next/server.js";
+import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
   host: process.env.HOST,
@@ -10,18 +11,16 @@ const transporter = nodemailer.createTransport({
 });
 
 export async function POST(request) {
+  const t = await getTranslations("api.contact");
+
   try {
     const body = await request.json();
 
     const { name, email, message } = body;
 
     if (!name || !email || !message) {
-      console.error(
-        "Erreur de validation : Tous les champs ne sont pas remplis.",
-      );
-
       return NextResponse.json(
-        { error: "Tous les champs sont requis." },
+        { error: t("errorRequiredField") },
         { status: 400 },
       );
     }
@@ -29,21 +28,22 @@ export async function POST(request) {
     const mailOptions = {
       from: `"Cyna" <${process.env.AUTH_USER}>`,
       to: process.env.AUTH_USER,
-      subject: `Nouveau message de ${name} (${email})`,
-      text: `Nom : ${name}\nE-mail : ${email}\n\nMessage :\n${message}`,
+      subject: t("mail.subject", { name: name, email: email }),
+      text: t("mail.text", {
+        name: name,
+        email: email,
+        message: message,
+      }),
     };
 
     await transporter.sendMail(mailOptions);
 
-    return NextResponse.json(
-      { message: "Message envoyé avec succès !" },
-      { status: 200 },
-    );
+    return NextResponse.json({ message: t("messageSuccess") }, { status: 200 });
   } catch (error) {
-    console.error("Erreur lors de l'envoi du message :", error);
+    console.error(t("errorInternalServer"), error);
 
     return NextResponse.json(
-      { error: "Erreur interne du serveur. Veuillez réessayer." },
+      { error: t("errorInternalServer") },
       { status: 500 },
     );
   }

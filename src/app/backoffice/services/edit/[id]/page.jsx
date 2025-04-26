@@ -6,8 +6,8 @@ import {
   integerValidator,
   stringValidator,
 } from "@/utils/validators.js";
+import ServiceCarouselAdmin from "@@/backoffice/ServiceCarouselAdmin.jsx";
 import ImageUploader from "@@/business/ImageUploader.jsx";
-import ServiceCarouselAdmin from "@@/business/ServiceCarouselAdmin.jsx";
 import FormField from "@@/ui/FormField.jsx";
 import SubmitButton from "@@/ui/SubmitButton.jsx";
 import Text from "@@/ui/Text.jsx";
@@ -19,19 +19,19 @@ import * as yup from "yup";
 
 const editServiceSchema = yup.object().shape({
   name: stringValidator("nom", 1, 100).required(),
-  summary: stringValidator("résumé", 1, 300).required(),
+  summary: stringValidator("summary", 1, 300).required(),
   description: stringValidator("description"),
-  technicalCharacteristics: stringValidator("caractéristiques"),
-  companyBenefits: stringValidator("avantages"),
-  category: stringValidator("catégorie"),
-  monthlyPrice: integerValidator().required("Prix mensuel requis"),
-  annualPrice: integerValidator().required("Prix annuel requis"),
+  technicalCharacteristics: stringValidator("Technical Characteristics"),
+  companyBenefits: stringValidator("Company Benefits"),
+  category: stringValidator("cateégory"),
+  monthlyPrice: integerValidator().required("Monthly Price required"),
+  annualPrice: integerValidator().required("Annual Price required"),
   perUserPrice: integerValidator().nullable(),
   perDevicePrice: integerValidator().nullable(),
-  maxResources: integerValidator().required("Nombre max requis"),
-  usedResources: integerValidator(0).required("Nombre utilisé requis"),
+  maxResources: integerValidator().required("Maximum resources required"),
+  usedResources: integerValidator(0).required("Used resources required"),
   availability: availabilityValidator,
-  priority: integerValidator(0).required("Priorité requise"),
+  priority: integerValidator(0).required("Priority required"),
 });
 
 const EditService = () => {
@@ -49,7 +49,7 @@ const EditService = () => {
 
         setService(data);
       } catch (err) {
-        setError("Erreur lors du chargement du service.");
+        setError("Error loading service.");
       }
     };
 
@@ -94,27 +94,24 @@ const EditService = () => {
 
       setService(updatedService);
       setImagesToDelete([]);
-      setMessage("Service mis à jour avec succès !");
+      setMessage("An error has occurred");
       resetForm();
       setFieldValue("images", []);
       uploaderRef.current?.reset();
     } catch (error) {
-      setError(
-        error.response?.data?.error ||
-          "Une erreur interne s'est produite. Veuillez réessayer.",
-      );
+      setError(error.response?.data?.error || "An error has occurred.");
     }
   };
 
   if (!service) {
-    return <Text>Chargement...</Text>;
+    return <Text>Loading...</Text>;
   }
 
   return (
     <div className="w-full rounded-xl">
       <div>
         <Text size="subtitle" className="text-center">
-          Modifier le service
+          Edit the service
         </Text>
       </div>
       <Formik
@@ -129,18 +126,18 @@ const EditService = () => {
           <Form className="flex flex-col">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
-                ["name", "Nom"],
-                ["summary", "Résumé"],
-                ["category", "Catégorie"],
+                ["name", "Name"],
+                ["summary", "Summary"],
+                ["category", "Category"],
               ].map(([field, label]) => (
                 <FormField key={field} name={field} label={label} />
               ))}
             </div>
 
             {[
-              ["description", "Description détaillée"],
-              ["technicalCharacteristics", "Caractéristiques techniques"],
-              ["companyBenefits", "Avantages de l'entreprise"],
+              ["description", "Detailed description"],
+              ["technicalCharacteristics", "Technical characteristics"],
+              ["companyBenefits", "Company Benefits"],
             ].map(([field, label]) => (
               <FormField
                 key={field}
@@ -153,12 +150,12 @@ const EditService = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4">
               {[
-                ["monthlyPrice", `Prix mensuel ${CURRENCY_SYMBOL}`],
-                ["annualPrice", `Prix annuel ${CURRENCY_SYMBOL}`],
-                ["perUserPrice", `Prix par utilisateur ${CURRENCY_SYMBOL}`],
-                ["perDevicePrice", `Prix par appareil ${CURRENCY_SYMBOL}`],
-                ["maxResources", "Ressources max"],
-                ["usedResources", "Ressources utilisées"],
+                ["monthlyPrice", `Monthly price ${CURRENCY_SYMBOL}`],
+                ["annualPrice", `Annual price ${CURRENCY_SYMBOL}`],
+                ["perUserPrice", `Price per user ${CURRENCY_SYMBOL}`],
+                ["perDevicePrice", `Price per device ${CURRENCY_SYMBOL}`],
+                ["maxResources", "Maximum resources"],
+                ["usedResources", "Resources used"],
               ].map(([field, label]) => (
                 <FormField
                   key={field}
@@ -168,13 +165,13 @@ const EditService = () => {
                 />
               ))}
 
-              <FormField as="select" name="availability" label="Disponibilité">
+              <FormField as="select" name="availability" label="Availability">
                 {Object.entries(AVAILABILITY_STATUS).map(([key, value]) => (
                   <option key={key} value={value}>
                     {key === "AVAILABLE"
-                      ? "Disponible"
+                      ? "Available"
                       : key === "UNAVAILABLE"
-                        ? "Indisponible"
+                        ? "Unavailable"
                         : "Maintenance"}
                   </option>
                 ))}
@@ -182,7 +179,7 @@ const EditService = () => {
 
               <FormField
                 name="priority"
-                label="Priorité"
+                label="Priority"
                 type="number"
                 className="w-full"
               />
@@ -205,7 +202,7 @@ const EditService = () => {
             </div>
 
             <div className="my-5 flex justify-center">
-              <SubmitButton isSubmitting={isSubmitting}>Valider</SubmitButton>
+              <SubmitButton isSubmitting={isSubmitting}>Validate</SubmitButton>
             </div>
           </Form>
         )}

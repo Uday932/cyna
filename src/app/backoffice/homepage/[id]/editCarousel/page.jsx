@@ -31,7 +31,7 @@ const EditCarousel = () => {
 
         setCarousel(data);
       } catch (err) {
-        setError("Erreur lors du chargement du service.");
+        setError("Error loading service.");
       }
     };
 
@@ -39,7 +39,7 @@ const EditCarousel = () => {
   }, [id]);
 
   if (!carousel) {
-    return <Text color="black">Chargement...</Text>;
+    return <Text>Loading...</Text>;
   }
 
   const handleEditCarousel = async (values) => {
@@ -61,13 +61,11 @@ const EditCarousel = () => {
       setMessage(data.message);
     } catch (error) {
       if (error.response) {
-        setError("Une erreur est survenue. Veuillez réessayer.");
+        setError("An error has occurred. Please try again..");
       } else if (error.request) {
-        setError(
-          "Le serveur est actuellement hors ligne. Veuillez réessayer plus tard.",
-        );
+        setError("The server is currently offline. Please try again later..");
       } else {
-        setError("Une erreur interne s'est produite.");
+        setError("An internal error has occurred.");
       }
     }
   };
@@ -76,7 +74,7 @@ const EditCarousel = () => {
     <div className="w-full rounded-xl">
       <div>
         <Text size="subtitle" className="text-center">
-          Modifier le carousel
+          Edit the carousel
         </Text>
       </div>
 
@@ -93,18 +91,18 @@ const EditCarousel = () => {
       >
         {({ isSubmitting }) => (
           <Form className="flex flex-col">
-            <FormField name="title" label="Titre" />
+            <FormField name="title" label="Eitle" />
 
             <FormField name="description" label="Description" />
 
             <FormField name="image" label="Image" />
 
-            <FormField name="link" label="Lien" />
+            <FormField name="link" label="Link" />
 
-            <FormField name="priority" label="Priorité" type="number" />
+            <FormField name="priority" label="Priority" type="number" />
 
             <Button type="submit">
-              {isSubmitting ? "En cours..." : "Valider"}
+              {isSubmitting ? "In progress..." : "Validate"}
             </Button>
           </Form>
         )}

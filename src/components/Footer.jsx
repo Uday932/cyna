@@ -1,8 +1,11 @@
 import routes from "@/utils/routes.js";
 import Link from "@@/ui/Link";
+import { useTranslations } from "next-intl";
 import Image from "./ui/Image";
 
 const Footer = () => {
+  const t = useTranslations("footer");
+
   return (
     <footer className="bg-primary py-6">
       <div className="container mx-auto px-4">
@@ -10,7 +13,7 @@ const Footer = () => {
           <ul className="mb-4 flex flex-col space-x-0 md:mb-0 md:flex-row md:space-x-6">
             <li>
               <Link href={routes.mentionLegalesCgu()}>
-                Mentions légales et CGU
+                {t("mentionAndCGU")}
               </Link>
             </li>
 

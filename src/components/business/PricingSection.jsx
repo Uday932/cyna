@@ -1,8 +1,13 @@
 import Text from "@@/ui/Text.jsx";
+import { useFormatter, useLocale, useTranslations } from "next-intl";
 import React, { useState } from "react";
 
 const PricingSection = ({ service }) => {
   const [selectedPriceType, setSelectedPriceType] = useState("monthly");
+  const t = useTranslations("services.details.detailsCard");
+  const format = useFormatter();
+  const locale = useLocale();
+  const currency = locale === "fr" ? "EUR" : "GBP";
 
   const prices = {
     monthly: service.monthlyPrice,
@@ -12,15 +17,15 @@ const PricingSection = ({ service }) => {
   };
 
   const priceLabels = {
-    monthly: " / mois",
-    annual: " / an",
-    perUser: " / utilisateur (mensuel)",
-    perDevice: " / appareil (mensuel)",
+    monthly: t("perMonth"),
+    annual: t("perYear"),
+    perUser: t("perUser"),
+    perDevice: t("perDevice"),
   };
 
   return (
     <div className="flex flex-col gap-2">
-      <Text className="">Choisissez une option :</Text>
+      <Text>{t("chooseAnOption")} :</Text>
       <select
         className="rounded-lg bg-secondary p-3 text-white"
         value={selectedPriceType}
@@ -30,7 +35,11 @@ const PricingSection = ({ service }) => {
           ([key, value]) =>
             value && (
               <option key={key} value={key}>
-                {value}€{priceLabels[key]}
+                {format.number(value, {
+                  style: "currency",
+                  currency,
+                })}
+                {` ${priceLabels[key]}`}
               </option>
             ),
         )}

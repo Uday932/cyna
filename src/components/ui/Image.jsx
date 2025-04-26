@@ -1,9 +1,17 @@
+import { cn } from "@/lib/utils";
 import NextImage from "next/image.js";
 
-const Image = (props) => {
-  const { className, ...otherProps } = props;
+const colors = {
+  none: "",
+  white: "bg-white",
+};
 
-  return <NextImage className={className} {...otherProps} />;
+const Image = (props) => {
+  const { className, color = "none", ...otherProps } = props;
+
+  return (
+    <NextImage className={cn(className, "", colors[color])} {...otherProps} />
+  );
 };
 
 export default Image;

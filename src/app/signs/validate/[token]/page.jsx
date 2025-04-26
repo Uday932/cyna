@@ -4,6 +4,7 @@ import routes from "@/utils/routes.js";
 import Button from "@@/ui/Button.jsx";
 import Text from "@@/ui/Text";
 import axios from "axios";
+import { useTranslations } from "next-intl";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -13,6 +14,7 @@ const ValidateAccount = () => {
   const [validation, setValidation] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const router = useRouter();
+  const t = useTranslations();
 
   useEffect(() => {
     if (!token) {
@@ -30,10 +32,18 @@ const ValidateAccount = () => {
         }, 5000);
       } catch (error) {
         setValidation(false);
-        setErrorMessage(
-          error.response?.data?.message ||
-            "Une erreur est survenue lors de la validation de votre compte.",
-        );
+
+        if (error.response) {
+          setErrorMessage(
+            error.response.data.error ||
+              error.response.data.message ||
+              t("form.apiErrors.genericError"),
+          );
+        } else if (error.request) {
+          setErrorMessage(t("form.apiErrors.offlineError"));
+        } else {
+          setErrorMessage(t("form.apiErrors.internalError"));
+        }
       }
     };
 
@@ -44,14 +54,14 @@ const ValidateAccount = () => {
     <div className="flex w-full flex-col items-center justify-center gap-2">
       <Text>
         {validation === null
-          ? "Validation en cours..."
+          ? t("signs.validate.inProgress")
           : validation
-            ? "Votre compte a été validé avec succès."
+            ? t("signs.validate.success")
             : errorMessage}
       </Text>
       {validation && (
         <Button onClick={() => router.push(routes.home())}>
-          Aller à la page d'accueil
+          {t("signs.validate.returnHomePage")}
         </Button>
       )}
     </div>

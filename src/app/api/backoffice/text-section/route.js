@@ -1,7 +1,10 @@
 import prisma from "@/apiUtils/prisma-client.js";
+import { getTranslations } from "next-intl/server";
 import { NextResponse } from "next/server.js";
 
 export async function PATCH(req) {
+  const t = await getTranslations("api.text-section");
+
   try {
     const body = await req.json();
     const updatedText = await prisma.textSection.update({
@@ -11,11 +14,8 @@ export async function PATCH(req) {
 
     return NextResponse.json(updatedText, { status: 200 });
   } catch (error) {
-    console.error("Erreur Serveur : mise à jour text-section:", error);
+    console.error(t("updateError"), error);
 
-    return NextResponse.json(
-      { error: "Erreur lors de la mise à jour du texte dynamique" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: t("updateError") }, { status: 500 });
   }
 }

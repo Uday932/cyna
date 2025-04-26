@@ -5,7 +5,7 @@ export async function DELETE(_, context) {
   const { id } = await context.params;
 
   if (!id || isNaN(Number(id))) {
-    return NextResponse.json({ error: "ID invalide" }, { status: 400 });
+    return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
   }
 
   try {
@@ -14,14 +14,14 @@ export async function DELETE(_, context) {
     });
 
     return NextResponse.json(
-      { message: "Slide supprimée avec succès", deleted },
+      { message: "Slide successfully deleted", deleted },
       { status: 200 },
     );
   } catch (error) {
-    console.error("Erreur DELETE carousel:", error);
+    console.error("DELETE carousel error:", error);
 
     return NextResponse.json(
-      { error: "Erreur lors de la suppression" },
+      { error: "Error while deleting" },
       { status: 500 },
     );
   }
@@ -32,7 +32,7 @@ export async function POST(request, context) {
   const id = params?.id;
 
   if (!id || isNaN(Number(id))) {
-    return NextResponse.json({ error: "ID invalide" }, { status: 400 });
+    return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
   }
 
   const body = await request.json();
@@ -51,10 +51,10 @@ export async function POST(request, context) {
 
     return NextResponse.json({ updatedCarousel }, { status: 200 });
   } catch (error) {
-    console.error("Erreur Mise à jour carousel:", error);
+    console.error("Carousel Update Error:", error);
 
     return NextResponse.json(
-      { error: "Erreur lors de la mise à jour du carousel" },
+      { error: "Error updating carousel" },
       { status: 500 },
     );
   }

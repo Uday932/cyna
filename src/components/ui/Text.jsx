@@ -27,7 +27,12 @@ const Text = (props) => {
 
   return (
     <Tag
-      className={clsx(colors[color], sizes[size], className)}
+      className={clsx(
+        colors[color],
+        sizes[size],
+        Tag === "label" && "capitalize",
+        className,
+      )}
       {...otherProps}
     >
       {children}

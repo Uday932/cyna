@@ -1,22 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import apiRoutes from "@/apiUtils/apiRoutes";
-import Text from "@@/ui/Text";
-import Image from "@@/ui/Image";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
   CarouselNext,
+  CarouselPrevious,
 } from "@@/ui/Carousel";
+import Image from "@@/ui/Image";
+import Text from "@@/ui/Text";
 import axios from "axios";
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 
 const CAROUSEL_URL = process.env.NEXT_PUBLIC_CLOUDINARY_CAROUSEL_URL || "";
 
 export default function CarouselSection() {
   const [carouselItems, setCarouselItems] = useState([]);
+  const t = useTranslations();
 
   useEffect(() => {
     const getCarouselItems = async () => {
@@ -56,7 +58,7 @@ export default function CarouselSection() {
                     {item.description}
                   </Text>
                   <a href={item.link} className="text-blue-500 underline">
-                    En savoir plus
+                    {t("common.learnMore")}
                   </a>
                 </div>
 

@@ -15,14 +15,14 @@ export const config = {
 };
 
 const schemaFields = {
-  name: stringValidator("Nom"),
-  summary: stringValidator("Résumé"),
+  name: stringValidator("Name"),
+  summary: stringValidator("Summary"),
   description: stringValidator("Description", { nullable: true }),
-  technicalCharacteristics: stringValidator("Caractéristiques techniques", {
+  technicalCharacteristics: stringValidator("Technical characteristics", {
     nullable: true,
   }),
-  companyBenefits: stringValidator("Avantages", { nullable: true }),
-  category: stringValidator("Catégorie", { nullable: true }),
+  companyBenefits: stringValidator("Company Benefits", { nullable: true }),
+  category: stringValidator("Category", { nullable: true }),
   monthlyPrice: numberValidator(0).nullable(),
   annualPrice: numberValidator(0).nullable(),
   perUserPrice: numberValidator(0).nullable(),
@@ -30,7 +30,7 @@ const schemaFields = {
   maxResources: integerValidator.nullable(),
   usedResources: integerValidator.nullable(),
   availability: availabilityValidator,
-  priority: integerValidator.required("Priorité est requise"),
+  priority: integerValidator.required("Priority is required"),
 };
 
 export async function POST(request) {
@@ -70,14 +70,14 @@ export async function POST(request) {
     });
 
     return NextResponse.json(
+      { message: "Service successfully created!" },
       { status: 201 },
-      { message: "Service crée avec succès" },
     );
   } catch (error) {
-    console.error("Erreur:", error instanceof Error ? error : new Error(error));
+    console.error("Error:", error instanceof Error ? error : new Error(error));
 
     return NextResponse.json(
-      { error: "Erreur interne du serveur, veuillez réessayer." },
+      { error: "Internal server error, please try again." },
       { status: 500 },
     );
   }

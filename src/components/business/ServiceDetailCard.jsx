@@ -8,6 +8,7 @@ import ServiceCarousel from "@@/business/ServiceCarousel.jsx";
 import Button from "@@/ui/Button.jsx";
 import Text from "@@/ui/Text.jsx";
 import clsx from "clsx";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
@@ -34,12 +35,12 @@ const ServiceDetailCard = (props) => {
   const { service } = props;
   const { addToCart } = useContext(AppContext);
   const router = useRouter();
-
+  const t = useTranslations();
   const handleAddService = () => {
     addToCart(service);
   };
 
-  const { text, color } = getServiceAvailability(service);
+  const { text, color } = getServiceAvailability(service, t);
 
   return (
     <div className="flex flex-col xl:flex-row">
@@ -64,12 +65,12 @@ const ServiceDetailCard = (props) => {
 
         <Text>{service.summary}</Text>
 
-        {formatTextToList("Description", service.description)}
+        {formatTextToList(t("common.description"), service.description)}
 
-        {formatTextToList("Vos avantages", service.companyBenefits)}
+        {formatTextToList(t("common.yourAdvantages"), service.companyBenefits)}
 
         {formatTextToList(
-          "Caractéristiques Techniques",
+          t("common.technicalCharacteristics"),
           service.technicalCharacteristics,
         )}
       </div>
@@ -84,14 +85,15 @@ const ServiceDetailCard = (props) => {
               ? "button"
               : "disabled"
           }
+          className="uppercase"
         >
           {service.availability === AVAILABILITY_STATUS.AVAILABLE
-            ? "S'ABONNER MAINTENANT"
-            : "SERVICE INDISPONIBLE"}
+            ? t("services.details.detailsCard.subscribeNow")
+            : t("services.details.detailsCard.notAvailable")}
         </Button>
 
         <Button onClick={() => router.push(routes.services.all())}>
-          Retourner à la liste des services
+          {t("services.details.returnBackToServices")}
         </Button>
       </div>
     </div>

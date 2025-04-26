@@ -15,6 +15,7 @@ import Text from "@@/ui/Text.jsx";
 import axios from "axios";
 import clsx from "clsx";
 import { Form, Formik } from "formik";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation.js";
 import { useContext, useState } from "react";
 import * as Yup from "yup";
@@ -26,22 +27,31 @@ const SignUpInitialValues = {
   password: "",
 };
 
-const SignUpSchema = Yup.object().shape({
-  firstName: firstNameValidator.required("Le prénom est requis."),
-  lastName: lastNameValidator.required("Le nom est requis."),
-  email: emailValidator.required("L'e-mail est requis"),
-  password: passwordValidator
-    .required("Le mot de passe est requis")
-    .label("Mot de passe"),
-});
+const getSignUpSchema = (t) => {
+  return Yup.object().shape({
+    firstName: firstNameValidator.required(
+      t("form.required", { field: t("common.firstName") }),
+    ),
+    lastName: lastNameValidator.required(
+      t("form.required", { field: t("common.lastName") }),
+    ),
+    email: emailValidator.required(
+      t("form.required", { field: t("common.email") }),
+    ),
+    password: passwordValidator
+      .required(t("form.required", { field: t("common.password") }))
+      .label(t("common.password")),
+  });
+};
 
 const SignUp = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const { setSession } = useContext(AppContext);
   const router = useRouter();
+  const t = useTranslations();
 
-  const handleSubmitSignUp = async (values, { resetForm }) => {
+  const handleSubmitSignUp = async (values) => {
     try {
       setMessage("");
       setIsError(false);
@@ -53,7 +63,7 @@ const SignUp = () => {
         password: values.password,
       });
 
-      setMessage(data.message);
+      setMessage(t("signs.signUp.messageSuccess"));
       setSession(data.jwt);
 
       router.push(routes.home());
@@ -61,13 +71,15 @@ const SignUp = () => {
       setIsError(true);
 
       if (error.response) {
-        setMessage("Une erreur est survenue. Veuillez réessayer.");
-      } else if (error.request) {
         setMessage(
-          "Le serveur est actuellement hors ligne. Veuillez réessayer plus tard.",
+          error.response.data.error ||
+            error.response.data.message ||
+            t("form.apiErrors.genericError"),
         );
+      } else if (error.request) {
+        setMessage(t("form.apiErrors.offlineError"));
       } else {
-        setMessage("Une erreur interne s'est produite.");
+        setMessage(t("form.apiErrors.internalError"));
       }
     }
   };
@@ -75,7 +87,7 @@ const SignUp = () => {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-y-2">
       <Text size="title" className="flex justify-center">
-        CRÉATION DE COMPTE
+        {t("signs.signUp.title")}
       </Text>
 
       <Text
@@ -89,7 +101,7 @@ const SignUp = () => {
 
       <Formik
         initialValues={SignUpInitialValues}
-        validationSchema={SignUpSchema}
+        validationSchema={getSignUpSchema(t)}
         onSubmit={(values, { resetForm }) =>
           handleSubmitSignUp(values, { resetForm })
         }
@@ -98,7 +110,7 @@ const SignUp = () => {
           <Form className="flex w-1/3 flex-col gap-2">
             <FormField
               name="firstName"
-              placeholder="Prénom"
+              placeholder={t("common.firstName")}
               className="w-full"
               required
             />
@@ -106,7 +118,7 @@ const SignUp = () => {
             <FormField
               name="lastName"
               type="text"
-              placeholder="Nom"
+              placeholder={t("common.lastName")}
               className="w-full"
               required
             />
@@ -114,7 +126,7 @@ const SignUp = () => {
             <FormField
               name="email"
               type="email"
-              placeholder="E-mail"
+              placeholder={t("common.email")}
               className="w-full"
               required
             />
@@ -122,20 +134,22 @@ const SignUp = () => {
             <FormField
               name="password"
               type="password"
-              placeholder="Mot de passe"
+              placeholder={t("common.password")}
               className="w-full"
               required
             />
 
             <Button type="submit">
-              {isSubmitting ? "En cours..." : "Créer un compte"}
+              {isSubmitting
+                ? t("common.sending")
+                : t("signs.signUp.createAccount")}
             </Button>
           </Form>
         )}
       </Formik>
 
-      <Link href={routes.signs.signIn()} className="text-blue-500">
-        Vous avez déjà un compte ? Connectez-vous.
+      <Link href={routes.signs.signIn()}>
+        {t("signs.signUp.alreadyHaveAnAccount")}
       </Link>
     </div>
   );

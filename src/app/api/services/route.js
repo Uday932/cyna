@@ -2,10 +2,13 @@ import { validateRouteData } from "@/apiUtils/apiUtils.js";
 import { idValidator, stringValidator } from "@/apiUtils/apiValidators.js";
 import prisma from "@/apiUtils/prisma-client.js";
 import { AVAILABILITY_STATUS } from "@/utils/constants.js";
+import { getTranslations } from "next-intl/server";
 import { NextResponse } from "next/server.js";
 
 const handler = {
   GET: async (request) => {
+    const t = await getTranslations("api.services");
+
     try {
       const url = new URL(request.url);
       const id = url.searchParams.get("id");
@@ -40,10 +43,7 @@ const handler = {
       }
 
       if (!services || services.length === 0) {
-        return NextResponse.json(
-          { error: "Aucun service trouvé." },
-          { status: 404 },
-        );
+        return NextResponse.json({ error: t("notFound") }, { status: 404 });
       }
 
       if (Array.isArray(services)) {
@@ -82,14 +82,11 @@ const handler = {
       return NextResponse.json(services, { status: 200 });
     } catch (error) {
       console.error(
-        "Erreur de récupération de service(s):",
+        t("internalError"),
         error instanceof Error ? error : new Error(error),
       );
 
-      return NextResponse.json(
-        { error: "Erreur interne du serveur, veuillez réessayer." },
-        { status: 500 },
-      );
+      return NextResponse.json({ error: t("internalError") }, { status: 500 });
     }
   },
 };

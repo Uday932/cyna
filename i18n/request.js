@@ -7,14 +7,20 @@ export default getRequestConfig(async () => {
     appConfig.locales.cookieName,
   )?.value;
 
-  let locale = cookieLocale || "fr";
+  const defaultLocale = appConfig.locales.defaultLocale;
+
+  let locale = cookieLocale || defaultLocale;
 
   if (!cookieLocale) {
-    const acceptLang = headers().get("accept-language");
-    const browserLocale = acceptLang?.split(",")[0].slice(0, 2) || "fr";
-    const supportedLocales = ["fr", "en"];
+    const headersList = await headers();
+    const acceptLang = headersList.get("accept-language");
 
-    locale = supportedLocales.includes(browserLocale) ? browserLocale : "fr";
+    const browserLocale =
+      acceptLang?.split(",")[0].slice(0, 2) || defaultLocale;
+
+    locale = appConfig.locales.supportedLocales.includes(browserLocale)
+      ? browserLocale
+      : defaultLocale;
   }
 
   return {

@@ -4,10 +4,15 @@ import { getServiceAvailability } from "@/utils/utils.js";
 import Link from "@@/ui/Link.jsx";
 import Text from "@@/ui/Text.jsx";
 import clsx from "clsx";
+import { useFormatter, useLocale, useTranslations } from "next-intl";
 
 const ServiceCard = (props) => {
   const { service } = props;
-  const { status, text } = getServiceAvailability(service);
+  const t = useTranslations();
+  const { status, text } = getServiceAvailability(service, t);
+  const format = useFormatter();
+  const locale = useLocale();
+  const currency = locale === "fr" ? "EUR" : "GBP";
 
   return (
     <div
@@ -25,10 +30,12 @@ const ServiceCard = (props) => {
       <Text className="text-gray-700">{service.summary}</Text>
       <Text className="font-bold">
         {service.monthlyPrice
-          ? `${service.monthlyPrice}€ / mois`
-          : "Tarif non disponible"}
+          ? `${format.number(service.monthlyPrice, {
+              style: "currency",
+              currency,
+            })} ${t("services.card.byMonth")}`
+          : t("services.card.priceNotAvailable")}
       </Text>
-
       {status !== AVAILABILITY_STATUS.AVAILABLE && (
         <div className="flex flex-col items-start">
           <Text className="rounded-lg bg-red-500 p-1 font-bold">{text}</Text>
@@ -38,9 +45,9 @@ const ServiceCard = (props) => {
       <Link
         className="flex justify-center rounded bg-primary/50"
         href={routes.services.single(service.id)}
-        title={`En savoir plus sur le service ${service.name}`}
+        title={`${t("services.card.learnMoreLinkTitle")} ${service.name}`}
       >
-        En savoir plus
+        {t("services.card.learnMore")}
       </Link>
     </div>
   );

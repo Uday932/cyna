@@ -16,11 +16,11 @@ export const backofficePageTitles = {
     pageLink: routes.backoffice.homepage.home(),
   },
   dashboard: {
-    title: "Tableau de bord",
+    title: "Dashboard",
     pageLink: routes.backoffice.dashboard(),
   },
   users: {
-    title: "Utilisateurs",
+    title: "Users",
     pageLink: routes.backoffice.users(),
   },
   services: {
@@ -28,11 +28,11 @@ export const backofficePageTitles = {
     pageLink: routes.backoffice.services.all(),
   },
   subscriptions: {
-    title: "Abonnements",
+    title: "Subscriptions",
     pageLink: routes.backoffice.subscriptions(),
   },
   settings: {
-    title: "Paramètres",
+    title: "Settings",
     pageLink: routes.backoffice.settings(),
   },
 };

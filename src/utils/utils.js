@@ -1,11 +1,12 @@
 import appConfig from "@/utils/appConfig.js";
 import { availabilityStatus } from "@/utils/constants.js";
 import { decodeJwt, jwtVerify } from "jose";
+import { getMessages } from "next-intl/server";
 
-export const getServiceAvailability = (service) => {
+export const getServiceAvailability = (service, t) => {
   if (service.availability === availabilityStatus.MAINTENANCE) {
     return {
-      text: "Service momentanément indisponible",
+      text: t("common.serviceAvailability.temporarilyUnavailable"),
       status: availabilityStatus.MAINTENANCE,
       color: "bg-red-500",
     };
@@ -13,7 +14,7 @@ export const getServiceAvailability = (service) => {
 
   if (service.availability === availabilityStatus.UNAVAILABLE) {
     return {
-      text: "Service non disponible",
+      text: t("common.serviceAvailability.notAvailable"),
       status: availabilityStatus.UNAVAILABLE,
       color: "bg-red-500",
     };
@@ -21,14 +22,14 @@ export const getServiceAvailability = (service) => {
 
   if (service.maxResources - service.usedResources <= 0) {
     return {
-      text: "Stock épuisé",
+      text: t("common.serviceAvailability.outOfStock"),
       status: availabilityStatus.UNAVAILABLE,
       color: "bg-red-500",
     };
   }
 
   return {
-    text: "Disponible immédiatement",
+    text: t("common.serviceAvailability.available"),
     status: availabilityStatus.AVAILABLE,
     color: "bg-green-500",
   };
@@ -54,3 +55,28 @@ export const isJwtExpired = (token) => {
 export const normalizeImageNames = (images) => {
   return images.map((image) => image.replace(/[^\w.-]/g, "_").toLowerCase());
 };
+
+export async function getTranslatedMetadata(slug) {
+  const messages = await getMessages();
+
+  switch (slug) {
+    case "contact":
+      return {
+        title: messages.contact?.metaTitle || "Contact - Cyna",
+        description: messages.contact?.metaDescription || "Contactez-nous.",
+      };
+
+    case "services":
+      return {
+        title: messages.products?.metaTitle || "Nos services",
+        description:
+          messages.products?.metaDescription || "Cybersécurité à fond.",
+      };
+
+    default:
+      return {
+        title: messages.home?.metaTitle || "Accueil - Cyna",
+        description: messages.home?.metaDescription || "Bienvenue chez Cyna.",
+      };
+  }
+}

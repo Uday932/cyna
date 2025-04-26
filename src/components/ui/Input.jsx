@@ -2,6 +2,7 @@ import Button from "@@/ui/Button.jsx";
 import Image from "@@/ui/Image.jsx";
 import Text from "@@/ui/Text.jsx";
 import clsx from "clsx";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 const Input = (props) => {
@@ -15,14 +16,12 @@ const Input = (props) => {
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const inputType = type === "password" && isPasswordVisible ? "text" : type;
+  const t = useTranslations();
 
   return (
     <div>
       {label && (
-        <Text
-          as="label"
-          className="relative flex flex-col font-semibold first-letter:uppercase"
-        >
+        <Text as="label" className="relative flex flex-col font-semibold">
           {label}
         </Text>
       )}
@@ -53,7 +52,7 @@ const Input = (props) => {
             placeholder={placeholder}
             type={inputType}
             className={clsx(
-              "w-full rounded-lg border bg-white p-2 transition-all duration-300 ease-in-out",
+              "w-full rounded-lg border bg-white p-2 transition-all duration-300 ease-in-out placeholder:capitalize",
               className,
             )}
             {...otherProps}
@@ -74,7 +73,11 @@ const Input = (props) => {
                   ? "/icons/eye-open.svg"
                   : "/icons/eye-close.svg"
               }
-              alt={isPasswordVisible ? "Hide password" : "Show password"}
+              alt={
+                isPasswordVisible
+                  ? t("common.hidePassword")
+                  : t("common.showPassword")
+              }
               className="h-7 w-7"
               width={7}
               height={7}

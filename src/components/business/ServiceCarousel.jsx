@@ -2,6 +2,7 @@
 import Button from "@@/ui/Button.jsx";
 import Image from "@@/ui/Image.jsx";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 const CLOUDINARY_BASE_URL = process.env.NEXT_PUBLIC_CLOUDINARY_BASE_URL || "";
@@ -10,6 +11,7 @@ const ServiceCarousel = (props) => {
   const { images } = props;
   const [index, setIndex] = useState(0);
   const [imageError, setImageError] = useState(false);
+  const t = useTranslations();
 
   const nextImage = () => setIndex((prev) => (prev + 1) % images.length);
   const prevImage = () =>
@@ -34,7 +36,7 @@ const ServiceCarousel = (props) => {
                 key="error"
                 className="absolute inset-0 flex h-full w-full items-center justify-center bg-gray-300"
               >
-                <p className="text-white">Image not available</p>
+                <p className="text-white">{t("common.imageNotAvailable")}</p>
               </motion.div>
             )}
             {!imageError && (
@@ -63,7 +65,7 @@ const ServiceCarousel = (props) => {
             width={24}
             height={24}
             src="/icons/left-arrows.svg"
-            alt="Précédent"
+            alt={t("common.previous")}
           />
         </Button>
         <Button
@@ -75,7 +77,7 @@ const ServiceCarousel = (props) => {
             width={24}
             height={24}
             src="/icons/right-arrows.svg"
-            alt="Suivant"
+            alt={t("common.next")}
           />
         </Button>
       </div>

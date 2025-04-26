@@ -7,7 +7,7 @@ import LanguageSelector from "@@/business/LanguageSelector.jsx";
 import Image from "@@/ui/Image.jsx";
 import Text from "@@/ui/Text.jsx";
 import { getCookie, setCookie } from "cookies-next/client";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation.js";
 import { useContext, useEffect, useState } from "react";
@@ -21,6 +21,7 @@ const Navbar = () => {
   const router = useRouter();
   const [locale, setLocale] = useState("");
   const serverLocale = useLocale();
+  const t = useTranslations();
 
   useEffect(() => {
     const cookieLocale = getCookie(appConfig.locales.cookieName);
@@ -150,7 +151,7 @@ const Navbar = () => {
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-gray-300"
               >
-                Catégories
+                {t("navbar.categories")}
               </Link>
             </li>
             <li className="py-2">
@@ -168,7 +169,7 @@ const Navbar = () => {
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-gray-300"
               >
-                Panier
+                {t("common.cart")}
               </Link>
             </li>
             <li className="py-2">
@@ -188,11 +189,13 @@ const Navbar = () => {
                     onClick={() => setIsMenuOpen(false)}
                     className="hover:text-gray-300"
                   >
-                    Mon Compte
+                    {t("common.myAccount")}
                   </Link>
                 </li>
 
-                <Button onClick={() => handleLogOut()}>Se déconecter</Button>
+                <Button onClick={() => handleLogOut()}>
+                  {t("common.logOut")}
+                </Button>
               </>
             ) : (
               <>
@@ -202,7 +205,7 @@ const Navbar = () => {
                     onClick={() => setIsMenuOpen(false)}
                     className="hover:text-gray-300"
                   >
-                    Se Connecter
+                    {t("common.logIn")}
                   </Link>
                 </li>
 
@@ -212,7 +215,7 @@ const Navbar = () => {
                     onClick={() => setIsMenuOpen(false)}
                     className="hover:text-gray-300"
                   >
-                    Créer un Compte
+                    {t("common.createAccount")}
                   </Link>
                 </li>
               </>
