@@ -36,7 +36,10 @@ const apiRoutes = {
     single: (id) => `/api/services?id=${id}`,
     similar: (category) => `/api/services?category=${category}`,
   },
-  
+  categories: {
+    all: () => "/api/categories",
+    single: (id) => `/api/categories?id=${id}`,
+  },
 
   contact: () => "/api/contact",
 };
