@@ -32,18 +32,19 @@ const createServiceInitialValues = {
   priority: 1,
   images: [],
 };
+const t = undefined;
 
 const createServiceValidationSchema = yup.object().shape({
-  name: stringValidator("Name"),
-  summary: stringValidator("Summary"),
-  description: stringValidator("Detailed description", { nullable: true }),
-  technicalCharacteristics: stringValidator("Technical characteristics", {
-    nullable: true,
+  name: stringValidator(t, "Name"),
+  summary: stringValidator(t, "Summary"),
+  description: stringValidator(t, "Detailed description", { required: false }),
+  technicalCharacteristics: stringValidator(t, "Technical characteristics", {
+    required: false,
   }),
-  companyBenefits: stringValidator("Company Benefits", {
-    nullable: true,
+  companyBenefits: stringValidator(t, "Company Benefits", {
+    required: false,
   }),
-  category: stringValidator("Category", { nullable: true }),
+  category: stringValidator(t, "Category", { required: false }),
   monthlyPrice: integerValidator(),
   annualPrice: integerValidator(),
   perUserPrice: integerValidator(),

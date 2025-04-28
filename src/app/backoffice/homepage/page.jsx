@@ -23,9 +23,9 @@ const dateFormatter = new Intl.DateTimeFormat("fr-FR", {
   minute: "2-digit",
   timeZone: "Europe/Paris",
 });
-
+const t = undefined;
 const TextSchema = Yup.object().shape({
-  textePrincipal: stringValidator("texte principal"),
+  textePrincipal: stringValidator(t, "texte principal"),
 });
 
 const CAROUSEL_URL = process.env.NEXT_PUBLIC_CLOUDINARY_CAROUSEL_URL || "";
