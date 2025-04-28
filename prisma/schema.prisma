@@ -59,6 +59,17 @@ model Service {
   images Json?
 } 
 
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  image       String?
+  link        String?
+  priority    Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model TextSection  {
   id    Int    @id @default(autoincrement())
   content  String
