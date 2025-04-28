@@ -19,7 +19,7 @@ const handler = {
         {
           id: idValidator.optional(),
           category: stringValidator("category", {
-            nullable: true,
+            required: false,
           }).notRequired(),
         },
       );

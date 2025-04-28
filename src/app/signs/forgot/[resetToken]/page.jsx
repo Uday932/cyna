@@ -19,13 +19,11 @@ const ResetInitialValues = {
 
 const getResetSchema = (t) => {
   return Yup.object().shape({
-    password: passwordValidator
-      .required(t("form.required", { field: t("common.password") }))
-      .label(t("common.password")),
-    confirmPassword: passwordValidator
-      .required(t("form.required", { field: t("common.password") }))
-      .oneOf([Yup.ref("password"), null], t("form.confirmation"))
-      .label(t("common.password")),
+    password: passwordValidator(t),
+    confirmPassword: passwordValidator(t).oneOf(
+      [Yup.ref("password"), null],
+      t("form.confirmation"),
+    ),
   });
 };
 

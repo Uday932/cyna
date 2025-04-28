@@ -47,7 +47,7 @@ const Modal = (props) => {
     >
       <div
         className={clsx(
-          "z-60 fixed inset-0 mx-auto my-auto w-1/2 rounded-lg lg:w-1/3 xl:w-1/4",
+          "z-60 fixed inset-0 my-auto w-full rounded-lg mx-10 lg:w-1/2 lg:mx-auto ",
 
           fits[fit],
           className,

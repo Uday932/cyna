@@ -20,12 +20,8 @@ const SignInInitialValues = {
 
 const getSignInSchema = (t) => {
   return Yup.object().shape({
-    email: emailValidator.required(
-      t("form.required", { field: t("common.email") }),
-    ),
-    password: passwordValidator
-      .required(t("form.required", { field: t("common.password") }))
-      .label(t("common.password")),
+    email: emailValidator(t),
+    password: passwordValidator(t),
   });
 };
 

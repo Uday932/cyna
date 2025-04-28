@@ -7,7 +7,6 @@ export async function GET() {
 
   try {
     const textSection = await prisma.textSection.findFirst();
-    console.log("ok");
 
     return NextResponse.json(textSection, { status: 200 });
   } catch (error) {

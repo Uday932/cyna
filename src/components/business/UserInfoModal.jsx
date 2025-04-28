@@ -21,23 +21,15 @@ import * as yup from "yup";
 
 const getEditUserInfoSchema = (t) => {
   return yup.object().shape({
-    firstName: firstNameValidator.required(
-      t("form.required", { field: t("common.firstName") }),
+    firstName: firstNameValidator(t),
+    lastName: lastNameValidator(t),
+    email: emailValidator(t),
+    actualPassword: passwordValidator(t),
+    newPassword: passwordValidator(t),
+    repeatPassword: passwordValidator(t).oneOf(
+      [yup.ref("newPassword"), null],
+      t("account.confirmPasswordWarning"),
     ),
-    lastName: lastNameValidator.required(
-      t("form.required", { field: t("common.lastName") }),
-    ),
-    email: emailValidator.required(
-      t("form.required", { field: t("common.email") }),
-    ),
-    actualPassword: passwordValidator.label(t("common.password")),
-    newPassword: passwordValidator.label(t("common.password")),
-    repeatPassword: passwordValidator
-      .label(t("common.password"))
-      .oneOf(
-        [yup.ref("newPassword"), null],
-        t("account.confirmPasswordWarning"),
-      ),
   });
 };
 

@@ -26,6 +26,22 @@ const apiProtectedRoutes = [
     path: apiRoutes.signs.updatePassword(),
     allowedRoles: [ROLES.USER, ROLES.ADMIN],
   },
+  {
+    path: apiRoutes.address.all(),
+    allowedRoles: [ROLES.USER, ROLES.ADMIN],
+  },
+  {
+    path: apiRoutes.address.create(),
+    allowedRoles: [ROLES.USER, ROLES.ADMIN],
+  },
+  {
+    path: apiRoutes.address.delete(),
+    allowedRoles: [ROLES.USER, ROLES.ADMIN],
+  },
+  {
+    path: apiRoutes.address.upsert(),
+    allowedRoles: [ROLES.USER, ROLES.ADMIN],
+  },
 ];
 
 const protectedRoutes = [...frontendProtectedRoutes, ...apiProtectedRoutes];

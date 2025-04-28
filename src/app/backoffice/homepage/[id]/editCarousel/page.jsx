@@ -10,12 +10,13 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as yup from "yup";
 
+const t = undefined;
 const editCarouselSchema = yup.object().shape({
-  title: stringValidator("title"),
-  description: stringValidator("description"),
-  image: stringValidator("image"),
-  link: stringValidator("link"),
-  priority: stringValidator("priority"),
+  title: stringValidator(t, "title"),
+  description: stringValidator(t, "description"),
+  image: stringValidator(t, "image"),
+  link: stringValidator(t, "link"),
+  priority: stringValidator(t, "priority"),
 });
 
 const EditCarousel = () => {

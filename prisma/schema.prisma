@@ -36,7 +36,26 @@ model User {
   passwordSalt String
   emailVerified Boolean  @default(false)
   verificationToken String?
- }
+  addresses Address[]
+}
+
+model Address {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
+  firstName    String
+  lastName     String
+  addressLine1 String
+  addressLine2 String?
+  city         String
+  postalCode   String
+  country      String
+  mobile       String?
+  isDefault    Boolean  @default(false) 
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
 
 model Service {
   id           Int   @id @default(autoincrement())

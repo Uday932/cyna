@@ -33,6 +33,10 @@ async function main() {
     await prisma.$executeRawUnsafe(
       'TRUNCATE TABLE "CarouselItem" RESTART IDENTITY CASCADE;',
     );
+
+    await prisma.$executeRawUnsafe(
+      'TRUNCATE TABLE "Address" RESTART IDENTITY CASCADE;',
+    );
   }
 
   console.log("Seeding services...");
@@ -255,6 +259,22 @@ async function main() {
       },
     ],
     skipDuplicates: true,
+  });
+
+  console.log("Seeding address ...");
+
+  await prisma.address.create({
+    data: {
+      userId: 1,
+      firstName: "Admin",
+      lastName: "MUUDMA",
+      addressLine1: "1 rue de la paix",
+      city: "Paris",
+      postalCode: "75010",
+      country: "France",
+      mobile: "0612345678",
+      isDefault: true,
+    },
   });
 
   console.log("Seeding completed!");

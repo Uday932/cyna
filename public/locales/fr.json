@@ -14,6 +14,11 @@
     "cart": ""
   },
   "api": {
+    "address": {
+      "notFound": "L'adresse demandée n'a pas été trouvée",
+      "error": "Erreur lors de la récupération des adresses, veuillez réessayer",
+      "errorPatch": "Erreur lors de la mise à jour de l'adresse"
+    },
     "carousel": {
       "error": "Erreur lors de la récupération des données du carrousel, veuillez réessayer."
     },
@@ -81,11 +86,16 @@
     "goToHomePage": "Aller à la page d'accueil"
   },
   "common": {
+    "byDefault": "Par défaut",
     "cancel": "Annuler",
     "cart": "Panier",
+    "confirm": "Confirmer",
+    "city": "Ville",
     "connection": "Connexion",
+    "country": "Pays",
     "createAccount": "Créer un compte",
     "description": "Description",
+    "delete": "Supprimer",
     "email": "e-mail",
     "edit": "Modifier",
     "error": "Erreur",
@@ -99,12 +109,16 @@
     "learnMore": "En savoir plus",
     "logIn": "Se connecter",
     "logOut": "Se déconnecter",
+    "mobileNumber": "Numéro de mobile",
     "myAccount": "Mon compte",
+    "myAddresses": "Mes adresses",
+    "myDetails": "Mes informations",
     "name": "Nom complet",
     "newPassword": "Nouveau mot de passe",
     "newPasswordConfirm": "Confirmer le mot de passe",
     "next": "Suivant",
     "password": "Mot de passe",
+    "postalCode": "Code postal",
     "previous": "Précédent",
     "send": "Envoyer",
     "sending": "Envoi en cours",
@@ -130,7 +144,13 @@
   "account": {
     "title": "Mon compte",
     "confirmPasswordWarning": "Les mots de passe doivent correspondre",
-    "modalTitle": "Modifier mes informations"
+    "modalTitle": "Modifier mes informations",
+    "addAddress": "Ajouter une adresse",
+    "editAddress": "Modifier l'adresse",
+    "addressLine1": "Adresse (ligne 1)",
+    "addressLine2": "Adresse (ligne 2) (optionnel)",
+    "setDefault": "Définir comme adresse par défaut",
+    "deleteConfirmationTitle": "Êtes-vous sûr de vouloir supprimer cette adresse"
   },
   "contact": {
     "title": "NOUS CONTACTER",
@@ -215,6 +235,32 @@
       "genericError": "Une erreur est survenue. Veuillez réessayer.",
       "offlineError": "Le serveur est actuellement hors ligne. Veuillez réessayer plus tard.",
       "internalError": "Une erreur interne s'est produite."
+    }
+  },
+  "validation": {
+    "firstName": {
+      "min": "Le prénom est trop court.",
+      "max": "Le prénom est trop long."
+    },
+    "lastName": {
+      "min": "Le nom de famille doit contenir au moins 8 caractères.",
+      "max": "Le nom de famille doit contenir au maximum 30 caractères."
+    },
+    "email": {
+      "invalid": "Adresse e-mail invalide"
+    },
+    "mobileNumber": {
+      "invalid": "Numéro de mobile invalide.",
+      "min": "Le numéro de mobile doit contenir 10 chiffres",
+      "max": "Le numéro de mobile doit contenir 10 chiffres."
+    },
+    "postalCode": {
+      "invalid": "Le code postal doit contenir 5 chiffres."
+    },
+    "generic": {
+      "min": "{field} doit contenir au moins {min} caractères.",
+      "max": "{field} doit contenir au maximum {max} caractères.",
+      "required": "{field} est obligatoire"
     }
   },
   "legal": {
