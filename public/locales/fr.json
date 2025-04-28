@@ -14,6 +14,11 @@
     "cart": ""
   },
   "api": {
+    "address": {
+      "notFound": "L'adresse demandée n'a pas été trouvée",
+      "error": "Erreur lors de la récupération des adresses, veuillez réessayer",
+      "errorPatch": "Erreur lors de la mise à jour de l'adresse"
+    },
     "carousel": {
       "error": "Erreur lors de la récupération des données du carrousel, veuillez réessayer."
     },

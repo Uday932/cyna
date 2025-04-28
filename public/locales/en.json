@@ -13,6 +13,11 @@
     "categories": "Categories"
   },
   "api": {
+    "address": {
+      "notFound": "The requested address was not found",
+      "error": "Error retrieving addresses, please try again",
+      "errorPatch": "Erreur lors de la mise à jour de l'addresse"
+    },
     "carousel": {
       "error": "Error retrieving the carousel data."
     },
