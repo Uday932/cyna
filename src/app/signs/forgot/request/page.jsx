@@ -17,9 +17,7 @@ const ForgotInitialValues = {
 
 const getForgotSchema = (t) => {
   return Yup.object().shape({
-    email: emailValidator.required(
-      t("form.required", { field: t("common.email") }),
-    ),
+    email: emailValidator(t),
   });
 };
 

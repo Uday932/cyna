@@ -1,4 +1,10 @@
 const apiRoutes = {
+  address: {
+    all: () => "/api/address",
+    create: () => "/api/address",
+    upsert: () => "/api/address",
+    delete: (id) => `/api/address/${id}`,
+  },
   signs: {
     signUp: () => "/api/signs/signUp",
     validate: () => "/api/signs/validateAccount",

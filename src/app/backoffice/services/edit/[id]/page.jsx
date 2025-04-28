@@ -17,13 +17,16 @@ import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import * as yup from "yup";
 
+const t = undefined;
 const editServiceSchema = yup.object().shape({
-  name: stringValidator("nom", 1, 100).required(),
-  summary: stringValidator("summary", 1, 300).required(),
-  description: stringValidator("description"),
-  technicalCharacteristics: stringValidator("Technical Characteristics"),
-  companyBenefits: stringValidator("Company Benefits"),
-  category: stringValidator("cateégory"),
+  name: stringValidator(t, "nom"),
+  summary: stringValidator(t, "summary"),
+  description: stringValidator(t, "description", { required: false }),
+  technicalCharacteristics: stringValidator(t, "Technical Characteristics", {
+    required: false,
+  }),
+  companyBenefits: stringValidator(t, "Company Benefits", { required: false }),
+  category: stringValidator(t, "cateégory", { required: false }),
   monthlyPrice: integerValidator().required("Monthly Price required"),
   annualPrice: integerValidator().required("Annual Price required"),
   perUserPrice: integerValidator().nullable(),

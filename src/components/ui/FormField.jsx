@@ -1,7 +1,7 @@
+import { cn } from "@/lib/utils.js";
 import appConfig from "@/utils/appConfig.js";
 import Input from "@@/ui/Input.jsx";
 import Text from "@@/ui/Text.jsx";
-import clsx from "clsx";
 import { ErrorMessage, Field } from "formik";
 import { useTranslations } from "next-intl";
 
@@ -20,7 +20,7 @@ const FormField = (props) => {
   const t = useTranslations("password");
 
   return (
-    <div className="flex flex-col">
+    <div className={cn("flex flex-col", className)}>
       {as === "select" ? (
         <>
           <Text as="label" htmlFor="availability">
@@ -41,13 +41,9 @@ const FormField = (props) => {
               {...field}
               type={type}
               placeholder={placeholder}
-              className={clsx(
-                "placeholder:capitalize placeholder:italic",
-                className,
-                {
-                  "border-red-500": meta.touched && meta.error,
-                },
-              )}
+              className={cn("placeholder:capitalize placeholder:italic", {
+                "border-red-500": meta.touched && meta.error,
+              })}
               as={as}
               label={label}
               {...otherProps}

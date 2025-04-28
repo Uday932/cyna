@@ -19,12 +19,12 @@ export const config = {
 const schemaField = {
   name: stringValidator("name"),
   summary: stringValidator("summary"),
-  description: stringValidator("description", { nullable: true }),
+  description: stringValidator("description", { required: false }),
   technicalCharacteristics: stringValidator("technicalCharacteristics", {
-    nullable: true,
+    required: false,
   }),
-  companyBenefits: stringValidator("companyBenefits", { nullable: true }),
-  category: stringValidator("category", { nullable: true }),
+  companyBenefits: stringValidator("companyBenefits", { required: false }),
+  category: stringValidator("category", { required: false }),
   monthlyPrice: numberValidator(),
   annualPrice: numberValidator(),
   perUserPrice: numberValidator(),

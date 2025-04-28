@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { cn } from "@/lib/utils.js";
 
 const sizes = {
   title: "text-4xl uppercase",
@@ -22,21 +22,30 @@ const Text = (props) => {
     color = "white",
     className,
     children,
+    label,
     ...otherProps
   } = props;
 
   return (
-    <Tag
-      className={clsx(
-        colors[color],
-        sizes[size],
-        Tag === "label" && "capitalize",
-        className,
+    <div>
+      {label && (
+        <label className={cn("font-semibold capitalize", colors[color])}>
+          {label}
+        </label>
       )}
-      {...otherProps}
-    >
-      {children}
-    </Tag>
+
+      <Tag
+        className={cn(
+          colors[color],
+          sizes[size],
+          Tag === "label" && "capitalize",
+          className,
+        )}
+        {...otherProps}
+      >
+        {children}
+      </Tag>
+    </div>
   );
 };
 

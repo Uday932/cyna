@@ -29,18 +29,10 @@ const SignUpInitialValues = {
 
 const getSignUpSchema = (t) => {
   return Yup.object().shape({
-    firstName: firstNameValidator.required(
-      t("form.required", { field: t("common.firstName") }),
-    ),
-    lastName: lastNameValidator.required(
-      t("form.required", { field: t("common.lastName") }),
-    ),
-    email: emailValidator.required(
-      t("form.required", { field: t("common.email") }),
-    ),
-    password: passwordValidator
-      .required(t("form.required", { field: t("common.password") }))
-      .label(t("common.password")),
+    firstName: firstNameValidator(t),
+    lastName: lastNameValidator(t),
+    email: emailValidator(t),
+    password: passwordValidator(t).label(t("common.password")),
   });
 };
 

@@ -15,10 +15,7 @@ export default function Home() {
 
       <section className="bg-secondary py-16">
         <div className="container mx-auto px-4">
-          <Text
-            size="title"
-            className="mb-12 text-center font-black uppercase text-primary"
-          >
+          <Text size="title" className="mb-12 text-center font-black">
             {t("ourCategories")}
           </Text>
           <div className="grid gap-8 md:grid-cols-3">
@@ -36,10 +33,7 @@ export default function Home() {
 
       <section className="bg-secondary py-16">
         <div className="container mx-auto px-4">
-          <Text
-            size="title"
-            className="mb-12 text-center font-black uppercase text-primary"
-          >
+          <Text size="title" className="mb-12 text-center font-black">
             {t("topServices")}
           </Text>
 
