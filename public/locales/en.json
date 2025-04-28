@@ -85,10 +85,15 @@
     "goToHomePage": "Go to the home page"
   },
   "common": {
+    "byDefault": "By default",
     "cancel": "Cancel",
     "cart": "Cart",
+    "confirm": "Confirm",
+    "city": "City",
     "connection": "connection",
+    "country": "Country",
     "createAccount": "Create an account",
+    "delete": "Delete",
     "description": "Description",
     "edit": "Edit",
     "email": "email",
@@ -103,12 +108,16 @@
     "learnMore": "Learn more",
     "logIn": "Log in",
     "logOut": "Log out",
+    "mobileNumber": "Mobile number",
     "myAccount": "My account",
+    "myAddresses": "My addresses",
+    "myDetails": "Profile Information",
     "name": "name",
     "newPassword": "New password",
     "newPasswordConfirm": "Password confirmation",
     "next": "Next",
     "password": "password",
+    "postalCode": "Postal code",
     "previous": "Previous",
     "send": "send",
     "sending": "Sending",
@@ -134,7 +143,13 @@
   "account": {
     "title": "My account",
     "confirmPasswordWarning": "Passwords must match",
-    "modalTitle": "Edit my information"
+    "modalTitle": "Edit my information",
+    "addAddress": "Add an address",
+    "editAddress": "Edit address",
+    "addressLine1": "Address Line 1",
+    "addressLine2": "Address Line 2 (optional)",
+    "setDefault": "Set as default",
+    "deleteConfirmationTitle": "Are you sure you want to delete this address?"
   },
   "contact": {
     "title": "Contact Us",
@@ -219,6 +234,32 @@
       "genericError": "An error has occurred. Please try again.",
       "offlineError": "The server is currently offline. Please try again later.",
       "internalError": "An internal error has occurred."
+    }
+  },
+  "validation": {
+    "firstName": {
+      "min": "First name is too short.",
+      "max": "First name is too long."
+    },
+    "lastName": {
+      "min": "Last name must contain at least 8 characters.",
+      "max": "Last name must contain a maximum of 30 characters."
+    },
+    "email": {
+      "invalid": "Invalid email address"
+    },
+    "mobileNumber": {
+      "invalid": "Invalid mobile number.",
+      "min": "Mobile number must contain 10 digits.",
+      "max": "Mobile number must contain 10 digits."
+    },
+    "postalCode": {
+      "invalid": "Postal code must contain 5 digits."
+    },
+    "generic": {
+      "min": "{field} must contain at least {min} characters.",
+      "max": "{field} must contain at most {max} characters.",
+      "required": "{field} is required"
     }
   },
   "legal": {
