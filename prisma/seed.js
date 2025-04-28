@@ -174,6 +174,34 @@ async function main() {
     skipDuplicates: true,
   });
 
+  console.log("Seeding categories...");
+  await prisma.category.createMany({
+    data: [
+      {
+        name: "Catégorie 1",
+        description: "Description courte de la catégorie 1.",
+        image: "soc",
+        link: "/categories/1",
+        priority: 3,
+      },
+      {
+        name: "Catégorie 2",
+        description: "Description courte de la catégorie 2.",
+        image: "edr",
+        link: "/categories/2",
+        priority: 2,
+      },
+      {
+        name: "Catégorie 3",
+        description: "Description courte de la catégorie 3.",
+        image: "xdr",
+        link: "/categories/3",
+        priority: 1,
+      },
+    ],
+    skipDuplicates: true,
+  });
+
   console.log("Seeding users ...");
 
   const salt = randomBytes(appConfig.security.password.saltLength).toString(
