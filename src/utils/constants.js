@@ -49,3 +49,22 @@ export const AVAILABILITY_STATUS = {
   UNAVAILABLE: "UNAVAILABLE",
   MAINTENANCE: "MAINTENANCE",
 };
+
+export const SERVICE_COLUMN_TYPES = {
+  PRICE_KEYS: ["monthlyPrice", "annualPrice", "perUserPrice", "perDevicePrice"],
+  NUMERIC_KEYS: ["maxResources", "usedResources", "priority"],
+  LONG_TEXT_COLUMN: [
+    "summary",
+    "description",
+    "technicalCharacteristics",
+    "companyBenefits",
+  ],
+  DATE_KEYS: ["updatedAt", "createdAt"],
+  IGNORED_COLUMNS: ["images"],
+};
+
+export const SORT_DIRECTION = {
+  NONE: "NONE",
+  ASC: "ASC",
+  DESC: "DESC",
+};

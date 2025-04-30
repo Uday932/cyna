@@ -25,7 +25,7 @@ export const stringValidator = (
     validator.nullable();
   }
 
-  validator.min(min, `${label} doit être >= ${min}`);
+  validator = validator.min(min, `${label} doit être >= ${min}`);
 
   if (max !== undefined) {
     validator = validator.max(max, `${label} doit être <= ${max} caractères`);
