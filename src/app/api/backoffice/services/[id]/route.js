@@ -1,4 +1,9 @@
-import { uploadImages, validateRouteData } from "@/apiUtils/apiUtils.js";
+import { NotFoundError } from "@/apiUtils/apiError.js";
+import {
+  uploadImages,
+  validateRouteData,
+  validateSchema,
+} from "@/apiUtils/apiUtils.js";
 import {
   availabilityValidator,
   idValidator,
@@ -7,6 +12,7 @@ import {
   numberValidator,
   stringValidator,
 } from "@/apiUtils/apiValidators.js";
+import { handleApiError } from "@/apiUtils/errorHandler.js";
 import prisma from "@/apiUtils/prisma-client.js";
 import { NextResponse } from "next/server";
 
@@ -113,7 +119,7 @@ export async function DELETE(request, { params }) {
   try {
     const { id } = await params;
 
-    const validatedParams = await validateRouteData(
+    const validatedParams = await validateSchema(
       { id: parseInt(id) },
       {
         id: idValidator.required(),
@@ -127,7 +133,7 @@ export async function DELETE(request, { params }) {
     });
 
     if (!serviceExist) {
-      return NextResponse.json({ error: "Service not found" }, { status: 404 });
+      throw new NotFoundError(["Service not found"]);
     }
 
     await prisma.service.delete({
@@ -138,14 +144,9 @@ export async function DELETE(request, { params }) {
 
     return NextResponse.json(
       { status: 200 },
-      { message: "services successfully deleted" },
+      { message: "Services successfully deleted" },
     );
   } catch (error) {
-    console.error("Error deleting services:", error);
-
-    return NextResponse.json(
-      { error: "Error deleting services" },
-      { status: 500 },
-    );
+    return handleApiError(error);
   }
 }

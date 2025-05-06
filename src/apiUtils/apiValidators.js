@@ -47,3 +47,12 @@ export const imagesValidator = yup
   .of(yup.string().required("Chaque image doit avoir un nom"))
   .nullable()
   .default([]);
+
+export const startDateTopService = yup
+  .date()
+  .typeError("Start date must be a valid date");
+
+export const endDateTopService = yup
+  .date()
+  .nullable()
+  .typeError("End date must be a valid date");

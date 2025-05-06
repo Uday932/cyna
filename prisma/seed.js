@@ -277,6 +277,26 @@ async function main() {
     },
   });
 
+  console.log("Seeding top services...");
+
+  await prisma.topService.createMany({
+    data: [
+      {
+        serviceId: 1,
+        priority: 1,
+        startDate: new Date(),
+        endDate: new Date(new Date().setMonth(new Date().getMonth() + 3)),
+      },
+      {
+        serviceId: 5,
+        priority: 2,
+        startDate: new Date(),
+        endDate: new Date(new Date().setMonth(new Date().getMonth() + 2)),
+      },
+    ],
+    skipDuplicates: true,
+  });
+
   console.log("Seeding completed!");
 }
 

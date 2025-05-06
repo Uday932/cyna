@@ -22,7 +22,6 @@ You can download from the this [link](https://www.enterprisedb.com/downloads/pos
 
 - PostgreSQL Server
 - pgAdmin 4
-- Stack builder
 - Command Line Tools
 
 ## Install dependencies
@@ -57,8 +56,43 @@ After setting up the database and configuring the environment variables, run the
 npm run migrate
 ```
 
-If you want to add seed data, run the following command:
+**Note:**: This runs "prisma migrate deploy" as defined in the `package.json` scripts.
+
+### Database Reset and Seeding
+
+If you need to reset your database (which will delete all data) and automatically apply migrations and seed data:
 
 ```bash
-npm run seed
+npx prisma migrate reset
 ```
+
+This command will:
+
+1. Drop the existing database
+2. Create a new database
+3. Apply all migrations
+4. Run the seed script defined in your `package.json`
+
+If you want to run the seed script separately without resetting the database:
+
+```bash
+npx prisma db seed
+```
+
+If you want to reset the database without running the seed script:
+
+```bash
+npx prisma migrate reset --skip-seed
+```
+
+## Admin User (Seed)
+
+✅ **A default admin user is created by the seed script**:
+
+Login: `muudma.solutions@gmail.com`
+
+Password: `123Admin*`
+
+🗑️ **If you don’t want this user**, you can remove or modify it in `prisma/seed.js`.
+
+---
