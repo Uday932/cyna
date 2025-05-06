@@ -151,3 +151,12 @@ export const integerValidator = (min = 1) => {
 export const availabilityValidator = yup
   .mixed()
   .oneOf(Object.values(AVAILABILITY_STATUS), "Invalid status");
+
+export const startDateTopService = yup
+  .date()
+  .typeError("Start date must be a valid date");
+
+export const endDateTopService = yup
+  .date()
+  .nullable()
+  .typeError("End date must be a valid date");

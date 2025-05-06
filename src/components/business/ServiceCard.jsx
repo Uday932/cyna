@@ -27,7 +27,7 @@ const ServiceCard = (props) => {
       <Text size="subtitle" className="text-center font-semibold">
         {service.name}
       </Text>
-      <Text className="text-gray-700">{service.summary}</Text>
+      <Text>{service.summary}</Text>
       <Text className="font-bold">
         {service.monthlyPrice
           ? `${format.number(service.monthlyPrice, {

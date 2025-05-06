@@ -59,7 +59,7 @@ export const SERVICE_COLUMN_TYPES = {
     "technicalCharacteristics",
     "companyBenefits",
   ],
-  DATE_KEYS: ["updatedAt", "createdAt"],
+  DATE_KEYS: ["updatedAt", "createdAt", "startDate", "endDate"],
   IGNORED_COLUMNS: ["images"],
 };
 

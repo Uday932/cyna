@@ -14,6 +14,9 @@
     "cart": ""
   },
   "api": {
+    "generic": {
+      "internalError": "Erreur interne du serveur, veuillez réessayer."
+    },
     "address": {
       "notFound": "L'adresse demandée n'a pas été trouvée",
       "error": "Erreur lors de la récupération des adresses, veuillez réessayer",
@@ -158,7 +161,8 @@
   },
   "home": {
     "ourCategories": " Nos Catégories",
-    "topServices": "Top services du moment"
+    "topServices": "Les Top services du moment",
+    "topServicesError": "Une erreur est survenue lors de la récupération des services. Veuillez réessayer plus tard."
   },
   "services": {
     "title": "Nos services",
