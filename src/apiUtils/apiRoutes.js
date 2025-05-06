@@ -21,6 +21,11 @@ const apiRoutes = {
       edit: (id) => `/api/backoffice/services/${id}`,
       delete: (id) => `/api/backoffice/services/${id}`,
       manageImages: (id) => `/api/backoffice/services/manageImages/${id}`,
+      top: {
+        create: () => "/api/backoffice/services/top",
+        delete: (id) => `/api/backoffice/services/top/${id}`,
+        update: (id) => `/api/backoffice/services/top/${id}`,
+      },
     },
     textSection: () => "/api/backoffice/text-section",
     carousel: (id) => `/api/backoffice/carousel/${id}`,
@@ -41,6 +46,10 @@ const apiRoutes = {
     all: () => "/api/services",
     single: (id) => `/api/services?id=${id}`,
     similar: (category) => `/api/services?category=${category}`,
+    top: {
+      all: () => "/api/services/top",
+      single: (id) => `/api/services/top?id=${id}`,
+    },
   },
   categories: {
     all: () => "/api/categories",

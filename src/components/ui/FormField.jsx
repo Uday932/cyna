@@ -26,11 +26,7 @@ const FormField = (props) => {
           <Text as="label" htmlFor="availability">
             {label}
           </Text>
-          <Field
-            as="select"
-            name="availability"
-            className="rounded-lg border p-3"
-          >
+          <Field as="select" name={name} className="rounded-lg border p-3">
             {children}
           </Field>
         </>

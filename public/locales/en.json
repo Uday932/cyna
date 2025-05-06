@@ -13,6 +13,9 @@
     "categories": "Categories"
   },
   "api": {
+    "generic": {
+      "internalError": "Internal server error, please try again."
+    },
     "address": {
       "notFound": "The requested address was not found",
       "error": "Error retrieving addresses, please try again",
@@ -157,7 +160,8 @@
   },
   "home": {
     "ourCategories": "Our Categories",
-    "topServices": "Top Services of the Moment"
+    "topServices": "Top Services of the Moment",
+    "topServicesError": "An error occurred while fetching the top services. Please try again later."
   },
   "services": {
     "title": "Our Services",

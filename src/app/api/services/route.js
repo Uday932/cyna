@@ -1,7 +1,9 @@
-import { validateRouteData } from "@/apiUtils/apiUtils.js";
+import {
+  sortAndFilterServices,
+  validateRouteData,
+} from "@/apiUtils/apiUtils.js";
 import { idValidator, stringValidator } from "@/apiUtils/apiValidators.js";
 import prisma from "@/apiUtils/prisma-client.js";
-import { AVAILABILITY_STATUS } from "@/utils/constants.js";
 import { getTranslations } from "next-intl/server";
 import { NextResponse } from "next/server.js";
 
@@ -46,36 +48,7 @@ export async function GET(request) {
     }
 
     if (Array.isArray(services)) {
-      const serviceAvailable = services.filter(
-        (s) =>
-          s.availability === AVAILABILITY_STATUS.AVAILABLE &&
-          s.usedResources <= s.maxResources,
-      );
-
-      const serviceUnavailable = services.filter(
-        (s) => s.availability !== AVAILABILITY_STATUS.AVAILABLE,
-      );
-
-      serviceAvailable.sort((a, b) => {
-        const aHasPriority = typeof a.priority === "number";
-        const bHasPriority = typeof b.priority === "number";
-
-        if (aHasPriority && bHasPriority) {
-          return b.priority - a.priority;
-        }
-
-        if (aHasPriority) {
-          return -1;
-        }
-
-        if (bHasPriority) {
-          return 1;
-        }
-
-        return 0;
-      });
-
-      services = [...serviceAvailable, ...serviceUnavailable];
+      services = sortAndFilterServices(services);
     }
 
     return NextResponse.json(services, { status: 200 });

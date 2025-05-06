@@ -1,4 +1,6 @@
+import { InvalidArgumentError } from "@/apiUtils/apiError.js";
 import appConfig from "@/utils/appConfig.js";
+import { AVAILABILITY_STATUS } from "@/utils/constants.js";
 import { v2 as cloudinary } from "cloudinary";
 import { SignJWT } from "jose";
 import { NextResponse } from "next/server.js";
@@ -36,6 +38,18 @@ export const validateRouteData = async (data, schemaFields) => {
       },
       { status: 400 },
     );
+  }
+};
+
+export const validateSchema = async (data, schemaFields) => {
+  const schema = yup.object().shape(schemaFields);
+
+  try {
+    const result = await schema.validate(data, { abortEarly: false });
+
+    return result;
+  } catch (error) {
+    throw new InvalidArgumentError(["Invalid data provided", ...error.errors]);
   }
 };
 
@@ -97,3 +111,36 @@ export const uploadImages = async (formData, folderName) => {
 
   return uploadedImages;
 };
+
+export function sortAndFilterServices(services) {
+  const available = services.filter(
+    (s) =>
+      s.availability === AVAILABILITY_STATUS.AVAILABLE &&
+      s.usedResources <= s.maxResources,
+  );
+
+  const unavailable = services.filter(
+    (s) => s.availability !== AVAILABILITY_STATUS.AVAILABLE,
+  );
+
+  available.sort((a, b) => {
+    const aHasPriority = typeof a.priority === "number";
+    const bHasPriority = typeof b.priority === "number";
+
+    if (aHasPriority && bHasPriority) {
+      return b.priority - a.priority;
+    }
+
+    if (aHasPriority) {
+      return -1;
+    }
+
+    if (bHasPriority) {
+      return 1;
+    }
+
+    return 0;
+  });
+
+  return [...available, ...unavailable];
+}

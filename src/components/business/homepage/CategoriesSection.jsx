@@ -1,11 +1,11 @@
 "use client";
 import apiRoutes from "@/apiUtils/apiRoutes";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import Image from "@@/ui/Image";
-import Text from "@@/ui/Text";
 import Link from "@@/ui/Link";
+import Text from "@@/ui/Text";
+import axios from "axios";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 
 const CATEGORIES_URL = process.env.NEXT_PUBLIC_CLOUDINARY_CATEGORIES_URL || "";
 
@@ -39,10 +39,7 @@ export default function CategoriesSection() {
   return (
     <section className="bg-secondary py-16">
       <div className="container mx-auto px-4">
-        <Text
-          size="title"
-          className="mb-12 text-center font-black uppercase text-primary"
-        >
+        <Text size="title" className="mb-12 text-center font-black">
           {t("home.ourCategories")}
         </Text>
         <div className="grid gap-8 md:grid-cols-3">

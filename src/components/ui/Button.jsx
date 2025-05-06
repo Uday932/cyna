@@ -12,10 +12,11 @@ const colors = {
 };
 
 const Button = (props) => {
-  const { color = "button", className, ...otherProps } = props;
+  const { color = "button", className, disabled, ...otherProps } = props;
 
   return (
     <button
+      disabled={disabled}
       className={clsx(
         "rounded p-2 text-white first-letter:uppercase",
         colors[color],
