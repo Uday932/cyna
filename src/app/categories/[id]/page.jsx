@@ -58,7 +58,7 @@ const CategoryPage = () => {
         <Text size="title" className="mb-4 font-black">
           {category?.name}
         </Text>
-        <Text className="mb-4 text-sm">{category?.description}</Text>
+        <Text className="mb-4">{category?.description}</Text>
       </div>
 
       {/* Section services */}
