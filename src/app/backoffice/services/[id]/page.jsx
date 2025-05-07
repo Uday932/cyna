@@ -10,12 +10,19 @@ import { useEffect, useState } from "react";
 
 const CLOUDINARY_BASE_URL = process.env.NEXT_PUBLIC_CLOUDINARY_BASE_URL || "";
 
-const Item = ({ label, value }) => (
-  <div>
-    <Text>{label} :</Text>
-    <Text>{value}</Text>
-  </div>
-);
+const Item = ({ label, value }) => {
+  const displayValue =
+    typeof value === "object" && value !== null
+      ? JSON.stringify(value) // Convertir en JSON si c'est un objet
+      : value || "—"; // Afficher "—" si la valeur est nulle ou indéfinie
+
+  return (
+    <div>
+      <Text>{label} :</Text>
+      <Text>{displayValue}</Text>
+    </div>
+  );
+};
 
 const ServiceBackofficeDetail = () => {
   const { id } = useParams();
@@ -70,7 +77,7 @@ const ServiceBackofficeDetail = () => {
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <Item label="Name" value={service.name} />
-            <Item label="Category" value={service.category || "N/A"} />
+            <Item label="Category" value={service.category?.name || "N/A"} />
             <Item label="Summary" value={service.summary} />
             <Item label="Description" value={service.description || "—"} />
             <Item
@@ -102,7 +109,7 @@ const ServiceBackofficeDetail = () => {
             />
           </div>
 
-          {service.images?.length > 0 && (
+          {Array.isArray(service.images) && service.images.length > 0 && (
             <div className="mt-8">
               <Text className="mb-2 font-semibold">Images :</Text>
               <div className="flex flex-wrap gap-4">

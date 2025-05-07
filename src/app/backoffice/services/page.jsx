@@ -166,13 +166,20 @@ const ServicesPage = () => {
 
     if (DATE_KEYS.includes(key)) {
       const date = new Date(value);
-
       text = dateFormatter.format(date);
+    }
+
+    // Gestion des objets imbriqués comme `category`
+    if (typeof value === "object" && value !== null) {
+      if (key === "category") {
+        text = value.name; // Extraire uniquement le nom de la catégorie
+      } else {
+        text = JSON.stringify(value); // Fallback pour d'autres objets
+      }
     }
 
     return text.length > length ? text.slice(0, length) + "..." : text;
   };
-
   const getSortIcon = (key) => {
     if (key !== sortConfig.key) {
       return null;

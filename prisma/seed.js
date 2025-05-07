@@ -39,6 +39,51 @@ async function main() {
     );
   }
 
+  console.log("Seeding categories...");
+  await prisma.category.createMany({
+    data: [
+      {
+        name: "Prévention",
+        description: "Services axés sur la prévention des cyberattaques.",
+        image: "prevention",
+        link: "/categories/prevention",
+        priority: 3,
+      },
+      {
+        name: "Protection",
+        description:
+          "Services dédiés à la protection des systèmes et des données.",
+        image: "protection",
+        link: "/categories/protection",
+        priority: 2,
+      },
+      {
+        name: "Réponse",
+        description: "Services de réponse rapide aux incidents de sécurité.",
+        image: "reponse",
+        link: "/categories/reponse",
+        priority: 1,
+      },
+    ],
+    skipDuplicates: true,
+  });
+
+  const preventionCategory = await prisma.category.findUnique({
+    where: { name: "Prévention" },
+  });
+
+  const protectionCategory = await prisma.category.findUnique({
+    where: { name: "Protection" },
+  });
+
+  const reponseCategory = await prisma.category.findUnique({
+    where: { name: "Réponse" },
+  });
+
+  if (!preventionCategory || !protectionCategory || !reponseCategory) {
+    throw new Error("Une ou plusieurs catégories sont manquantes.");
+  }
+
   console.log("Seeding services...");
 
   await prisma.service.createMany({
@@ -58,7 +103,7 @@ async function main() {
         Gestion des Incidents : Identification et gestion des incidents de sécurité avec des recommandations pour la remédiation.
         Performances et Scalabilité : Capacité à gérer des environnements de toutes tailles, avec des analyses rapides et efficaces.
         Support 24/7 : Assistance continue avec un temps de réponse garanti par SLA.`,
-        category: "Prévention",
+        categoryId: preventionCategory.id,
         monthlyPrice: 375.0,
         annualPrice: 4500.0,
         perUserPrice: 15.0,
@@ -87,7 +132,7 @@ async function main() {
         Support Expert : Accompagnement par des experts en sécurité pour la remédiation.
         Scalabilité : Adaptation aux environnements de différentes tailles et complexités.
         Support 24/7 : Assistance continue pour répondre rapidement aux besoins de sécurité.`,
-        category: "Prévention",
+        categoryId: preventionCategory.id,
         monthlyPrice: 333.33,
         annualPrice: 4000.0,
         perUserPrice: 12.0,
@@ -114,7 +159,7 @@ async function main() {
         Détection et Analyse des Menaces : Utilisation de technologies avancées pour la détection et l'analyse des menaces.
         Performances et Scalabilité : Capacité à gérer des environnements de toutes tailles.
         Support 24/7 : Assistance continue avec un temps de réponse garanti par SLA.`,
-        category: "Protection",
+        categoryId: protectionCategory.id,
         monthlyPrice: 416.67,
         annualPrice: 5000.0,
         perUserPrice: 20.0,
@@ -140,7 +185,7 @@ async function main() {
         Intégration avec les Outils SOC Existants : Compatibilité avec les solutions de sécurité existantes.
         Détection et Analyse des Menaces : Utilisation de technologies avancées pour la détection et l'analyse des menaces.Performances et Scalabilité : Capacité à gérer des environnements de toutes tailles.
         Support 24/7 : Assistance continue avec un temps de réponse garanti par SLA.`,
-        category: "Protection",
+        categoryId: protectionCategory.id,
         monthlyPrice: 583.33,
         annualPrice: 7000.0,
         perUserPrice: 25.0,
@@ -164,7 +209,7 @@ async function main() {
         Mesures de Remédiation : Mise en place de mesures pour prévenir les futurs incidents.
         Support Expert : Accompagnement par des experts en sécurité.
         Support 24/7 : Assistance continue pour une réponse rapide aux incidents.`,
-        category: "Réponse",
+        categoryId: reponseCategory.id,
         monthlyPrice: 708.33,
         annualPrice: 8500.0,
         perUserPrice: 30.0,
@@ -173,34 +218,6 @@ async function main() {
         usedResources: 0,
         priority: 2,
         images: ["investigation_1", "investigation_2", "investigation_3"],
-      },
-    ],
-    skipDuplicates: true,
-  });
-
-  console.log("Seeding categories...");
-  await prisma.category.createMany({
-    data: [
-      {
-        name: "Catégorie 1",
-        description: "Description courte de la catégorie 1.",
-        image: "soc",
-        link: "/categories/1",
-        priority: 3,
-      },
-      {
-        name: "Catégorie 2",
-        description: "Description courte de la catégorie 2.",
-        image: "edr",
-        link: "/categories/2",
-        priority: 2,
-      },
-      {
-        name: "Catégorie 3",
-        description: "Description courte de la catégorie 3.",
-        image: "xdr",
-        link: "/categories/3",
-        priority: 1,
       },
     ],
     skipDuplicates: true,

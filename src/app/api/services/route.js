@@ -1,5 +1,5 @@
 import { validateRouteData } from "@/apiUtils/apiUtils.js";
-import { idValidator, stringValidator } from "@/apiUtils/apiValidators.js";
+import { idValidator, integerValidator } from "@/apiUtils/apiValidators.js";
 import prisma from "@/apiUtils/prisma-client.js";
 import { AVAILABILITY_STATUS } from "@/utils/constants.js";
 import { getTranslations } from "next-intl/server";
@@ -12,15 +12,16 @@ const handler = {
     try {
       const url = new URL(request.url);
       const id = url.searchParams.get("id");
-      const category = url.searchParams.get("category");
+      const categoryId = url.searchParams.get("categoryId"); // Nouveau paramètre
 
       const valide = await validateRouteData(
-        { id: id ? parseInt(id) : undefined, category: category },
+        {
+          id: id ? parseInt(id) : undefined,
+          categoryId: categoryId ? parseInt(categoryId) : undefined,
+        },
         {
           id: idValidator.optional(),
-          category: stringValidator("category", {
-            required: false,
-          }).notRequired(),
+          categoryId: integerValidator.optional(), // Validation pour categoryId
         },
       );
 
@@ -33,16 +34,20 @@ const handler = {
       if (valide.id) {
         services = await prisma.service.findUnique({
           where: { id: valide.id },
+          include: { category: true }, // Inclure les détails de la catégorie
         });
-      } else if (valide.category) {
+      } else if (valide.categoryId) {
         services = await prisma.service.findMany({
-          where: { category: valide.category },
+          where: { categoryId: valide.categoryId },
+          include: { category: true }, // Inclure les détails de la catégorie
         });
       } else {
-        services = await prisma.service.findMany();
+        services = await prisma.service.findMany({
+          include: { category: true }, // Inclure les détails de la catégorie
+        });
       }
 
-      if (!services || services.length === 0) {
+      if (!services || (Array.isArray(services) && services.length === 0)) {
         return NextResponse.json({ error: t("notFound") }, { status: 404 });
       }
 
