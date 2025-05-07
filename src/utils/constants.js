@@ -23,6 +23,10 @@ export const backofficePageTitles = {
     title: "Users",
     pageLink: routes.backoffice.users(),
   },
+  categories: {
+    title: "Categories",
+    pageLink: routes.backoffice.categories.all(),
+  },
   services: {
     title: "Services",
     pageLink: routes.backoffice.services.all(),

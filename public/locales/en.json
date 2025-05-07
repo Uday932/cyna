@@ -161,6 +161,7 @@
   "home": {
     "ourCategories": "Our Categories",
     "topServices": "Top Services of the Moment",
+    "categoriesError": "An error occurred while fetching the categories. Please try again later.",
     "topServicesError": "An error occurred while fetching the top services. Please try again later."
   },
   "services": {

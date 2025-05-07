@@ -130,7 +130,7 @@ export default function Homepage() {
     <div className="p-6">
       <Text size="subtitle">Edit the text section</Text>
 
-      <Formik
+      <Formik 
         initialValues={{
           textePrincipal: text,
         }}

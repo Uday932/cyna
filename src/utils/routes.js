@@ -18,13 +18,22 @@ const routes = {
         edit: (id) => `/backoffice/services/top/edit/${id}`,
       },
     },
+    categories:{
+      all: () => "/backoffice/categories",
+      single: (id) => `/backoffice/categories/${id}`,
+      create: () => "/backoffice/categories/create",
+      edit: (id) => `/backoffice/categories/edit/${id}`,
+    },
     subscriptions: () => "/backoffice/subscriptions",
     settings: () => "/backoffice/settings",
   },
-  categories: () => "/categories",
   services: {
     single: (id) => `/services/${id}`,
     all: () => "/services",
+  },
+  categories: {
+    single: (id) => `/categories/${id}`,
+    all: () => "/categories",
   },
   cart: () => "/cart",
   account: () => "/account",

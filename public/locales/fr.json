@@ -162,6 +162,7 @@
   "home": {
     "ourCategories": " Nos Catégories",
     "topServices": "Les Top services du moment",
+    "categoriesError": "Une erreur est survenue lors de la récupération des catégories. Veuillez réessayer plus tard.",
     "topServicesError": "Une erreur est survenue lors de la récupération des services. Veuillez réessayer plus tard."
   },
   "services": {

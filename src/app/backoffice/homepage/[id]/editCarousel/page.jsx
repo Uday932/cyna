@@ -92,7 +92,7 @@ const EditCarousel = () => {
       >
         {({ isSubmitting }) => (
           <Form className="flex flex-col">
-            <FormField name="title" label="Eitle" />
+            <FormField name="title" label="Title" />
 
             <FormField name="description" label="Description" />
 
