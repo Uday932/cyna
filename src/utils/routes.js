@@ -24,12 +24,6 @@ const routes = {
       create: () => "/backoffice/categories/create",
       edit: (id) => `/backoffice/categories/edit/${id}`,
     },
-    categories:{
-      all: () => "/backoffice/categories",
-      single: (id) => `/backoffice/categories/${id}`,
-      create: () => "/backoffice/categories/create",
-      edit: (id) => `/backoffice/categories/edit/${id}`,
-    },
     subscriptions: () => "/backoffice/subscriptions",
     settings: () => "/backoffice/settings",
   },
