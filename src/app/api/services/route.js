@@ -35,16 +35,16 @@ export async function GET(request) {
       if (valide.id) {
         services = await prisma.service.findUnique({
           where: { id: valide.id },
-          include: { category: true }, // Inclure les détails de la catégorie
+          include: { category: true }, 
         });
       } else if (valide.categoryId) {
         services = await prisma.service.findMany({
           where: { categoryId: valide.categoryId },
-          include: { category: true }, // Inclure les détails de la catégorie
+          include: { category: true }, 
         });
       } else {
         services = await prisma.service.findMany({
-          include: { category: true }, // Inclure les détails de la catégorie
+          include: { category: true }, 
         });
       }
 

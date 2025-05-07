@@ -40,7 +40,11 @@ const CategoryPage = () => {
   }, [params.id]);
 
   if (loading) {
-    return <div className="text-center">Chargement...</div>;
+    return (
+      <div>
+        <Text> Chargement...</Text>
+      </div>
+    );
   }
 
   if (error) {
@@ -54,7 +58,7 @@ const CategoryPage = () => {
         <Text size="title" className="mb-4 font-black">
           {category?.name}
         </Text>
-        <Text color="gray" className="mb-4 text-sm">
+        <Text className="mb-4 text-sm">
           {category?.description}
         </Text>
       </div>

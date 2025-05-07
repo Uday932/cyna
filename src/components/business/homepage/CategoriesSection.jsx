@@ -5,7 +5,6 @@ import axios from "axios";
 import Image from "@@/ui/Image";
 import Link from "@@/ui/Link";
 import Text from "@@/ui/Text";
-import Link from "@@/ui/Link";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
@@ -13,7 +12,8 @@ const CATEGORIES_URL = process.env.NEXT_PUBLIC_CLOUDINARY_CATEGORIES_URL || "";
 
 export default function CategoriesSection() {
   const [categories, setCategories] = useState([]);
-  const t = useTranslations();
+  const [error, setError] = useState(null);
+  const t = useTranslations("home");
 
   useEffect(() => {
     const getCategories = async () => {
@@ -21,7 +21,15 @@ export default function CategoriesSection() {
         const response = await axios.get(apiRoutes.categories.all());
         setCategories(response.data);
       } catch (error) {
-        console.error("Erreur lors du fetch des catégories :", error);
+        if (error) {
+          setError(
+            error.response.data.error ||
+              error.response.data.message ||
+              t("categoriesError"),
+          );
+        } else {
+          setError(t("categoriesError"));
+        }
       }
     };
 
@@ -39,9 +47,14 @@ export default function CategoriesSection() {
 
   return (
     <section className="bg-secondary py-16">
+      {error && (
+        <Text className="flex justify-center" color="error">
+          {error}
+        </Text>
+      )}
       <div className="container mx-auto px-4">
         <Text size="title" className="mb-12 text-center font-black uppercase">
-          {t("home.ourCategories")}
+          {t("ourCategories")}
         </Text>
         <div className="grid gap-8 md:grid-cols-3">
           {sortedCategories.map((category) => {
@@ -65,12 +78,12 @@ export default function CategoriesSection() {
               </div>
             );
 
-            // Rediriger vers la page de détail de la catégorie
             return (
               <Link
                 key={category.id}
                 href={routes.categories.single(category.id)}
                 className="block"
+                noUnderline
               >
                 {content}
               </Link>
