@@ -147,7 +147,7 @@ const Navbar = () => {
 
             <li className="py-2">
               <Link
-                href={routes.categories()}
+                href={routes.categories.all()}
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-gray-300"
               >
