@@ -32,6 +32,11 @@ const apiRoutes = {
       edit: (id) => `/api/backoffice/categories/${id}`,
       delete: (id) => `/api/backoffice/categories/${id}`,
     },
+    categories: {
+      create: () => "/api/backoffice/categories",
+      edit: (id) => `/api/backoffice/categories/${id}`,
+      delete: (id) => `/api/backoffice/categories/${id}`,
+    },
     textSection: () => "/api/backoffice/text-section",
     carousel: (id) => `/api/backoffice/carousel/${id}`,
     createCarousel: () => "/api/backoffice/carousel",

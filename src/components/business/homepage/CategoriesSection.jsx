@@ -1,10 +1,11 @@
 "use client";
 import apiRoutes from "@/apiUtils/apiRoutes";
 import routes from "@/utils/routes";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "@@/ui/Image";
-import Link from "@@/ui/Link";
 import Text from "@@/ui/Text";
+import Link from "@@/ui/Link"; // Assurez-vous que ce composant est bien configuré
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
